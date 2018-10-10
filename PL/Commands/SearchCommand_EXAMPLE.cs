@@ -12,6 +12,28 @@ namespace PL.Commands
 }
 
 /*
+////////////////////////////////////
+אינטרפיס
+
+    using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TestMVVM
+{
+   public interface ISearch
+    {
+       void SearchStudents(string Topic);
+    }
+}
+
+//////////////////////////////////////
+
+קומנד
+
+
 
 using System;
 using System.Collections.Generic;

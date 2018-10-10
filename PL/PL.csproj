@@ -61,6 +61,9 @@
     </Compile>
     <Compile Include="Commands\AddCommand_EXAMPLE.cs" />
     <Compile Include="Commands\SearchCommand_EXAMPLE.cs" />
+    <Compile Include="Converters\FieldsToStudentConverter_EXAMPLE.cs" />
+    <Compile Include="Model\UsersModel.cs" />
+    <Compile Include="ViewModel\UsersViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -91,11 +94,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-    <Folder Include="Model\" />
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">
       <Project>{ce9876f1-6b58-459b-ac71-ebf71d99f222}</Project>
