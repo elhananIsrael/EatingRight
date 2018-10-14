@@ -8,5 +8,6 @@ namespace DAL.DataBase
 {
     class myDB
     {
+
     }
 }
