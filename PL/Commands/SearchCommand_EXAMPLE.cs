@@ -53,6 +53,7 @@ namespace TestMVVM.Commands
         }
 
         private ISearch CurrentVM;
+
         public SearchCommand(ISearch CurrentVM)
         {
             this.CurrentVM = CurrentVM;

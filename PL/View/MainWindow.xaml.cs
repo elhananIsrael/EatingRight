@@ -22,6 +22,14 @@ namespace PL.View
         public MainWindow()
         {
             InitializeComponent();
+            PL.Model.Request request = new Model.Request();
+            
+            myTextBox.Text= request.RequestPL("BANANA","searchFoods" ).ToString();
+
+
         }
+
+
+
     }
 }
