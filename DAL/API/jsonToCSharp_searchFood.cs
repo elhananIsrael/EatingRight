@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 
-namespace testAPI
+namespace DAL.API
 {   
 
-    public partial class SearchFoodsAPIResults
+    public partial class SearchFoodsJsonResults
     {
         [JsonProperty("success")]
         public Success[] Success { get; set; }
@@ -106,9 +106,9 @@ namespace testAPI
 
     public enum Locale { EnUs };
 
-    public partial class SearchFoodsAPIResults
+    public partial class SearchFoodsJsonResults
     {
-        public static SearchFoodsAPIResults FromJson(string json) => JsonConvert.DeserializeObject<SearchFoodsAPIResults>(json, Converter.Settings);
+        public static SearchFoodsJsonResults FromJson(string json) => JsonConvert.DeserializeObject<SearchFoodsJsonResults>(json, Converter.Settings);
 
     }
 
