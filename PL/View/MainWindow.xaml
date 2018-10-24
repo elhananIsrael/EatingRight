@@ -7,22 +7,6 @@
         mc:Ignorable="d"
         Title="אוכלים כהלכה" Height="450" Width="800">
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="792">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="122*"/>
-                <ColumnDefinition Width="182*"/>
-                <ColumnDefinition Width="191*"/>
-                <ColumnDefinition Width="197*"/>
-                <ColumnDefinition Width="100*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="75*"/>
-                <RowDefinition Height="86*"/>
-                <RowDefinition Height="84*"/>
-                <RowDefinition Height="175*"/>
-            </Grid.RowDefinitions>
-            <TextBox Name="myTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        </Grid>
-
+        
     </Grid>
 </Window>
