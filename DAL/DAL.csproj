@@ -77,7 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\getFoodDetails.cs" />
+    <Compile Include="API\getFoodDetailsDAL.cs" />
     <Compile Include="API\jsonToCSharp_getFoodsNutrients.cs" />
     <Compile Include="API\jsonToCSharp_searchFood.cs" />
     <Compile Include="DataBase\myDB.cs" />

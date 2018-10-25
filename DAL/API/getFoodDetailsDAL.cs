@@ -14,7 +14,7 @@ namespace DAL.API
 {
 
 
-    class getFoodDetails
+     public class getFoodDetailsDAL
     {
 
         private static RapidAPI RapidApi = new RapidAPI(
