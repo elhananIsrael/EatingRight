@@ -9,7 +9,7 @@ namespace BE
     public class foodItem
     {
 
-        public long Id { get; set; }
+        public long TagId { get; set; }
 
         public string Name { get; set; }
 
@@ -19,7 +19,7 @@ namespace BE
 
         public foodItem(long id, string name, string imageUrl, nutrition ntn = null)
         {
-            Id = id;
+            TagId = id;
             Name = name;
             ImageUrl = imageUrl;
             Nutritions = ntn;
