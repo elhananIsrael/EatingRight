@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BE;
 
-namespace BL
+namespace BL.API
 {
     public class getFoodDetailsBL
     {
