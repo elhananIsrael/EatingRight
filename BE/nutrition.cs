@@ -21,6 +21,17 @@ namespace BE
 
         public double? Sugar { get; set; }
 
+        public nutrition(double? calories,double? carbohydrate,double? fat,
+                         double? protein, double? sodium, double? sugar)
+        {
+            Calories = calories;
+            Carbohydrate = carbohydrate;
+            Fat = fat;
+            Protein = protein;
+            Sodium = sodium;
+            Sugar = sugar;
+        }
+
     }
 
 

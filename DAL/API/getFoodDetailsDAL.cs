@@ -67,7 +67,7 @@ namespace DAL.API
         ///////////////////////////////////////////
 
 
-        public async Task<nutrition> GetNutritionByName(string search)
+        public async Task<List<nutrition>> GetNutritionByName(string search)
         {
 
             List<Parameter> body = new List<Parameter> {
@@ -77,7 +77,8 @@ namespace DAL.API
         new DataParameter("applicationId", "7dc87896")
         };
 
-            nutrition Nutritions = new nutrition();
+           // nutrition Nutritions = new nutrition();
+            List<nutrition> nutritionArr = new List<nutrition>();
             try
             {
                 var temp = await RapidApi.Call("Nutritionix", "getFoodsNutrients", body.ToArray());
@@ -85,16 +86,23 @@ namespace DAL.API
                 {
 
                     var getFoodsNutrientsJsonResults = GetFoodsNutrientsJsonResults.FromJson(JsonConvert.SerializeObject(temp));
+                    foreach (var item in getFoodsNutrientsJsonResults.Success[0].Foods)
+                    {
+                        nutritionArr.Add(
+                                          new nutrition(
+                                                         getFoodsNutrientsJsonResults.Success[0].Foods[0].NfCalories,
+                                                         getFoodsNutrientsJsonResults.Success[0].Foods[0].NfTotalCarbohydrate,
+                                                         getFoodsNutrientsJsonResults.Success[0].Foods[0].NfTotalFat,
+                                                         getFoodsNutrientsJsonResults.Success[0].Foods[0].NfProtein,
+                                                         getFoodsNutrientsJsonResults.Success[0].Foods[0].NfSodium,
+                                                         getFoodsNutrientsJsonResults.Success[0].Foods[0].NfSugars
+                                                       )
+                                         );
+                    }
 
-                    Nutritions.Calories = getFoodsNutrientsJsonResults.Success[0].Foods[0].NfCalories;
-                    Nutritions.Carbohydrate = getFoodsNutrientsJsonResults.Success[0].Foods[0].NfTotalCarbohydrate;
-                    Nutritions.Fat = getFoodsNutrientsJsonResults.Success[0].Foods[0].NfTotalFat;
-                    Nutritions.Protein = getFoodsNutrientsJsonResults.Success[0].Foods[0].NfProtein;
-                    Nutritions.Sodium = getFoodsNutrientsJsonResults.Success[0].Foods[0].NfSodium;
-                    Nutritions.Sugar = getFoodsNutrientsJsonResults.Success[0].Foods[0].NfSugars;
-
+                    
                 }
-                return Nutritions;
+                return nutritionArr;
             }
             catch (RapidAPIServerException e)
             {
