@@ -22,47 +22,8 @@ namespace BE
             Id = id;
             Name = name;
             ImageUrl = imageUrl;
-            Nutritions = null;
+            Nutritions = ntn;
         }
 
     }
 }
-
-
-
-
-/*
- * 
- * 
- 
-    public FoodUnit()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; set; }
-
-        [Key]
-        public String Name { get; set; }
-
-        public string ImageUrl { get; set; }
-
-        public Guid FoodNutritionsItemID { get; set; }
-
-
-
-
- * 
- * 
- {
-            "food_name": "milk",
-            "serving_unit": "cup",
-            "serving_qty": 1,
-            "common_type": null,
-            "photo": {
-              "thumb": "https://d2xdmhkmkbyw75.cloudfront.net/313_thumb.jpg"
-            },
-            "tag_id": "313",
-            "locale": "en_US"
-          },
-     */
