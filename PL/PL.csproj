@@ -94,7 +94,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="images\nutrition1.jpg" />
+    <Resource Include="images\nutrition2.jpg" />
+    <Resource Include="images\nutrition3.jpg" />
+    <Resource Include="images\nutrition5.jpg" />
+    <Resource Include="images\nutrition6.jpg" />
+    <Resource Include="images\nutrition7.jpg" />
+    <Resource Include="images\nutrition8.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">
       <Project>{ce9876f1-6b58-459b-ac71-ebf71d99f222}</Project>
@@ -110,6 +118,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Dr.-Low-Dog-Food-Pyramid-good.jpg" />
+    <Resource Include="images\nutriton4.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
