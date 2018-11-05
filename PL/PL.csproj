@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HamburgerMenu, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HamburgerMenu.0.1.0\lib\net40\HamburgerMenu.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -86,6 +89,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,15 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\nutrition1.jpg" />
-    <Resource Include="images\nutrition2.jpg" />
-    <Resource Include="images\nutrition3.jpg" />
-    <Resource Include="images\nutrition5.jpg" />
-    <Resource Include="images\nutrition6.jpg" />
-    <Resource Include="images\nutrition7.jpg" />
-    <Resource Include="images\nutrition8.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">
@@ -120,7 +115,52 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="icons\AddFood.png" />
+    <Resource Include="icons\AddFood_white.png" />
+    <Resource Include="icons\favorite.png" />
+    <Resource Include="icons\home.png" />
+    <Resource Include="icons\info.png" />
+    <Resource Include="icons\Info_white.png" />
+    <Resource Include="icons\list.png" />
+    <Resource Include="icons\person.png" />
+    <Resource Include="icons\search.png" />
+    <Resource Include="icons\Search2.png" />
+    <Resource Include="icons\Search2_white.png" />
+    <Resource Include="icons\Statistics.png" />
+    <Resource Include="icons\Statistics_white.png" />
+    <Resource Include="icons\thinking_face.png" />
+    <Resource Include="icons\thinking_face_white.png" />
+    <Resource Include="icons\User.png" />
+    <Resource Include="icons\User2.png" />
+    <Resource Include="icons\User2_white.png" />
+    <Resource Include="icons\User_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\1.jpg" />
+    <Resource Include="images\10.jpg" />
+    <Resource Include="images\11.jpg" />
+    <Resource Include="images\12.jpg" />
+    <Resource Include="images\13.jpg" />
+    <Resource Include="images\14.jpg" />
+    <Resource Include="images\15.jpg" />
+    <Resource Include="images\2.jpg" />
+    <Resource Include="images\3.jpg" />
+    <Resource Include="images\4.jpg" />
+    <Resource Include="images\5.jpg" />
+    <Resource Include="images\6.jpg" />
+    <Resource Include="images\7.jpg" />
+    <Resource Include="images\8.jpg" />
+    <Resource Include="images\9.jpg" />
     <Resource Include="images\Dr.-Low-Dog-Food-Pyramid-good.jpg" />
+    <Resource Include="images\food-pyramid-2.jpg" />
+    <Resource Include="images\food-pyramid.jpg" />
+    <Resource Include="images\nutrition1.jpg" />
+    <Resource Include="images\nutrition2.jpg" />
+    <Resource Include="images\nutrition3.jpg" />
+    <Resource Include="images\nutrition5.jpg" />
+    <Resource Include="images\nutrition6.jpg" />
+    <Resource Include="images\nutrition7.jpg" />
+    <Resource Include="images\nutrition8.jpg" />
     <Resource Include="images\nutriton4.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
