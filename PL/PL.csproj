@@ -66,6 +66,9 @@
     <Compile Include="Commands\SearchCommand_EXAMPLE.cs" />
     <Compile Include="Converters\FieldsToStudentConverter_EXAMPLE.cs" />
     <Compile Include="Model\UsersModel.cs" />
+    <Compile Include="UserControls\HomeUC.xaml.cs">
+      <DependentUpon>HomeUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\UsersViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -109,6 +112,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UserControls\HomeUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -162,6 +169,14 @@
     <Resource Include="images\nutrition7.jpg" />
     <Resource Include="images\nutrition8.jpg" />
     <Resource Include="images\nutriton4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\FoodPyramid2_B.jpg" />
+    <Resource Include="images\FoodPyramid_G.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\logout.png" />
+    <Resource Include="icons\logout_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
