@@ -16,6 +16,10 @@ namespace PL.ViewModel
     {
         private IEventAggregator _eventAggregator;
 
+        public PL.View.HomeView HomeView { get; }
+
+        private object selectedView;
+
         public MainWindowVM()
         {
             _eventAggregator = new Prism.Events.EventAggregator();
@@ -28,9 +32,7 @@ namespace PL.ViewModel
         }
 
        
-        public PL.View.HomeView HomeView { get; }
 
-        private object selectedView;
         
         public object SelectedView
         {
@@ -43,7 +45,6 @@ namespace PL.ViewModel
 
         private void OpenHome()
         {
-            //RegisterMode = false;
             SelectedView = HomeView;
         }
 
@@ -55,15 +56,20 @@ namespace PL.ViewModel
 
         private void OnOpenHome(Type obj)
         {
-           //  _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
+            _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
             SelectedView = HomeView;
         }
 
+        //////////////////////////////////////////// Commands:
         public ICommand OpenMyHomeCommand { get; }
-
-
+        public ICommand OpenMyGoalCommand { get; }
+        public ICommand OpenMyAdFoodCommand { get; }
+        public ICommand OpenMyStatisticCommand { get; }
+        public ICommand OpenMyProfilCommand { get; }
+        public ICommand OpenMyLogoutCommand { get; }
+        
 
     }
 
-    
+
 }
