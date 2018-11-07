@@ -12,9 +12,8 @@
             <ImageBrush ImageSource="/images/nutrition8.jpg" />
         </Grid.Background>
         <ContentControl HorizontalAlignment="Stretch"  Content="{Binding SelectedView}" Margin="55,0,0,0"/>
-        <!--<uc:HomeUC x:Name="MyHomeUC" Width="auto" Height="auto" Margin="-33,2,-4,28" Grid.ColumnSpan="2"  />-->
 
-        <HamburgerMenu:HamburgerMenu MenuIconColor="Black"  SelectionIndicatorColor="White" Background="GreenYellow" MenuItemForeground="White"  HorizontalAlignment="Left" >
+        <HamburgerMenu:HamburgerMenu MenuIconColor="Black" MaxWidth="150" SelectionIndicatorColor="White" Background="OliveDrab" MenuItemForeground="White"  HorizontalAlignment="Left" >
             <HamburgerMenu:HamburgerMenuItem  Icon="/icons/home.png" Text="Home" SelectionCommand="{Binding OpenMyHomeCommand}" Height="80"/>
             <HamburgerMenu:HamburgerMenuItem Icon="/icons/thinking_face_white.png" Text="Goals" SelectionCommand="{Binding OpenMyGoalCommand}" Height="80"  />
             <HamburgerMenu:HamburgerMenuItem Icon="/icons/AddFood_white.png" Text="Add Food" SelectionCommand="{Binding OpenMyAdFoodCommand}" Height="80" />
