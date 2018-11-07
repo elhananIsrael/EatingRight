@@ -1,6 +1,5 @@
 ﻿<Window x:Class="PL.View.MainWindow"        
         xmlns:local="clr-namespace:PL.View"
-        xmlns:uc="clr-namespace:PL.UserControls"
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,24 +7,20 @@
         mc:Ignorable="d"
         xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"        
  Title="Eating Right" Height="580.939" Width="1119.243" ResizeMode="NoResize" WindowStyle="ToolWindow" AllowsTransparency="False" x:Name="this_">
-    <Grid >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80*"/>
-            <ColumnDefinition Width="400*"/>
-        </Grid.ColumnDefinitions>
+    <Grid>           
         <Grid.Background>
             <ImageBrush ImageSource="/images/nutrition8.jpg" />
         </Grid.Background>
-        <ContentControl HorizontalAlignment="Stretch" Content="{Binding SelectedView}" Grid.ColumnSpan="2" Margin="55,0,10,0"/>
+        <ContentControl HorizontalAlignment="Stretch"  Content="{Binding SelectedView}" Margin="55,0,0,0"/>
         <!--<uc:HomeUC x:Name="MyHomeUC" Width="auto" Height="auto" Margin="-33,2,-4,28" Grid.ColumnSpan="2"  />-->
 
-        <HamburgerMenu:HamburgerMenu MenuIconColor="Black"  SelectionIndicatorColor="White" Background="GreenYellow" MenuItemForeground="White" HorizontalAlignment="Left" Width="295" Grid.Column="0">
-            <HamburgerMenu:HamburgerMenuItem  Icon="/icons/home.png" Text="Home" Height="80"/>
-            <HamburgerMenu:HamburgerMenuItem Icon="/icons/thinking_face_white.png" Text="Goals" Height="80"  />
-            <HamburgerMenu:HamburgerMenuItem Icon="/icons/AddFood_white.png" Text="Add Food" Height="80" />
-            <HamburgerMenu:HamburgerMenuItem Icon="/icons/Statistics_white.png" Text="Statistics" Height="80" />
+        <HamburgerMenu:HamburgerMenu MenuIconColor="Black"  SelectionIndicatorColor="White" Background="GreenYellow" MenuItemForeground="White"  HorizontalAlignment="Left" >
+            <HamburgerMenu:HamburgerMenuItem  Icon="/icons/home.png" Text="Home" SelectionCommand="{Binding OpenMyHomeCommand}" Height="80"/>
+            <HamburgerMenu:HamburgerMenuItem Icon="/icons/thinking_face_white.png" Text="Goals" SelectionCommand="{Binding OpenMyGoalCommand}" Height="80"  />
+            <HamburgerMenu:HamburgerMenuItem Icon="/icons/AddFood_white.png" Text="Add Food" SelectionCommand="{Binding OpenMyAdFoodCommand}" Height="80" />
+            <HamburgerMenu:HamburgerMenuItem Icon="/icons/Statistics_white.png" Text="Statistics" SelectionCommand="{Binding OpenMyStatisticCommand}" Height="80" />
             <HamburgerMenu:HamburgerMenuItem Icon="/icons/person.png" Text="Profile" Height="80" />
-            <HamburgerMenu:HamburgerMenuItem Icon="/icons/logout_white.png" Text="Logout" Height="80" />
+            <HamburgerMenu:HamburgerMenuItem Icon="/icons/logout_white.png" Text="Logout" SelectionCommand="{Binding OpenMyLogoutCommand}" Height="80" />
         </HamburgerMenu:HamburgerMenu>
 
     </Grid>

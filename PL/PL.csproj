@@ -38,6 +38,9 @@
     <Reference Include="HamburgerMenu, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HamburgerMenu.0.1.0\lib\net40\HamburgerMenu.dll</HintPath>
     </Reference>
+    <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -65,11 +68,13 @@
     <Compile Include="Commands\AddCommand_EXAMPLE.cs" />
     <Compile Include="Commands\SearchCommand_EXAMPLE.cs" />
     <Compile Include="Converters\FieldsToStudentConverter_EXAMPLE.cs" />
+    <Compile Include="Events\OpenHomeEvent.cs" />
     <Compile Include="Model\UsersModel.cs" />
-    <Compile Include="UserControls\HomeUC.xaml.cs">
-      <DependentUpon>HomeUC.xaml</DependentUpon>
+    <Compile Include="ViewModel\BaseVM.cs" />
+    <Compile Include="ViewModel\MainWindowVM.cs" />
+    <Compile Include="View\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\UsersViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -112,7 +117,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UserControls\HomeUC.xaml">
+    <Page Include="View\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,6 +182,9 @@
   <ItemGroup>
     <Resource Include="icons\logout.png" />
     <Resource Include="icons\logout_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\FoodPyramid_GG.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

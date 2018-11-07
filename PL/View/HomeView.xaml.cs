@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL.UserControls
+namespace PL.View
 {
     /// <summary>
     /// Interaction logic for HomeUC.xaml
     /// </summary>
-    public partial class HomeUC : UserControl
+    public partial class HomeView : UserControl
     {
-        public HomeUC()
+        public HomeView()
         {
             InitializeComponent();
         }
