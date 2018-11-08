@@ -65,18 +65,38 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\AddCommand_EXAMPLE.cs" />
-    <Compile Include="Commands\SearchCommand_EXAMPLE.cs" />
     <Compile Include="Converters\FieldsToStudentConverter_EXAMPLE.cs" />
+    <Compile Include="Events\LogoutEvent.cs" />
+    <Compile Include="Events\OpenAddFoodEvent.cs" />
+    <Compile Include="Events\OpenGoalsEvent.cs" />
     <Compile Include="Events\OpenHomeEvent.cs" />
+    <Compile Include="Events\OpenProfilEvent.cs" />
+    <Compile Include="Events\OpenStatisticEvent.cs" />
     <Compile Include="Model\UsersModel.cs" />
+    <Compile Include="ViewModel\AddFoodVM.cs" />
     <Compile Include="ViewModel\BaseVM.cs" />
+    <Compile Include="ViewModel\GoalsVM.cs" />
+    <Compile Include="ViewModel\HomeVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
+    <Compile Include="ViewModel\ProfilVM.cs" />
+    <Compile Include="ViewModel\StatisticVM.cs" />
+    <Compile Include="View\AddFoodView.xaml.cs">
+      <DependentUpon>AddFoodView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GoalsView.xaml.cs">
+      <DependentUpon>GoalsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProfilView.xaml.cs">
+      <DependentUpon>ProfilView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatisticView.xaml.cs">
+      <DependentUpon>StatisticView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -117,11 +137,27 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\AddFoodView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GoalsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProfilView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatisticView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
