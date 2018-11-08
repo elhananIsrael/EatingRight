@@ -12,12 +12,12 @@ namespace BL.API
         DAL.API.getFoodDetailsDAL gfdDAL = new DAL.API.getFoodDetailsDAL();
 
 
-        public Task<List<foodItem>> SearchFoodByName(string search)
+        public Task<List<FoodItem>> SearchFoodByName(string search)
         {
             return gfdDAL.SearchFoodByName(search);
         }
 
-        public Task<List<nutrition>> GetNutritionByName(string search)
+        public Task<List<Nutrition>> GetNutritionByName(string search)
         {
             return gfdDAL.GetNutritionByName(search);
         }

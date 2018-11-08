@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    public class nutrition
+    public class Nutrition
     {
 
         public double? Calories { get; set; }
@@ -21,7 +21,7 @@ namespace BE
 
         public double? Sugar { get; set; }
 
-        public nutrition(double? calories,double? carbohydrate,double? fat,
+        public Nutrition(double? calories,double? carbohydrate,double? fat,
                          double? protein, double? sodium, double? sugar)
         {
             Calories = calories;

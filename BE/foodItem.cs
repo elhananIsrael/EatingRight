@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    public class foodItem
+    public class FoodItem
     {
 
         public long TagId { get; set; }
@@ -15,9 +15,9 @@ namespace BE
 
         public string ImageUrl { get; set; }
 
-        public nutrition Nutritions { get; set; }
+        public Nutrition Nutritions { get; set; }
 
-        public foodItem(long id, string name, string imageUrl, nutrition ntn = null)
+        public FoodItem(long id, string name, string imageUrl, Nutrition ntn = null)
         {
             TagId = id;
             Name = name;

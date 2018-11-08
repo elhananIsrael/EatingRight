@@ -4,9 +4,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL.View"
+                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"             
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        FontFamily="{DynamicResource MaterialDesignFont}" 
              mc:Ignorable="d"  Height="580.939" Width="1064.243">
     <Grid>
-        <Label Content="Goals Window" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Background="WhiteSmoke" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="243,30,233,501" Height="50" Width="588"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="81*"/>
+            <RowDefinition Height="500*"/>
+        </Grid.RowDefinitions>
+        <Label Content="My Goals" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Background="WhiteSmoke" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="243,30,233,1.203" Height="50" Width="588"/>
+        <Grid Grid.Row="1" Background="WhiteSmoke" Margin="433,4,463,441">
+        <DatePicker Width="100"  Background="WhiteSmoke" materialDesign:HintAssist.Hint="Choose Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Grid.Row="1" />
+        </Grid>
+        <Grid  Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="371"  Width="800">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+            </Grid.ColumnDefinitions>
+            <Label Background="WhiteSmoke" Content="Calories" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="62" Width="150" Margin="58,39,59,85"/>
+            <TextBox Background="WhiteSmoke" BorderThickness="2" HorizontalAlignment="Left"  Height="54" Margin="89,101,0,0" FontSize="25" Text="0" TextAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" Width="69"/>
+
+            <Label Background="WhiteSmoke" Content="Protein"  Grid.Row="1" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="62" Width="121" Margin="58,39,88,85"/>
+            <TextBox Background="WhiteSmoke" BorderThickness="2" Grid.Row="1" HorizontalAlignment="Left" Height="54" Margin="89,101,0,0" TextWrapping="Wrap" FontSize="25" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="69"/>
+
+            <Label Content="Carbohydrate" Background="WhiteSmoke" Grid.Column="1" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="62" Width="225" Margin="32,39,10,85" />
+            <TextBox Background="WhiteSmoke" BorderThickness="2" FontSize="25" TextAlignment="Center" Grid.Column="1" HorizontalAlignment="Left" Height="54" Margin="89,101,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="69"/>
+
+            <Label Background="WhiteSmoke" Content="Fat" Grid.Column="2" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="62" Width="69" Margin="89,39,109,85"/>
+            <TextBox Background="WhiteSmoke" BorderThickness="2" Grid.Column="2" HorizontalAlignment="Left" Height="54" Margin="89,101,0,0" TextWrapping="Wrap" FontSize="25" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="69"/>
+
+            <Label Background="WhiteSmoke" Content="Sodium" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="62" Width="130" Margin="58,39,79,85"/>
+            <TextBox Background="WhiteSmoke" BorderThickness="2" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Height="54" Margin="89,101,0,0" TextWrapping="Wrap" FontSize="25" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="69"/>
+
+            <Label Background="WhiteSmoke" Content="Sugar" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" FontSize="35" VerticalAlignment="Center" Height="62" Width="100" Margin="58,39,109,85"/>
+            <TextBox Background="WhiteSmoke" BorderThickness="2" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2" Height="54" Margin="89,101,0,0" TextWrapping="Wrap" FontSize="25" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="69"/>
+
+
+        </Grid>
 
     </Grid>
 </UserControl>

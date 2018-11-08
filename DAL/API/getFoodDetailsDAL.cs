@@ -23,7 +23,7 @@ namespace DAL.API
                                                        );
 
 
-        public async Task<List<foodItem>> SearchFoodByName(string search)
+        public async Task<List<FoodItem>> SearchFoodByName(string search)
         {
 
             List<Parameter> body = new List<Parameter> {
@@ -33,7 +33,7 @@ namespace DAL.API
         new DataParameter("applicationId", "7dc87896")
         };
 
-            List<foodItem> foodSearchArr = new List<foodItem>();
+            List<FoodItem> foodSearchArr = new List<FoodItem>();
             try
             {
                 var temp = await RapidApi.Call("Nutritionix", "searchFoods", body.ToArray());
@@ -44,7 +44,7 @@ namespace DAL.API
                     foreach (var item in foodArrayCSharp.Success[0].Common)
                     {
                         foodSearchArr.Add(
-                            new foodItem(
+                            new FoodItem(
                                          item.TagId,
                                          item.FoodName,
                                          item.Photo.Thumb
@@ -67,7 +67,7 @@ namespace DAL.API
         ///////////////////////////////////////////
 
 
-        public async Task<List<nutrition>> GetNutritionByName(string search)
+        public async Task<List<Nutrition>> GetNutritionByName(string search)
         {
 
             List<Parameter> body = new List<Parameter> {
@@ -78,7 +78,7 @@ namespace DAL.API
         };
 
            // nutrition Nutritions = new nutrition();
-            List<nutrition> nutritionArr = new List<nutrition>();
+            List<Nutrition> nutritionArr = new List<Nutrition>();
             try
             {
                 var temp = await RapidApi.Call("Nutritionix", "getFoodsNutrients", body.ToArray());
@@ -89,7 +89,7 @@ namespace DAL.API
                     foreach (var item in getFoodsNutrientsJsonResults.Success[0].Foods)
                     {
                         nutritionArr.Add(
-                                          new nutrition(
+                                          new Nutrition(
                                                          getFoodsNutrientsJsonResults.Success[0].Foods[0].NfCalories,
                                                          getFoodsNutrientsJsonResults.Success[0].Foods[0].NfTotalCarbohydrate,
                                                          getFoodsNutrientsJsonResults.Success[0].Foods[0].NfTotalFat,
