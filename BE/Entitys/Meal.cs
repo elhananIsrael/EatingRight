@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BE.Entitys
 {
-    class Meal
+    public class Meal
     {
         public Meal()
         {

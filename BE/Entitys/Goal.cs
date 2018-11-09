@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BE.Entitys
 {
-    class Goal
+    public class Goal
     {
         public Goal()
         {
