@@ -88,6 +88,8 @@
     <Compile Include="Events\OpenAddFoodEvent.cs" />
     <Compile Include="Events\OpenGoalsEvent.cs" />
     <Compile Include="Events\OpenHomeEvent.cs" />
+    <Compile Include="Events\OpenJoinEvent.cs" />
+    <Compile Include="Events\OpenLoginEvent.cs" />
     <Compile Include="Events\OpenProfilEvent.cs" />
     <Compile Include="Events\OpenStatisticEvent.cs" />
     <Compile Include="Model\UsersModel.cs" />
@@ -95,6 +97,8 @@
     <Compile Include="ViewModel\BaseVM.cs" />
     <Compile Include="ViewModel\GoalsVM.cs" />
     <Compile Include="ViewModel\HomeVM.cs" />
+    <Compile Include="ViewModel\JoinVM.cs" />
+    <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\ProfilVM.cs" />
     <Compile Include="ViewModel\StatisticVM.cs" />
@@ -106,6 +110,12 @@
     </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\JoinView.xaml.cs">
+      <DependentUpon>JoinView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -164,6 +174,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\JoinView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
