@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace BE
+namespace BE.Entitys
 {
-    public class Nutrition
+    class Goal
     {
+        public Goal()
+        {
+            Date = DateTime.Now;
+        }
+
+        [Key]
+        public DateTime Date { get; set; }
 
         public double? Calories { get; set; }
 
@@ -20,20 +28,5 @@ namespace BE
         public double? Sodium { get; set; }
 
         public double? Sugar { get; set; }
-
-        public Nutrition(double? calories,double? carbohydrate,double? fat,
-                         double? protein, double? sodium, double? sugar)
-        {
-            Calories = calories;
-            Carbohydrate = carbohydrate;
-            Fat = fat;
-            Protein = protein;
-            Sodium = sodium;
-            Sugar = sugar;
-        }
-
     }
-
-
-
 }

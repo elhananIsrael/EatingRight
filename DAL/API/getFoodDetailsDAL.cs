@@ -8,7 +8,7 @@ using System.Windows.Input;
 using RapidAPISDK;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using BE;
+using BE.Entitys;
 
 namespace DAL.API
 {

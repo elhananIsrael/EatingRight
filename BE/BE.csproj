@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FoodItem.cs" />
-    <Compile Include="Nutrition.cs" />
+    <Compile Include="Entitys\FoodItem.cs" />
+    <Compile Include="Entitys\Goal.cs" />
+    <Compile Include="Entitys\Meal.cs" />
+    <Compile Include="Entitys\Nutrition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Entitys\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

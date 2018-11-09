@@ -80,7 +80,9 @@
     <Compile Include="API\getFoodDetailsDAL.cs" />
     <Compile Include="API\jsonToCSharp_getFoodsNutrients.cs" />
     <Compile Include="API\jsonToCSharp_searchFood.cs" />
-    <Compile Include="DataBase\myDB.cs" />
+    <Compile Include="DataBase\CurrentUser.cs" />
+    <Compile Include="DataBase\Dal.cs" />
+    <Compile Include="DataBase\EatingRightDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

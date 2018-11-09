@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BE
+namespace BL.Validation
 {
-    class User
+    class Class1
     {
     }
 }
