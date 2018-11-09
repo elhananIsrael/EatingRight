@@ -19,7 +19,7 @@ namespace BL.API
 
         public Task<List<Nutrition>> GetNutritionByName(string search)
         {
-            return gfdDAL.GetNutritionByName(search);
+            return gfdDAL.GetNutritionsByName(search);
         }
     }
 }

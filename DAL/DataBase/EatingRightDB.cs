@@ -16,13 +16,11 @@ namespace DAL.DataBase
             if (!Database.Exists())
             {
                 Database.Create();
-                //LoadJson();
             }
 
         }
 
         public DbSet<User> Users { get; set; }
-
         public DbSet<CurrentUser> CurrentAccount { get; set; }
 
 

@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,7 +67,7 @@ namespace DAL.API
         ///////////////////////////////////////////
 
 
-        public async Task<List<Nutrition>> GetNutritionByName(string search)
+        public async Task<Nutrition> GetNutritionsByName(string search)
         {
 
             List<Parameter> body = new List<Parameter> {
@@ -102,7 +102,7 @@ namespace DAL.API
 
                     
                 }
-                return nutritionArr;
+                return nutritionArr[0];
             }
             catch (RapidAPIServerException e)
             {
