@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PL.ViewModel;
 
 namespace PL.View
 {
@@ -20,9 +21,18 @@ namespace PL.View
     /// </summary>
     public partial class AddFoodView : UserControl
     {
+
+        private AddFoodVM _viewModel;
+
         public AddFoodView()
         {
             InitializeComponent();
+            _viewModel = new AddFoodVM();
+            DataContext = _viewModel;
         }
+
+        
     }
 }
+
+

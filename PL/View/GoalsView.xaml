@@ -19,9 +19,19 @@
         </Grid.RowDefinitions>
         <Label Content="My Goals" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Background="WhiteSmoke" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="243,30,233,1.203" Height="50" Width="588"/>
         <Grid Grid.Row="1" Background="WhiteSmoke" Margin="433,4,463,441">
-        <DatePicker Width="100"  Background="WhiteSmoke" materialDesign:HintAssist.Hint="Choose Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Grid.Row="1" />
+            <DatePicker Width="100"  Background="WhiteSmoke" materialDesign:HintAssist.Hint="Choose Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Grid.Row="1" />
         </Grid>
-        <Grid  Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="371"  Width="800">
+        <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" ToolTip="Resource name: MaterialDesignRaisedAccentButton" Margin="868,243,52,185" Grid.Row="1" Height="Auto">
+            <Grid RenderTransformOrigin="1.009,0.519" Width="100" Height="51" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23*"/>
+                    <ColumnDefinition Width="32*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock  Text="SAVE" Grid.Column="0" FontSize="20" Margin="0,10,44,10" Grid.ColumnSpan="2"  />
+                <Image Source="/icons/save.png" Width="55" Grid.Column="1" Margin="12,3,-9,9"/>
+            </Grid>
+        </Button>
+        <Grid  Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="372"  Width="800" Margin="63,67,201,61">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="50*"/>

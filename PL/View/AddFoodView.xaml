@@ -4,24 +4,87 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL.View"
-                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        FontFamily="{DynamicResource MaterialDesignFont}" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"        
+             FontFamily="{DynamicResource MaterialDesignFont}" 
              mc:Ignorable="d"  Height="580.939" Width="1064.243">
+    <UserControl.Resources>
+        <DataTemplate x:Key="ThumbnailCellTemplate">
+            <Image Source="{Binding Path=ImageUrl}" Height="35" />
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="198*"/>
+            <ColumnDefinition Width="143*"/>
+            <ColumnDefinition Width="191*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="78*"/>
-            <RowDefinition Height="503*"/>
-            
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="68*"/>
+            <RowDefinition Height="106*"/>
+            <RowDefinition Height="236*"/>
+            <RowDefinition Height="43*"/>
+
         </Grid.RowDefinitions>
 
-        <Label Content="Add Food Window" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Background="WhiteSmoke" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="243,30,233,501" Height="50" Width="588" Grid.RowSpan="2"/>
+        <Label Content="Add Food Window" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Background="WhiteSmoke" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center"  Height="50" Width="588" Grid.Row="0" Margin="238,14" Grid.ColumnSpan="3"/>
+        <Grid Grid.Row="1" Background="WhiteSmoke" Margin="60,0,58,0" Grid.Column="1"   >
+            <DatePicker Width="100"  Background="WhiteSmoke" materialDesign:HintAssist.Hint="Choose Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+        </Grid>
+        <TextBox materialDesign:ColorZoneAssist.Mode="Light" Name="myTextbox"  Background="WhiteSmoke" Grid.Row="2" FontSize="20" Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Search Food" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="44,0,102,16"  />
+        <Button Name="Search" Grid.Row="2" Content="Search"   Height="Auto" Margin="299,0,0,16" Command="{Binding SearchFoodCommand}" />
+            <StackPanel  Grid.Row="3" Grid.RowSpan="2" CanVerticallyScroll="True" >
 
-       
+                <DataGrid  Name="data" ItemsSource="{Binding Path=MySearchFoodList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                  CanUserSortColumns="True"
+                  SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserResizeColumns="False"
+                  AutoGenerateColumns="False"  MaxHeight="333" Margin="28,0,10,0">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Photo" CellTemplate="{StaticResource ThumbnailCellTemplate}" />
+
+                        <DataGridTextColumn  Header="Name" Binding="{Binding Name}" TextBlock.TextAlignment="Center"/>
+                        <materialDesign:MaterialDataGridTextColumn Header="Amount" Binding="{Binding ServingQuantity}" TextBlock.TextAlignment="Center"/>
+                        <materialDesign:MaterialDataGridTextColumn Header="Units" Binding="{Binding ServingUnit}" TextBlock.TextAlignment="Center"/>
+                        <materialDesign:MaterialDataGridTextColumn Header="Cal" Binding="{Binding Nutritions.Calories}" TextBlock.TextAlignment="Center"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </StackPanel>
+            <Button  Grid.Row="3" Content="Add Selected Food"   Height="Auto" Margin="38,10,36,30" Grid.Column="1" Command="{Binding AddSelectedFoodCommand}" />
+        <Label  Grid.Row="1" Content="My Food Today" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="2"  Background="WhiteSmoke" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"  Height="50" Width="246" Margin="78,0,58,0"  />
+
+        <ListBox  Grid.Row="2"  Visibility="Visible" RenderTransformOrigin="0.5,4.714"    Grid.Column="2" Grid.RowSpan="3" Margin="38,14,30,1"/>
+        <Grid Grid.Column="1" Grid.Row="4">
+            <lvc:PieChart Background="WhiteSmoke" LegendLocation="Bottom" DataClickCommand="{Binding Chart_OnDataClick}" Hoverable="False" DataTooltip="{x:Null}">
+                <lvc:PieChart.Series>
+                    <lvc:PieSeries Title="Calories" Values="3" DataLabels="True"
+                               LabelPoint="{Binding PointLabel}"/>
+                    <lvc:PieSeries Title="Carbohydrate" Values="4" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                    <lvc:PieSeries Title="Fat" Values="6" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                    <lvc:PieSeries Title="Protein" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                    <lvc:PieSeries Title="Sodium" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                    <lvc:PieSeries Title="Sugar" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                </lvc:PieChart.Series>
+            </lvc:PieChart>
+
+
+        </Grid>
 
     </Grid>
 </UserControl>

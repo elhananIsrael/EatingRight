@@ -39,16 +39,16 @@ namespace DAL.API
         public string ServingUnit { get; set; }
 
         [JsonProperty("serving_weight_grams")]
-        public long ServingWeightGrams { get; set; }
+        public long? ServingWeightGrams { get; set; }
 
         [JsonProperty("nf_calories")]
-        public double NfCalories { get; set; }
+        public double? NfCalories { get; set; }
 
         [JsonProperty("nf_total_fat")]
-        public double NfTotalFat { get; set; }
+        public double? NfTotalFat { get; set; }
 
         [JsonProperty("nf_saturated_fat")]
-        public double NfSaturatedFat { get; set; }
+        public double? NfSaturatedFat { get; set; }
 
         [JsonProperty("nf_cholesterol")]
         public long? NfCholesterol { get; set; }

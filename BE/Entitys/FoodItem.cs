@@ -25,6 +25,8 @@ namespace BE.Entitys
 
         public string ImageUrl { get; set; }
 
+
+
         public Nutrition Nutritions { get; set; }
 
         public FoodItem(long id, string name, string imageUrl, Nutrition ntn = null)

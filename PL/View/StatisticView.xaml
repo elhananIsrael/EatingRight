@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL.View"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -13,7 +14,51 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d"  Height="580.939" Width="1064.243" >
     <Grid>
-        <Label Content="Statistic Window" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Background="WhiteSmoke" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="243,30,233,501" Height="50" Width="588"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="441*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Statistic Window" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Background="WhiteSmoke" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="243,24,233,6" Height="50" Width="588"/>
+        <Grid Grid.Row="1" Background="WhiteSmoke" Margin="433,4,463,8">
+            <DatePicker Width="100"  Background="WhiteSmoke" materialDesign:HintAssist.Hint="Choose Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Grid.Row="1" />
+        </Grid>
+        <Grid  Grid.Row="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="372"  Width="800" Margin="63,4,201,65">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="69*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="69*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Background="WhiteSmoke" Content="Calories" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="49" Width="150"  Grid.Row="0"/>
+            <lvc:Gauge Background="WhiteSmoke" Grid.Row="1" Grid.Column="0" Value=".20"  Uses360Mode="True"  LabelFormatter="{Binding Formatter}"/>
+
+            <Label Background="WhiteSmoke" Content="Protein"  Grid.Row="2" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="62" Width="121"  />
+            <lvc:Gauge Background="WhiteSmoke" Grid.Row="3" Grid.Column="0" Value=".70"  Uses360Mode="True"  LabelFormatter="{Binding Formatter}"
+                       FromColor="LightSeaGreen" ToColor="LightSeaGreen"/>
+
+            <Label Content="Carbohydrate" Background="WhiteSmoke" Grid.Column="1" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="52" Width="225"  Grid.Row="0"  />
+            <lvc:Gauge Background="WhiteSmoke" Grid.Row="1" Grid.Column="1" Value=".80"  Uses360Mode="True" LabelFormatter="{Binding Formatter}"
+                       FromColor="IndianRed" ToColor="IndianRed"/>
+
+            <Label Background="WhiteSmoke" Content="Fat" Grid.Column="2" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="54" Width="69"  Grid.Row="0"/>
+            <lvc:Gauge Background="WhiteSmoke" Grid.Row="1" Grid.Column="2" Value=".36"  Uses360Mode="True"  LabelFormatter="{Binding Formatter}"
+                       FromColor="White" ToColor="Yellow" />
+
+            <Label Background="WhiteSmoke" Content="Sodium" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Height="52" Width="130" />
+            <lvc:Gauge Background="WhiteSmoke" Grid.Row="3" Grid.Column="1" Value=".36"  Uses360Mode="True"  LabelFormatter="{Binding Formatter}"
+                       FromColor="White" ToColor="SandyBrown"/>
+            <Label Background="WhiteSmoke" Content="Sugar" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2" FontSize="35" VerticalAlignment="Center" Height="62" Width="100" />
+            <lvc:Gauge Background="WhiteSmoke" Grid.Row="3" Grid.Column="2" Value=".36"  Uses360Mode="True"  LabelFormatter="{Binding Formatter}"
+                       FromColor="White" ToColor="Purple"/>
+
+        </Grid>
 
     </Grid>
 </UserControl>

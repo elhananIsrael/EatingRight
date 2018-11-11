@@ -17,7 +17,7 @@ namespace BL.API
             return gfdDAL.SearchFoodByName(search);
         }
 
-        public Task<List<Nutrition>> GetNutritionByName(string search)
+        public Task<Nutrition> GetNutritionByName(string search)
         {
             return gfdDAL.GetNutritionsByName(search);
         }
