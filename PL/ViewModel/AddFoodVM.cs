@@ -12,6 +12,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using System.Windows.Controls;
 using BE.Entitys;
+using BE.function;
 using BL;
 using System.Collections.ObjectModel;
 
@@ -29,7 +30,9 @@ namespace PL.ViewModel
 
             SearchFoodCommand = new DelegateCommand<Type>(RunSearchFood, CanSearch);
             AddSelectedFoodCommand = new DelegateCommand<Type>(RunAddSelectedFood, CanAdd);
-            MySearchFoodList = new ObservableCollection<FoodItem>();
+            MySearchFood = new ObservableCollection<FoodItem>();
+            MyFoodToday = new ObservableCollection<FoodItem>();
+            SelectedSearchFood =new FoodItem();
 
 
 
@@ -41,7 +44,11 @@ namespace PL.ViewModel
 
         public BL.API.getFoodDetailsBL myAPI;
         private IEventAggregator _eventAggregator;
-        public ObservableCollection<FoodItem> mySearchFoodList;
+        private FoodItem selectedSearchFood;
+        public ObservableCollection<FoodItem> mySearchFood;
+        public ObservableCollection<FoodItem> myFoodToday;
+
+        
         public Func<ChartPoint, string> PointLabel { get; set; }
         private string search;
 
@@ -51,14 +58,16 @@ namespace PL.ViewModel
             set
             {
                 search = value;
+                OnPropertyChanged();
 
             }
         }
 
         private bool CanAdd(Type arg)
         {
-            //לבדוק אם רשימה לא ריקה;
+          //  if(SelectedSearchFood!=null && SelectedSearchFood.Name.Length>0)
             return true;
+          //  return false;
         }
 
         private void RunAddSelectedFood(Type obj)
@@ -68,57 +77,94 @@ namespace PL.ViewModel
 
         private bool CanSearch(Type arg)
         {
-            //לבדוק אם רשימה לא ריקה;
+            //  return !string.IsNullOrEmpty(Search);
             return true;
+         //לבדוק אם רשימה לא ריקה;
+            
         }
 
         private void RunSearchFood(Type obj)
         {
-            GetFoodFromApiToOurList();        }
-
-        
-
-
-        public ObservableCollection<FoodItem>MySearchFoodList
-        {
-            get { 
-                return mySearchFoodList;
-            }
-    set
-            {
-                mySearchFoodList =value;
-                OnPropertyChanged();
-
-}
+            GetFoodFromApiToOurList();
         }
 
 
-public async void  GetFoodFromApiToOurList()
+
+       
+        public ObservableCollection<FoodItem>MySearchFood
         {
-            mySearchFoodList.Clear();
+            get { 
+                return mySearchFood;
+            }
+            set
+            {
+                mySearchFood =value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<FoodItem> MyFoodToday
+        {
+            get
+            {
+                return myFoodToday;
+            }
+            set
+            {
+                myFoodToday = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+        public FoodItem SelectedSearchFood
+        {
+            get
+            {
+                return selectedSearchFood;
+            }
+            set
+            {
+               var temp = value;
+                double? num;
+                num = temp.Nutritions.Calories;
+                temp.Nutritions.Calories = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Carbohydrate;
+                temp.Nutritions.Carbohydrate = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Fat;
+                temp.Nutritions.Fat = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Protein;
+                temp.Nutritions.Protein = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Sodium;
+                temp.Nutritions.Sodium = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Sugar;
+                temp.Nutritions.Sugar = MyFunction.DoubleNumberNotNull(num);
+                selectedSearchFood= temp;
+                OnPropertyChanged();
+
+            }
+        }
+
+
+        public async void  GetFoodFromApiToOurList()
+        {
+            mySearchFood.Clear();
             var answer = await myAPI.SearchFoodByName(Search);
             foreach (var food in answer)
             {
                 food.Nutritions=await myAPI.GetNutritionByName(food.Name);
-                mySearchFoodList.Add(food);
+                mySearchFood.Add(food);
             }
 
         }
 
      
          
-
-        private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
-    {
-        var chart = (LiveCharts.Wpf.PieChart)chartpoint.ChartView;
-
-        //clear selected slice.
-        foreach (PieSeries series in chart.Series)
-            series.PushOut = 0;
-
-        var selectedSeries = (PieSeries)chartpoint.SeriesView;
-        selectedSeries.PushOut = 8;
-        }
 
 
 

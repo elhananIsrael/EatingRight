@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE.Entitys;
+using BE.function;
+
 
 namespace BL.API
 {
@@ -19,7 +21,7 @@ namespace BL.API
 
         public Task<Nutrition> GetNutritionByName(string search)
         {
-            return gfdDAL.GetNutritionsByName(search);
+            return gfdDAL.GetNutritionsByName(search);            
         }
     }
 }

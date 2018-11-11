@@ -13,6 +13,8 @@ namespace BE.Entitys
             public FoodItem()
         {
              Id = Guid.NewGuid();
+            Name = "";
+            ImageUrl = "";
             Nutritions = new Nutrition();
         }
             
@@ -29,11 +31,13 @@ namespace BE.Entitys
 
         public Nutrition Nutritions { get; set; }
 
-        public FoodItem(long id, string name, string imageUrl, Nutrition ntn = null)
+        public FoodItem(long id, string name, string imageUrl, Nutrition ntn=null)
         {
             TagId = id;
             this.Name = name;
             this.ImageUrl = imageUrl;
+            if (ntn==null )
+                Nutritions = new Nutrition();
             Nutritions = ntn;
         }
 

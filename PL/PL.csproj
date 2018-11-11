@@ -89,7 +89,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\FieldsToStudentConverter_EXAMPLE.cs" />
+    <Compile Include="Converters\Object2ChartValuesConverter.cs" />
     <Compile Include="Events\LogoutEvent.cs" />
     <Compile Include="Events\OpenAddFoodEvent.cs" />
     <Compile Include="Events\OpenGoalsEvent.cs" />

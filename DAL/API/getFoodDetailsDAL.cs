@@ -28,9 +28,9 @@ namespace DAL.API
 
             List<Parameter> body = new List<Parameter> {
 
-        new DataParameter("applicationSecret", "12707924c854726c16ec685b23b25d5e"),
+        new DataParameter("applicationSecret", "136102bad14d027d885ecd731f5a92d0"),
         new DataParameter("foodDescription", search),
-        new DataParameter("applicationId", "7dc87896")
+        new DataParameter("applicationId", "4d8b69d2")
         };
 
             List<FoodItem> foodSearchArr = new List<FoodItem>();
@@ -72,9 +72,9 @@ namespace DAL.API
 
             List<Parameter> body = new List<Parameter> {
 
-        new DataParameter("applicationSecret", "12707924c854726c16ec685b23b25d5e"),
+        new DataParameter("applicationSecret", "136102bad14d027d885ecd731f5a92d0"),
         new DataParameter("foodDescription", search),
-        new DataParameter("applicationId", "7dc87896")
+        new DataParameter("applicationId", "4d8b69d2")
         };
 
            // nutrition Nutritions = new nutrition();
