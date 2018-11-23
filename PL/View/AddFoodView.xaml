@@ -36,10 +36,10 @@
 
         <Label Content="Add Food Window" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Background="WhiteSmoke" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center"  Height="50" Width="588" Grid.Row="0" Margin="238,14" Grid.ColumnSpan="3"/>
         <Grid Grid.Row="1" Background="WhiteSmoke" Margin="60,0,58,0" Grid.Column="1"   >
-            <DatePicker Width="100"  Background="WhiteSmoke" materialDesign:HintAssist.Hint="Choose Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <DatePicker Width="100" Background="WhiteSmoke" materialDesign:HintAssist.Hint="Choose Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding SelectedDate,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
         <TextBox Name="searchText" materialDesign:ColorZoneAssist.Mode="Light"   Background="WhiteSmoke" Grid.Row="2" FontSize="20" Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Search Food" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="44,0,102,16"  />
-        <Button Name="Search" Grid.Row="2" Content="Search"   Height="Auto" Margin="299,0,0,16"  Command="{Binding SearchFoodCommand, UpdateSourceTrigger=PropertyChanged }" />
+        <Button Name="Search" Grid.Row="2" Content="Search"   Height="Auto" Margin="299,0,0,16"   Command="{Binding SearchFoodCommand,  UpdateSourceTrigger=PropertyChanged }" />
         <StackPanel  Grid.Row="3" Grid.RowSpan="2" CanVerticallyScroll="True" >
 
             <DataGrid  Name="data" SelectedItem="{Binding SelectedSearchFood}" ItemsSource="{Binding Path=MySearchFood, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -55,8 +55,8 @@
 
                     <DataGridTextColumn  Header="Name" Binding="{Binding Name}" TextBlock.TextAlignment="Center"/>
                     <materialDesign:MaterialDataGridTextColumn Header="Amount" Binding="{Binding ServingQuantity}" TextBlock.TextAlignment="Center"/>
-                    <materialDesign:MaterialDataGridTextColumn Header="Units" Binding="{Binding ServingUnit}" TextBlock.TextAlignment="Center"/>
-                    <materialDesign:MaterialDataGridTextColumn Header="Cal" Binding="{Binding Nutritions.Calories}" TextBlock.TextAlignment="Center"/>
+                  <!--  <materialDesign:MaterialDataGridTextColumn Header="Units" Binding="{Binding ServingUnit}" TextBlock.TextAlignment="Center"/>
+                -->    <materialDesign:MaterialDataGridTextColumn Header="Cal" Binding="{Binding Nutritions.Calories}" TextBlock.TextAlignment="Center"/>
 
                 </DataGrid.Columns>
             </DataGrid>
@@ -69,6 +69,7 @@
             <DataGrid  Grid.Row="2" Grid.Column="2" x:Name="data2" ItemsSource="{Binding MyFoodToday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   CanUserSortColumns="True"
                   SelectionMode="Single" SelectionUnit="FullRow"
+                  IsReadOnly="True"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   CanUserResizeColumns="False"
@@ -77,9 +78,9 @@
                     <DataGridTemplateColumn Header="Photo" CellTemplate="{StaticResource ThumbnailCellTemplate}" />
 
                     <DataGridTextColumn  Header="Name" Binding="{Binding Name}" TextBlock.TextAlignment="Center"/>
-                    <materialDesign:MaterialDataGridTextColumn Header="Amount" Binding="{Binding ServingQuantity}" TextBlock.TextAlignment="Center"/>
-                    <materialDesign:MaterialDataGridTextColumn Header="Units" Binding="{Binding ServingUnit}" TextBlock.TextAlignment="Center"/>
-                    <materialDesign:MaterialDataGridTextColumn Header="Cal" Binding="{Binding Nutritions.Calories}" TextBlock.TextAlignment="Center"/>
+                  <materialDesign:MaterialDataGridTextColumn Header="Amount" Binding="{Binding ServingQuantity}" TextBlock.TextAlignment="Center"/>
+                 <!--     <materialDesign:MaterialDataGridTextColumn Header="Units" Binding="{Binding ServingUnit}" TextBlock.TextAlignment="Center"/>
+               -->     <materialDesign:MaterialDataGridTextColumn Header="Cal" Binding="{Binding Nutritions.Calories}" TextBlock.TextAlignment="Center"/>
 
                 </DataGrid.Columns>
             </DataGrid>

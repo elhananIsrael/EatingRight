@@ -16,6 +16,13 @@ namespace BE.Entitys
             Meals = new List<Meal>();
             Goals = new List<Goal>();
         }
+        public User(string email)
+        {
+            Email = email;
+            BirthDate = DateTime.Now;
+            Meals = new List<Meal>();
+            Goals = new List<Goal>();
+        }
 
         public string FirstName { get; set; }
 

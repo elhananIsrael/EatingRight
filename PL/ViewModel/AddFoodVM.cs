@@ -15,6 +15,7 @@ using BE.Entitys;
 using BE.function;
 using BL;
 using System.Collections.ObjectModel;
+using BL;
 
 
 
@@ -26,31 +27,80 @@ namespace PL.ViewModel
         {
             _eventAggregator = new Prism.Events.EventAggregator();
 
-            myAPI = new BL.API.getFoodDetailsBL();
+            myBl = new Bl();
 
             SearchFoodCommand = new DelegateCommand<Type>(RunSearchFood, CanSearch);
             AddSelectedFoodCommand = new DelegateCommand<Type>(RunAddSelectedFood, CanAdd);
             MySearchFood = new ObservableCollection<FoodItem>();
             MyFoodToday = new ObservableCollection<FoodItem>();
             SelectedSearchFood =new FoodItem();
-
-
+            
+           // myDate = DateTime.Now;
 
 
         PointLabel = chartPoint =>
                 string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
         }
 
-
-        public BL.API.getFoodDetailsBL myAPI;
+        public Bl myBl;
+      //  public BL.API.getFoodDetailsBL myAPI;
         private IEventAggregator _eventAggregator;
         private FoodItem selectedSearchFood;
+        private Meal myMeal;
+       // private DateTime myDate;
+
         public ObservableCollection<FoodItem> mySearchFood;
         public ObservableCollection<FoodItem> myFoodToday;
 
         
         public Func<ChartPoint, string> PointLabel { get; set; }
         private string search;
+
+        /*   public DateTime MyDate {
+               get { return myDate; }
+               set { myDate = value;
+                   my
+
+               } }*/
+
+        public DateTime SelectedDate
+        {
+            get {
+                if (myMeal == null)
+                {
+                    updateMyMeal();
+                   // updateMyFoodToday();
+                }                
+                return myMeal.Date;
+            }
+            set {
+                if (value != null)
+                {
+                    myMeal = new Meal();
+                    myMeal.Date = value;
+                    updateMyMeal();
+                    //updateMyFoodToday();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Meal MyMeal {
+            get {
+                if (myMeal == null)
+                {
+                    updateMyMeal();
+                   // updateMyFoodToday();
+                }
+                    return myMeal;
+            }
+            set {
+                if(value !=null)
+                myMeal =value;
+                updateMyFoodToday();
+
+                OnPropertyChanged();
+            } }
 
         public string Search
         {
@@ -59,33 +109,50 @@ namespace PL.ViewModel
             {
                 search = value;
                 OnPropertyChanged();
-
+                ((DelegateCommand<Type>)SearchFoodCommand).RaiseCanExecuteChanged();
             }
         }
 
         private bool CanAdd(Type arg)
         {
-          //  if(SelectedSearchFood!=null && SelectedSearchFood.Name.Length>0)
+            if(SelectedSearchFood!=null && SelectedSearchFood.Name.Length>0)
             return true;
-          //  return false;
+            return false;
         }
 
-        private void RunAddSelectedFood(Type obj)
+        private async void RunAddSelectedFood(Type obj)
         {
-            throw new NotImplementedException();
+           await AddSelectedFood();
         }
+
+        private async Task AddSelectedFood()
+        {
+            FoodItem temp = new FoodItem();
+            temp.Id= Guid.NewGuid();
+            temp.ImageUrl = selectedSearchFood.ImageUrl;
+            temp.Name = selectedSearchFood.Name;
+            temp.Nutritions = selectedSearchFood.Nutritions;
+            temp.TagId = selectedSearchFood.TagId;
+            
+            //selectedSearchFood.Id= Guid.NewGuid();
+            MyMeal.FoodItems.Add(temp);
+            updateMyFoodToday();
+            await myBl.AddMeal(myMeal);
+            OnPropertyChanged();
+        }
+
 
         private bool CanSearch(Type arg)
         {
-            //  return !string.IsNullOrEmpty(Search);
-            return true;
+              return !string.IsNullOrEmpty(Search);
+           // return true;
          //לבדוק אם רשימה לא ריקה;
             
         }
 
-        private void RunSearchFood(Type obj)
+        private async  void RunSearchFood(Type obj)
         {
-            GetFoodFromApiToOurList();
+          await GetFoodFromApiToOurList();
         }
 
 
@@ -100,6 +167,7 @@ namespace PL.ViewModel
             {
                 mySearchFood =value;
                 OnPropertyChanged();
+
             }
         }
 
@@ -146,18 +214,41 @@ namespace PL.ViewModel
                 temp.Nutritions.Sugar = MyFunction.DoubleNumberNotNull(num);
                 selectedSearchFood= temp;
                 OnPropertyChanged();
+                ((DelegateCommand<Type>)AddSelectedFoodCommand).RaiseCanExecuteChanged(); 
+
 
             }
         }
 
+        public async  Task updateMyMeal()
+        {
+            if (myMeal==null)
+            myMeal = new Meal();
+            var tempMeal = await myBl.GetMeal(myMeal.Date);
+            if (tempMeal != null)
+                myMeal = tempMeal;
+            updateMyFoodToday();
+        }
 
-        public async void  GetFoodFromApiToOurList()
+
+       public void updateMyFoodToday()
+        {
+            myFoodToday.Clear();
+            foreach (var food in myMeal.FoodItems)
+            {
+                MyFoodToday.Add(food);
+            }
+           
+        }
+       
+
+        public async Task  GetFoodFromApiToOurList()
         {
             mySearchFood.Clear();
-            var answer = await myAPI.SearchFoodByName(Search);
+            var answer = await myBl.GetFoodItems(Search);
             foreach (var food in answer)
             {
-                food.Nutritions=await myAPI.GetNutritionByName(food.Name);
+                food.Nutritions=await myBl.GetNutritions(food.Name);
                 mySearchFood.Add(food);
             }
 

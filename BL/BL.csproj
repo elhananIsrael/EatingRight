@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\getFoodDetailsBL.cs" />
+    <Compile Include="Bl.cs" />
+    <Compile Include="Ibl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\Class1.cs" />
     <Compile Include="Validation\DateValidator.cs" />

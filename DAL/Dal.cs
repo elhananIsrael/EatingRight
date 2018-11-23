@@ -10,102 +10,195 @@ using System.Data.Entity;
 
 namespace DAL
 {
-    class Dal:IDal
+    public class Dal:IDal
     {
         public Dal()
         {
             FoodAPI = new API.getFoodDetailsDAL();
+            myDb = new EatingRightDBContext();
         }
 
-        private EatingRightDBContext DbContext { get; set; }
+        private EatingRightDBContext myDb { get; set; }
         private readonly API.getFoodDetailsDAL FoodAPI;
 
 
 
-        public Task AddGoal(Goal goal)
+        public async Task AddGoal(Goal goal)
         {
-          //  var currentUserEmail=this.GetCurrentUserEmail();
-          //DbContext.Users
+            // var user = await GetCurrentUser();
+            var userEmail = await GetCurrentUserEmail();
+            var user = await myDb.Users.Where(b=> b.Email==userEmail).Include(a => a.Goals).SingleOrDefaultAsync();
 
-
-            throw new NotImplementedException();
+            var isExistGoal = await GetGoal(goal.Date);
+            if (isExistGoal == null)
+                user.Goals.Add(goal);
+            else
+                myDb.Entry(isExistGoal).CurrentValues.SetValues(goal);
+            await myDb.SaveChangesAsync();
         }
 
-        public Task AddMeal(Meal meal)
+        public async Task AddMeal(Meal meal)
         {
-            throw new NotImplementedException();
+            var userEmail =await GetCurrentUserEmail();
+            var user = await myDb.Users.Where(b=> b.Email==userEmail).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).SingleOrDefaultAsync();
+
+            var isExistMeal =await GetMeal(meal.Date);
+            if (isExistMeal != null)
+                myDb.Entry(isExistMeal).CurrentValues.SetValues(meal);
+            else
+                user.Meals.Add(meal);
+
+            await myDb.SaveChangesAsync();
         }
 
-        public Task AddUser(User goal)
+        public async Task AddUser(User user)
         {
-            throw new NotImplementedException();
+            var isExistUserEmail = await GetCurrentUserEmail();
+            if (isExistUserEmail == null)
+                myDb.Users.Add(user);
+
+            await myDb.SaveChangesAsync();
+
         }
 
-        public Task<User> GetCurrentUser()
+        /*public async Task<User> GetCurrentUser()
         {
-            throw new NotImplementedException();
+
+            var currentUserEmail = await GetCurrentUserEmail();
+                if (currentUserEmail == null)
+                {
+                    return null;
+                }
+                return await GetUserByEmail(currentUserEmail);
+           
+        }*/
+
+        public async Task<string> GetCurrentUserEmail()
+        {
+            var currentUser = await myDb.CurrentAccount.FirstOrDefaultAsync();
+            if (currentUser == null)
+            {
+                return null;
+            }
+            return currentUser.Email;
         }
 
-        public Task<string> GetCurrentUserEmail()
+        public async Task<List<FoodItem>> GetFoodItems(string name)
         {
-            throw new NotImplementedException();
+            return await FoodAPI.SearchFoodByName(name);
         }
 
-        public Task<List<FoodItem>> GetFoodItems(string name)
+        public async Task<Goal> GetGoal(DateTime dateTime)
         {
-            return FoodAPI.SearchFoodByName(name);
+            try
+            {
+                var userEmail = await GetCurrentUserEmail();
+                var user = await myDb.Users.Where(b => b.Email == userEmail).Include(a => a.Goals).SingleOrDefaultAsync();
+
+               // var user =await GetCurrentUser();
+                var myGoal =  user.Goals
+                .Where(A => A.Date == dateTime ).FirstOrDefault() ;
+              /*  (from userItem in myDb.Users
+                              where userItem.Email == user.Email
+                              select (from goalItem in userItem.Goals
+                                      where goalItem.Date == dateTime
+                                      select goalItem)).SingleOrDefault();*/
+
+                if (myGoal == null)
+                {
+                    return null;
+                }
+                return myGoal;
+            }
+            catch (Exception)
+            {
+
+                throw new Exception();
+            }
         }
 
-        public Task<Goal> GetGoal(DateTime dateTime)
+        public async Task<Meal> GetMeal(DateTime dateTime)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // var user =await GetCurrentUser();
+                var userEmail = await GetCurrentUserEmail();
+                var user = await myDb.Users.Where(b => b.Email == userEmail).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).FirstOrDefaultAsync();
+
+                if (user != null)
+                {
+                    var myMeal = user.Meals
+                .Where(A => A.Date.Year == dateTime.Year && A.Date.Month == dateTime.Month &&  A.Date.Day == dateTime.Day).FirstOrDefault();
+
+                    /*(from mealItem in user.Meals
+                              where mealItem.Date == dateTime
+                              select mealItem).SingleOrDefault();*/
+
+                    if (myMeal == null)
+                    {
+                        return null;
+                    }
+                    return myMeal;
+                }
+                else return null;
+            }
+            catch (Exception)
+            {
+
+                throw new Exception();
+            }
         }
 
-        public Task<Meal> GetMeal(DateTime dateTime)
+        public async Task<Nutrition> GetNutritions(string foodName)
         {
-            throw new NotImplementedException();
+            return await FoodAPI.GetNutritionsByName(foodName);
         }
 
-        public Task<Nutrition> GetNutritions(string foodName)
+    
+   //     public async Task<User> GetUserByEmail(string email)
+   //     {
+   //    try
+   //    {
+   //        var user = await myDb.Users
+   //             .Where(A => A.Email == email).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).SingleOrDefaultAsync();
+
+
+   //         /*    (from userItem in myDb.Users
+   //                    where userItem.Email == email
+   //                    select userItem).SingleOrDefaultAsync();*/
+
+   //        if (user == null)
+   //        {
+   //            return null;
+   //        }
+   //        return user;
+   //    }
+   //    catch (Exception)
+   //    {
+
+   //        throw new Exception();
+   //    }
+   //}
+
+
+        public async Task<bool> IsUserInDBByEmail(string email)
         {
-            return FoodAPI.GetNutritionsByName(foodName);
+             var isExist= await  myDb.Users.Where(a=> a.Email==email).FirstOrDefaultAsync();
+            return !isExist.Equals(null);
         }
 
-        public Task GetUser(User goal)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User GetUserByEmail(string email)
-        {
-       try
-       {
-           var user = (from userItem in DbContext.Users
-                       where userItem.Email == email
-                       select userItem).SingleOrDefault();
-
-           if (user == null)
-           {
-               throw new Exception();
-           }
-           return user;
-       }
-       catch (Exception)
-       {
-
-           throw new Exception();
-       }
-   }
-
-
-        public bool IsUserInDBByEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetCurrentUser(string email)
-        {
-            throw new NotImplementedException();
+        public async Task SetCurrentUser(string email)
+        {            
+            var currAcc = await myDb.CurrentAccount.SingleOrDefaultAsync();
+            if (currAcc==null || currAcc.Email != email)
+            {
+                if (currAcc != null)
+                myDb.CurrentAccount.Remove(currAcc);
+                CurrentUser newUser = new CurrentUser();
+                newUser.Email = email;
+                myDb.CurrentAccount.Add(newUser);
+              await  myDb.SaveChangesAsync();
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace DAL.DataBase
         {
             if (!Database.Exists())
             {
+             var test=   Database.Exists();
                 Database.Create();
             }
 

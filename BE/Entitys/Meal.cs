@@ -19,6 +19,7 @@ namespace BE.Entitys
         [Key]
         public DateTime Date { get; set; }
 
+       
         public List<FoodItem> FoodItems { get; set; }
 
     }

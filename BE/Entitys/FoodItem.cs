@@ -17,12 +17,13 @@ namespace BE.Entitys
             ImageUrl = "";
             Nutritions = new Nutrition();
         }
-            
-             [Key]
+
+        [Key]
         public Guid Id { get; set; }
 
         public long TagId { get; set; }
 
+       
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
@@ -39,6 +40,7 @@ namespace BE.Entitys
             if (ntn==null )
                 Nutritions = new Nutrition();
             Nutritions = ntn;
+            Id = Guid.NewGuid();
         }
 
     }
