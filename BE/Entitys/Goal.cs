@@ -11,11 +11,23 @@ namespace BE.Entitys
     {
         public Goal()
         {
+           // Id = Guid.NewGuid();
             Date = DateTime.Now;
+          //  UserEmail = "";
+            Calories = 0;
+            Carbohydrate = 0;
+            Fat = 0;
+            Protein = 0;
+            Sodium = 0;
+            Sugar = 0;
         }
 
+        // [Key]
+        // public Guid Id { get; set; }
         [Key]
         public DateTime Date { get; set; }
+        
+      //  public string UserEmail { get; set; }
 
         public double? Calories { get; set; }
 

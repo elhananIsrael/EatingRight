@@ -10,9 +10,9 @@ namespace DAL
    public interface IDal
     {
         Task<string> GetCurrentUserEmail();
-      //  Task<User> GetCurrentUser();
+        Task<User> GetCurrentUser();
         Task SetCurrentUser(string email);
-      //  Task<User> GetUserByEmail(string email);
+        Task<User> GetUserByEmail(string email);
         Task<bool> IsUserInDBByEmail(string email);
         Task AddGoal(Goal goal);
         Task<Goal> GetGoal(DateTime dateTime);

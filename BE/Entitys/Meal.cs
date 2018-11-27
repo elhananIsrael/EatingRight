@@ -14,12 +14,18 @@ namespace BE.Entitys
         {
             FoodItems = new List<FoodItem>();
             Date = DateTime.Now;
+          //  Id = Guid.NewGuid();
+           // UserEmail = "";
         }
+
+        // [Key]
+        //  public Guid Id { get; set; }
 
         [Key]
         public DateTime Date { get; set; }
-
-       
+        
+     //   public string UserEmail { get; set; }
+       [Required]
         public List<FoodItem> FoodItems { get; set; }
 
     }

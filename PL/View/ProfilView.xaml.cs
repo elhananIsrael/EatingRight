@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PL.ViewModel;
 
 namespace PL.View
 {
@@ -20,9 +21,17 @@ namespace PL.View
     /// </summary>
     public partial class ProfilView : UserControl
     {
+
+        private ProfilVM _viewModel;
+
+
         public ProfilView()
         {
             InitializeComponent();
+            _viewModel = new ProfilVM();
+            DataContext = _viewModel;
         }
     }
 }
+
+

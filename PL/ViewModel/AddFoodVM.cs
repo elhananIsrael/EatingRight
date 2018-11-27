@@ -127,6 +127,7 @@ namespace PL.ViewModel
 
         private async Task AddSelectedFood()
         {
+            Meal tempMeal = new Meal();
             FoodItem temp = new FoodItem();
             temp.Id= Guid.NewGuid();
             temp.ImageUrl = selectedSearchFood.ImageUrl;
@@ -135,10 +136,17 @@ namespace PL.ViewModel
             temp.TagId = selectedSearchFood.TagId;
             
             //selectedSearchFood.Id= Guid.NewGuid();
-            MyMeal.FoodItems.Add(temp);
+            myMeal.FoodItems.Add(temp);
+            tempMeal.Date = myMeal.Date;
+            //tempMeal.FoodItems.AddRange(myMeal.FoodItems);
+            tempMeal.FoodItems.Add(temp);
+           // tempMeal.Date = myMeal.Date;
+
+            //myMeal = tempMeal;
             updateMyFoodToday();
-            await myBl.AddMeal(myMeal);
+            await myBl.AddMeal(tempMeal);
             OnPropertyChanged();
+
         }
 
 

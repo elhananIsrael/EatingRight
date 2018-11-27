@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BE.Entitys;
 using DAL.DataBase;
 using System.Data.Entity;
-
+using System.Reflection;
 
 namespace DAL
 {
@@ -25,43 +25,103 @@ namespace DAL
 
         public async Task AddGoal(Goal goal)
         {
-            // var user = await GetCurrentUser();
-            var userEmail = await GetCurrentUserEmail();
-            var user = await myDb.Users.Where(b=> b.Email==userEmail).Include(a => a.Goals).SingleOrDefaultAsync();
+            try
+            {
+                using (var db = new EatingRightDBContext())
+                {
+                    // var user = await GetCurrentUser();
+                    var userEmail = await GetCurrentUserEmail();
+            var user = await db.Users.Where(b=> b.Email==userEmail).Include(a => a.Goals).SingleOrDefaultAsync();
 
-            var isExistGoal = await GetGoal(goal.Date);
-            if (isExistGoal == null)
-                user.Goals.Add(goal);
-            else
-                myDb.Entry(isExistGoal).CurrentValues.SetValues(goal);
-            await myDb.SaveChangesAsync();
+                    var isExistGoal = user.Goals.Where(A => A.Date.Year == goal.Date.Year && A.Date.Month == goal.Date.Month && A.Date.Day == goal.Date.Day).FirstOrDefault();
+
+                    foreach (PropertyInfo p in goal.GetType().GetProperties())
+                    {
+                        if (p.GetType() != goal.Date.GetType() && p.GetValue(goal) == null)
+                            p.SetValue(goal, 0.00, null);
+                    }
+
+                    if (isExistGoal == null)
+                        user.Goals.Add(goal);                   
+                    else
+                    {                       
+                        goal.Date = isExistGoal.Date;                     
+                        db.Entry(isExistGoal).CurrentValues.SetValues(goal);
+                    }
+            await db.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw new Exception();
+            }
         }
 
         public async Task AddMeal(Meal meal)
         {
-            var userEmail =await GetCurrentUserEmail();
-            var user = await myDb.Users.Where(b=> b.Email==userEmail).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).SingleOrDefaultAsync();
+            try
+            {
+                using (var db = new EatingRightDBContext())
+                {
 
-            var isExistMeal =await GetMeal(meal.Date);
-            if (isExistMeal != null)
-                myDb.Entry(isExistMeal).CurrentValues.SetValues(meal);
-            else
-                user.Meals.Add(meal);
+                    var userEmail = await GetCurrentUserEmail();
+                    var user = await db.Users.Where(b => b.Email == userEmail).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).SingleOrDefaultAsync();
 
-            await myDb.SaveChangesAsync();
+                    var isExistMeal = user.Meals.Where(A => A.Date.Year == meal.Date.Year && A.Date.Month == meal.Date.Month && A.Date.Day == meal.Date.Day).FirstOrDefault();
+
+                    if (isExistMeal != null)
+                    {
+                        isExistMeal.FoodItems.Add(meal.FoodItems[0]);
+                        /* isExistMeal.FoodItems.Clear();
+                        foreach (var item in meal.FoodItems)
+                        {
+                            isExistMeal.FoodItems.Add(item);
+                        }*/
+                       // meal.Date = isExistMeal.Date;
+                        
+                      //  meal.Id = isExistMeal.Id;
+                      //  meal.UserEmail = isExistMeal.UserEmail;
+                       // db.Entry(isExistMeal).CurrentValues.SetValues(meal);
+                    }
+                    else
+                    {
+                        user.Meals.Add(meal);
+                    }
+
+                    await db.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw new Exception();
+            }
         }
 
         public async Task AddUser(User user)
         {
-            var isExistUserEmail = await GetCurrentUserEmail();
-            if (isExistUserEmail == null)
-                myDb.Users.Add(user);
+            try
+            {
+                using (var db = new EatingRightDBContext())
+                {
 
-            await myDb.SaveChangesAsync();
+                    var isExistUserEmail = await GetCurrentUserEmail();
+            if (isExistUserEmail == null)
+                        db.Users.Add(user);
+
+            await db.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw new Exception();
+            }
 
         }
 
-        /*public async Task<User> GetCurrentUser()
+        public async Task<User> GetCurrentUser()
         {
 
             var currentUserEmail = await GetCurrentUserEmail();
@@ -71,16 +131,19 @@ namespace DAL
                 }
                 return await GetUserByEmail(currentUserEmail);
            
-        }*/
+        }
 
         public async Task<string> GetCurrentUserEmail()
         {
-            var currentUser = await myDb.CurrentAccount.FirstOrDefaultAsync();
-            if (currentUser == null)
+            using (var db = new EatingRightDBContext())
             {
-                return null;
+                var currentUser = await db.CurrentAccount.FirstOrDefaultAsync();
+                if (currentUser == null)
+                {
+                    return null;
+                }
+                return currentUser.Email;
             }
-            return currentUser.Email;
         }
 
         public async Task<List<FoodItem>> GetFoodItems(string name)
@@ -92,23 +155,27 @@ namespace DAL
         {
             try
             {
-                var userEmail = await GetCurrentUserEmail();
-                var user = await myDb.Users.Where(b => b.Email == userEmail).Include(a => a.Goals).SingleOrDefaultAsync();
-
-               // var user =await GetCurrentUser();
-                var myGoal =  user.Goals
-                .Where(A => A.Date == dateTime ).FirstOrDefault() ;
-              /*  (from userItem in myDb.Users
-                              where userItem.Email == user.Email
-                              select (from goalItem in userItem.Goals
-                                      where goalItem.Date == dateTime
-                                      select goalItem)).SingleOrDefault();*/
-
-                if (myGoal == null)
+                using (var db = new EatingRightDBContext())
                 {
-                    return null;
+
+                    var userEmail = await GetCurrentUserEmail();
+                    var user = await db.Users.Where(b => b.Email == userEmail).Include(a => a.Goals).SingleOrDefaultAsync();
+
+                    // var user =await GetCurrentUser();
+                    var myGoal = user.Goals
+                    .Where(A => A.Date.Year == dateTime.Year && A.Date.Month == dateTime.Month && A.Date.Day == dateTime.Day).FirstOrDefault(); ;
+                    /*  (from userItem in myDb.Users
+                                    where userItem.Email == user.Email
+                                    select (from goalItem in userItem.Goals
+                                            where goalItem.Date == dateTime
+                                            select goalItem)).SingleOrDefault();*/
+
+                    if (myGoal == null)
+                    {
+                        return null;
+                    }
+                    return myGoal;
                 }
-                return myGoal;
             }
             catch (Exception)
             {
@@ -121,26 +188,28 @@ namespace DAL
         {
             try
             {
-                // var user =await GetCurrentUser();
-                var userEmail = await GetCurrentUserEmail();
-                var user = await myDb.Users.Where(b => b.Email == userEmail).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).FirstOrDefaultAsync();
-
-                if (user != null)
+                using (var db = new EatingRightDBContext())
                 {
-                    var myMeal = user.Meals
-                .Where(A => A.Date.Year == dateTime.Year && A.Date.Month == dateTime.Month &&  A.Date.Day == dateTime.Day).FirstOrDefault();
+                    var userEmail = await GetCurrentUserEmail();
+                    var user = await db.Users.Where(b => b.Email == userEmail).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).FirstOrDefaultAsync();
 
-                    /*(from mealItem in user.Meals
-                              where mealItem.Date == dateTime
-                              select mealItem).SingleOrDefault();*/
-
-                    if (myMeal == null)
+                    if (user != null)
                     {
-                        return null;
+                        var myMeal = user.Meals
+                    .Where(A => A.Date.Year == dateTime.Year && A.Date.Month == dateTime.Month && A.Date.Day == dateTime.Day).FirstOrDefault();
+
+                        /*(from mealItem in user.Meals
+                                  where mealItem.Date == dateTime
+                                  select mealItem).SingleOrDefault();*/
+
+                        if (myMeal == null)
+                        {
+                            return null;
+                        }
+                        return myMeal;
                     }
-                    return myMeal;
+                    else return null;
                 }
-                else return null;
             }
             catch (Exception)
             {
@@ -154,31 +223,31 @@ namespace DAL
             return await FoodAPI.GetNutritionsByName(foodName);
         }
 
-    
-   //     public async Task<User> GetUserByEmail(string email)
-   //     {
-   //    try
-   //    {
-   //        var user = await myDb.Users
-   //             .Where(A => A.Email == email).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).SingleOrDefaultAsync();
+
+        public async Task<User> GetUserByEmail(string email)
+        {
+            try
+            {
+                var user = await myDb.Users
+                     .Where(A => A.Email == email).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).SingleOrDefaultAsync();
 
 
-   //         /*    (from userItem in myDb.Users
-   //                    where userItem.Email == email
-   //                    select userItem).SingleOrDefaultAsync();*/
+                /*    (from userItem in myDb.Users
+                           where userItem.Email == email
+                           select userItem).SingleOrDefaultAsync();*/
 
-   //        if (user == null)
-   //        {
-   //            return null;
-   //        }
-   //        return user;
-   //    }
-   //    catch (Exception)
-   //    {
+                if (user == null)
+                {
+                    return null;
+                }
+                return user;
+            }
+            catch (Exception)
+            {
 
-   //        throw new Exception();
-   //    }
-   //}
+                throw new Exception();
+            }
+        }
 
 
         public async Task<bool> IsUserInDBByEmail(string email)

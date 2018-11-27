@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PL.ViewModel;
 
 namespace PL.View
 {
@@ -20,9 +21,17 @@ namespace PL.View
     /// </summary>
     public partial class StatisticView : UserControl
     {
+
+        private StatisticVM _viewModel;
+
+
         public StatisticView()
         {
             InitializeComponent();
+            _viewModel = new StatisticVM();
+            DataContext = _viewModel;
         }
     }
 }
+
+
