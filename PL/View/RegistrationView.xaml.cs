@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace PL.View
 {
     /// <summary>
-    /// Interaction logic for JoinView.xaml
+    /// Interaction logic for registrationView.xaml
     /// </summary>
-    public partial class JoinView : UserControl
+    public partial class RegistrationView : UserControl
     {
-        public JoinView()
+        public RegistrationView()
         {
             InitializeComponent();
         }

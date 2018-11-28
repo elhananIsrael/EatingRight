@@ -19,12 +19,13 @@ namespace PL.ViewModel
 
         private IEventAggregator _eventAggregator;
 
+        public PL.View.LoginView LoginView { get; set; }
+        public PL.View.RegistrationView RegistrationView { get; set; }
         public PL.View.HomeView HomeView { get; set; }
         public PL.View.AddFoodView AddFoodView { get; set; }
         public PL.View.GoalsView GoalsView { get; set; }
         public PL.View.ProfilView ProfilView { get; set; }
         public PL.View.StatisticView StatisticView { get; set; }
-
 
         private object selectedView;
 
@@ -34,6 +35,10 @@ namespace PL.ViewModel
 
             _eventAggregator = new Prism.Events.EventAggregator();
 
+            _eventAggregator.GetEvent<PL.Events.OpenLoginEvent>()
+              .Subscribe(OpenLogin);
+            _eventAggregator.GetEvent<PL.Events.OpenRegistrationEvent>()
+              .Subscribe(OpenRegistration);
             _eventAggregator.GetEvent<PL.Events.OpenHomeEvent>()
                .Subscribe(OpenHome);
             _eventAggregator.GetEvent<PL.Events.OpenAddFoodEvent>()
@@ -47,6 +52,10 @@ namespace PL.ViewModel
             _eventAggregator.GetEvent<PL.Events.LogoutEvent>()
                .Subscribe(MakeLogout);
 
+
+            
+            OpenMyLoginCommand = new DelegateCommand<Type>(RunOpenLogin, CanOpen);
+            OpenMyRegistrationCommand = new DelegateCommand<Type>(RunOpenRegistration, CanOpen);
             OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpen);
             OpenMyAddFoodCommand = new DelegateCommand<Type>(RunOpenAddFood, CanOpen);
             OpenMyGoalsCommand = new DelegateCommand<Type>(RunOpenGoals, CanOpen);
@@ -54,19 +63,61 @@ namespace PL.ViewModel
             OpenMyStatisticCommand = new DelegateCommand<Type>(RunOpenStatistic, CanOpen);
             OpenMyLogoutCommand = new DelegateCommand<Type>(RunMakeLogout, CanOpen);
 
-            
 
 
+            LoginView = new LoginView();
             HomeView = new HomeView();          
 
-            SelectedView = HomeView;
+            SelectedView = LoginView;
+            
+            
 
             init();
 
         }
 
 
-
+        
+        private bool isLogoutSelected = true;
+        public bool IsLogoutSelected
+        {
+            get
+            {
+                return isLogoutSelected;
+            }
+            set
+            {
+                isLogoutSelected = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool isHomeSelected = false;
+        public bool IsHomeSelected
+        {
+            get
+            {
+                return isHomeSelected;
+            }
+            set
+            {
+                isHomeSelected = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool isHamburgerMenuEnable = false;
+        public bool IsHamburgerMenuEnable
+        {
+            get
+            {
+                return isHamburgerMenuEnable;
+            }
+            set
+            {
+                isHamburgerMenuEnable = value;
+                OnPropertyChanged();
+            }
+        }
+        
 
         public object SelectedView
         {
@@ -80,12 +131,35 @@ namespace PL.ViewModel
         //////////////////////////// Command Function:
         private bool CanOpen(Type obj)
         {
+           // if(selectedView!=LoginView && selectedView!=RegistrationView)
             return true;
+          //  return false;
+        }
+
+
+        private void RunOpenLogin(Type obj)
+        {
+            _eventAggregator.GetEvent<OpenLoginEvent>().Publish();
+            if (LoginView == null)
+                LoginView = new LoginView();
+            SelectedView = LoginView;
+        }
+
+        private void RunOpenRegistration(Type obj)
+        {
+            _eventAggregator.GetEvent<OpenRegistrationEvent>().Publish();
+            if (RegistrationView == null)
+                RegistrationView = new RegistrationView();
+            SelectedView = RegistrationView;
         }
 
         private void RunOpenHome(Type obj)
         {
             _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
+            if (IsHamburgerMenuEnable == false)
+                IsHamburgerMenuEnable = true;
+            if (HomeView == null)
+                HomeView = new HomeView();
             SelectedView = HomeView;
         }
 
@@ -120,40 +194,76 @@ namespace PL.ViewModel
         private void RunMakeLogout(Type obj)
         {
             _eventAggregator.GetEvent<LogoutEvent>().Publish();
-            SelectedView = null;
+            IsHamburgerMenuEnable = false;
+            SelectedView = LoginView;
+        }
+
+
+
+        private void OpenLogin()
+        {
+            if (IsHamburgerMenuEnable != false)
+                IsHamburgerMenuEnable = false;
+            if (LoginView == null)
+                LoginView = new LoginView();
+            SelectedView = LoginView;
+            IsHomeSelected = false;
+            IsLogoutSelected = true;
+        }
+        private void OpenRegistration()
+        {
+            if (RegistrationView == null)
+                RegistrationView = new RegistrationView();
+            SelectedView = RegistrationView;
+            IsHomeSelected = false;
+            IsLogoutSelected = true;
         }
 
         private void OpenHome()
         {
-           SelectedView = HomeView;
+            if (IsHamburgerMenuEnable == false)
+                IsHamburgerMenuEnable = true;
+            if (HomeView == null)
+                HomeView = new HomeView();
+            SelectedView = HomeView;
+            IsLogoutSelected = false;
+            IsHomeSelected = true;
+            
         }
         private void OpenAddFood()
         {
             if (AddFoodView == null)
                 AddFoodView = new AddFoodView();
             SelectedView = AddFoodView;
+            IsHomeSelected = false;
         }
         private void OpenGoals()
         {
             if (GoalsView == null)
                 GoalsView = new GoalsView();
             SelectedView = GoalsView;
+            IsHomeSelected = false;
         }
         private void OpenProfil()
         {
             if (ProfilView == null)
                 ProfilView = new ProfilView();
             SelectedView = ProfilView;
+            IsHomeSelected = false;
         }
         private void OpenStatistic()
         {
             if (StatisticView == null)
                 StatisticView = new StatisticView();
             SelectedView = StatisticView;
+            IsHomeSelected = false;
         }
         private void MakeLogout()
         {
-            SelectedView = null;
+            IsHamburgerMenuEnable = false;
+            SelectedView = LoginView;
+            IsHomeSelected = false;
+            IsLogoutSelected = true;
         }
 
 
@@ -168,6 +278,8 @@ namespace PL.ViewModel
 
 
         //////////////////////////////////////////// Commands:
+        public ICommand OpenMyLoginCommand { get; set; }
+        public ICommand OpenMyRegistrationCommand { get; set; }
         public ICommand OpenMyHomeCommand { get; set; }
         public ICommand OpenMyGoalsCommand { get; set; }
         public ICommand OpenMyAddFoodCommand { get; set; }

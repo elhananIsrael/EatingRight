@@ -10,26 +10,32 @@ using BL;
 using PL.Events;
 using BE.Entitys;
 
-
 namespace PL.ViewModel
 {
-    class LoginVM:BaseVM
+    class RegistrationVM : BaseVM
     {
 
-        public LoginVM()
+        public RegistrationVM()
         {
-
             myBl = new Bl();
             OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpen);
-            OpenMyRegistrationCommand = new DelegateCommand<Type>(RunOpenRegistration, CanOpen);
+            OpenMyLoginCommand = new DelegateCommand<Type>(RunOpenLogin, CanOpen);
         }
+
         Bl myBl;
 
         private IEventAggregator _eventAggregator;
-
-        public string FirstName { get; set; }
-        public string Password { get; set; }
-
+        private User regUser;
+        public User RegUser
+        {
+            get
+            {
+                if (regUser == null)
+                    regUser = new User();
+                return regUser;
+            }
+            set { regUser = value; }
+        }
 
 
 
@@ -43,21 +49,21 @@ namespace PL.ViewModel
             //  return false;
         }
 
-        private void RunOpenRegistration(Type obj)
+        private void RunOpenLogin(Type obj)
         {
-            _eventAggregator.GetEvent<OpenRegistrationEvent>().Publish();
-           
+            _eventAggregator.GetEvent<OpenLoginEvent>().Publish();
+
         }
 
         private void RunOpenHome(Type obj)
         {
-            _eventAggregator.GetEvent<OpenHomeEvent>().Publish();            
+            _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
         }
 
 
 
         //////////////////////////////////////////// Commands:
-        public ICommand OpenMyRegistrationCommand { get; set; }
+        public ICommand OpenMyLoginCommand { get; set; }
         public ICommand OpenMyHomeCommand { get; set; }
     }
 }

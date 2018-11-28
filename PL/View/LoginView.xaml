@@ -4,9 +4,61 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"             
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        FontFamily="{DynamicResource MaterialDesignFont}" mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Opacity="0.995" >
+    <Grid Width="280" Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Mode="Accent" Padding="6" Height="50">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignTitleTextBlock}">
+                                Sign In
+                </TextBlock>
+            </StackPanel>
+        </materialDesign:ColorZone>
+        <Grid Grid.Row="1" Margin="0 6 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="250" >
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBox 
+                materialDesign:HintAssist.Hint="Email" 
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"  
+                Margin="0 12 0 0"
+                Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                />
+            <PasswordBox
+                Grid.Row="1"
+                x:Name="PasswordBox"
+                materialDesign:HintAssist.Hint="Password"
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+            <!-- assist:PasswordBoxAssistant.BindPassword="True"
+                assist:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />-->
+
+
+
+
+            <Button Grid.Row="3"  
+                    Style="{StaticResource MaterialDesignFlatButton}" 
+                    Command="{Binding OpenMyHomeCommand}" 
+                    Margin="0 12 0 0"
+                    >
+                Log In
+            </Button>
+        </Grid>
+        <Button Grid.Row="2" Style="{StaticResource MaterialDesignFloatingActionButton}" Command="{Binding OpenMyRegistrationCommand}"  Width="50" Height="50" ToolTip="Registration" Margin="0,42,50,10" HorizontalAlignment="Right">
+            <materialDesign:PackIcon Kind="Register" />
+        </Button>
     </Grid>
 </UserControl>

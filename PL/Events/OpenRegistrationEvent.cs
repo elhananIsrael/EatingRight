@@ -7,11 +7,7 @@ using Prism.Events;
 
 namespace PL.Events
 {
-    class OpenJoinEvent : PubSubEvent
+    class OpenRegistrationEvent: PubSubEvent
     {
     }
 }
-
-
-
-
