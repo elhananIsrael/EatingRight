@@ -16,9 +16,11 @@ namespace PL.ViewModel
     class GoalsVM:BaseVM
     {
 
-        public GoalsVM()
+        public GoalsVM(IEventAggregator eventAggregator)
         {
-            _eventAggregator = new Prism.Events.EventAggregator();
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
+              .Subscribe(updateDetails);
 
             myBl = new Bl();
             updateMyGoal();
@@ -113,6 +115,11 @@ namespace PL.ViewModel
             var tempGoal = await myBl.GetGoal(myGoal.Date);
             if (tempGoal != null)
                 MyGoal = tempGoal;
+        }
+
+        public async void updateDetails()
+        {
+            await updateMyGoal();
         }
 
         //////////////////////////////////////////// Commands:

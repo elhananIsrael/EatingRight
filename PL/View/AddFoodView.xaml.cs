@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL.ViewModel;
+using Prism.Events;
+using Prism.Commands;
 
 namespace PL.View
 {
@@ -24,10 +26,10 @@ namespace PL.View
 
         private AddFoodVM _viewModel;
 
-        public AddFoodView()
+        public AddFoodView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
-            _viewModel = new AddFoodVM();
+            _viewModel = new AddFoodVM(eventAggregator);
             DataContext = _viewModel;
         }
 

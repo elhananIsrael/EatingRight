@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL.ViewModel;
+using Prism.Events;
+using Prism.Commands;
 
 namespace PL.View
 {
@@ -25,10 +27,10 @@ namespace PL.View
         private ProfilVM _viewModel;
 
 
-        public ProfilView()
+        public ProfilView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
-            _viewModel = new ProfilVM();
+            _viewModel = new ProfilVM(eventAggregator);
             DataContext = _viewModel;
         }
     }

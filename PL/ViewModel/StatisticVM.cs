@@ -15,16 +15,18 @@ namespace PL.ViewModel
 {
     class StatisticVM:BaseVM
     {
-        public StatisticVM()
+        public StatisticVM(IEventAggregator eventAggregator)
         {
-            // _eventAggregator = new Prism.Events.EventAggregator();
 
+            _eventAggregator = eventAggregator;
             myBl = new Bl();
-           // updateMyPercentageGoal();
+            _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
+              .Subscribe(updateDetails);
+
         }
 
 
-       
+        private IEventAggregator _eventAggregator;
         public Bl myBl;
        // private IEventAggregator _eventAggregator;
 
@@ -100,13 +102,12 @@ namespace PL.ViewModel
             if (tempGoal != null)
                 myPercentageGoal = tempGoal;
             OnPropertyChanged("MyPercentageGoal");
-          
-
-
-
         }
 
-
+     public async void updateDetails()
+        {
+            await updateMyPercentageGoal();
+        }
 
     }
 }

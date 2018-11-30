@@ -15,11 +15,15 @@ namespace PL.ViewModel
 {
     class ProfilVM:BaseVM
     {
-        public ProfilVM()
+        public ProfilVM(IEventAggregator eventAggregator)
         {
-           // _eventAggregator = new Prism.Events.EventAggregator();
-
+            _eventAggregator = eventAggregator;
             myBl = new Bl();
+            
+
+            _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
+             .Subscribe(updateDetails);
+
             updateMyCurrentUser();
         }
        
@@ -34,7 +38,8 @@ namespace PL.ViewModel
             set {
                 if (value != null)
                     myCurrentUser = value;
-                OnPropertyChanged();
+                OnPropertyChanged("MyCurrentUser");
+                OnPropertyChanged("MyUserBirth");
             }
             
         }
@@ -55,6 +60,11 @@ namespace PL.ViewModel
         }
 
 
+
+        public async void updateDetails()
+        {
+            await updateMyCurrentUser();
+        }
     }
 }
 

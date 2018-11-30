@@ -23,9 +23,9 @@ namespace PL.ViewModel
 {
     class AddFoodVM:BaseVM
     {
-        public AddFoodVM()
+        public AddFoodVM(IEventAggregator eventAggregator)
         {
-            _eventAggregator = new Prism.Events.EventAggregator();
+            _eventAggregator = eventAggregator;
 
             myBl = new Bl();
 
@@ -262,18 +262,12 @@ namespace PL.ViewModel
 
         }
 
-     
-         
 
+        public async void updateDetails()
+        {
+            await updateMyMeal();
+        }
 
-
-
-
-
-
-        
-
-           
 
 
         //////////////////////////////////////////// Commands:

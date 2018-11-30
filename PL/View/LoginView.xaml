@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:PasswordHelper="clr-namespace:PL.Tools"
              xmlns:local="clr-namespace:PL.View"
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -36,13 +37,14 @@
                 materialDesign:HintAssist.Hint="Email" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"  
                 Margin="0 12 0 0"
-                Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                />
-            <PasswordBox
-                Grid.Row="1"
-                x:Name="PasswordBox"
-                materialDesign:HintAssist.Hint="Password"
-                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <PasswordBox Grid.Row="1" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"   
+                         x:Name="PasswordBox" PasswordHelper:PasswordBoxAssistant.BindPassword="true"  PasswordHelper:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+
+
+
             <!-- assist:PasswordBoxAssistant.BindPassword="True"
                 assist:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />-->
 
@@ -51,9 +53,8 @@
 
             <Button Grid.Row="3"  
                     Style="{StaticResource MaterialDesignFlatButton}" 
-                    Command="{Binding OpenMyHomeCommand}" 
-                    Margin="0 12 0 0"
-                    >
+                    Command="{Binding OpenMyHomeCommand, UpdateSourceTrigger=PropertyChanged}" 
+                    Margin="0 12 0 0"   >
                 Log In
             </Button>
         </Grid>

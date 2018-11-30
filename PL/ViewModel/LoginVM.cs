@@ -16,19 +16,46 @@ namespace PL.ViewModel
     class LoginVM:BaseVM
     {
 
-        public LoginVM()
+        public LoginVM(IEventAggregator eventAggregator)
         {
-
+            _eventAggregator = eventAggregator;
             myBl = new Bl();
-            OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpen);
-            OpenMyRegistrationCommand = new DelegateCommand<Type>(RunOpenRegistration, CanOpen);
+            OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpenHome);
+            OpenMyRegistrationCommand = new DelegateCommand<Type>(RunOpenRegistration, CanOpenRegistration);
         }
         Bl myBl;
 
         private IEventAggregator _eventAggregator;
 
-        public string FirstName { get; set; }
-        public string Password { get; set; }
+        private string email = "";
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                email = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)OpenMyHomeCommand).RaiseCanExecuteChanged();
+            }
+        }
+        private string password;
+        public string Password
+        {
+            get
+            {
+                return password;
+            }
+            set
+            {
+                password = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)OpenMyHomeCommand).RaiseCanExecuteChanged();
+
+            }
+        }
 
 
 
@@ -36,11 +63,18 @@ namespace PL.ViewModel
         //////////////////////////////////////////// Function:
 
         //////////////////////////// Command Function:
-        private bool CanOpen(Type obj)
+        private bool CanOpenHome(Type obj)
         {
-            // if(selectedView!=LoginView && selectedView!=RegistrationView)
-            return true;
+            if (!string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password))
+                return true;
+            else return false;
+
             //  return false;
+        }
+
+        private bool CanOpenRegistration(Type obj)
+        {
+            return true;
         }
 
         private void RunOpenRegistration(Type obj)
@@ -49,9 +83,15 @@ namespace PL.ViewModel
            
         }
 
-        private void RunOpenHome(Type obj)
+        private async void RunOpenHome(Type obj)
         {
-            _eventAggregator.GetEvent<OpenHomeEvent>().Publish();            
+            var user = await myBl.GetUserByEmail(email);
+            if (user != null && user.Email == Email && user.Password == password)
+            {
+                await myBl.SetCurrentUser(Email);
+                _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
+                _eventAggregator.GetEvent<UpdateUserEvent>().Publish();
+            }
         }
 
 

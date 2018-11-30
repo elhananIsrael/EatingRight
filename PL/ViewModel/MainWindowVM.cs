@@ -35,6 +35,8 @@ namespace PL.ViewModel
 
             _eventAggregator = new Prism.Events.EventAggregator();
 
+            _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
+             .Subscribe(updateDetails);
             _eventAggregator.GetEvent<PL.Events.OpenLoginEvent>()
               .Subscribe(OpenLogin);
             _eventAggregator.GetEvent<PL.Events.OpenRegistrationEvent>()
@@ -65,7 +67,7 @@ namespace PL.ViewModel
 
 
 
-            LoginView = new LoginView();
+            LoginView = new LoginView(_eventAggregator);
             HomeView = new HomeView();          
 
             SelectedView = LoginView;
@@ -141,7 +143,7 @@ namespace PL.ViewModel
         {
             _eventAggregator.GetEvent<OpenLoginEvent>().Publish();
             if (LoginView == null)
-                LoginView = new LoginView();
+                LoginView = new LoginView(_eventAggregator);
             SelectedView = LoginView;
         }
 
@@ -149,7 +151,7 @@ namespace PL.ViewModel
         {
             _eventAggregator.GetEvent<OpenRegistrationEvent>().Publish();
             if (RegistrationView == null)
-                RegistrationView = new RegistrationView();
+                RegistrationView = new RegistrationView(_eventAggregator);
             SelectedView = RegistrationView;
         }
 
@@ -167,28 +169,28 @@ namespace PL.ViewModel
         {
             _eventAggregator.GetEvent<OpenAddFoodEvent>().Publish();
             if (AddFoodView == null)
-                AddFoodView = new AddFoodView();
+                AddFoodView = new AddFoodView(_eventAggregator);
             SelectedView = AddFoodView;
         }
         private void RunOpenGoals(Type obj)
         {
             _eventAggregator.GetEvent<OpenGoalsEvent>().Publish();
             if (GoalsView == null)
-                GoalsView = new GoalsView();
+                GoalsView = new GoalsView(_eventAggregator);
             SelectedView = GoalsView;
         }
         private void RunOpenProfil(Type obj)
         {
             _eventAggregator.GetEvent<OpenProfilEvent>().Publish();
             if (ProfilView == null)
-                ProfilView = new ProfilView();
+                ProfilView = new ProfilView(_eventAggregator);
             SelectedView = ProfilView;
         }
         private void RunOpenStatistic(Type obj)
         {
             _eventAggregator.GetEvent<OpenStatisticEvent>().Publish();
             if (StatisticView == null)
-                StatisticView = new StatisticView();
+                StatisticView = new StatisticView(_eventAggregator);
             SelectedView = StatisticView;
         }
         private void RunMakeLogout(Type obj)
@@ -205,7 +207,7 @@ namespace PL.ViewModel
             if (IsHamburgerMenuEnable != false)
                 IsHamburgerMenuEnable = false;
             if (LoginView == null)
-                LoginView = new LoginView();
+                LoginView = new LoginView(_eventAggregator);
             SelectedView = LoginView;
             IsHomeSelected = false;
             IsLogoutSelected = true;
@@ -213,7 +215,7 @@ namespace PL.ViewModel
         private void OpenRegistration()
         {
             if (RegistrationView == null)
-                RegistrationView = new RegistrationView();
+                RegistrationView = new RegistrationView(_eventAggregator);
             SelectedView = RegistrationView;
             IsHomeSelected = false;
             IsLogoutSelected = true;
@@ -233,28 +235,28 @@ namespace PL.ViewModel
         private void OpenAddFood()
         {
             if (AddFoodView == null)
-                AddFoodView = new AddFoodView();
+                AddFoodView = new AddFoodView(_eventAggregator);
             SelectedView = AddFoodView;
             IsHomeSelected = false;
         }
         private void OpenGoals()
         {
             if (GoalsView == null)
-                GoalsView = new GoalsView();
+                GoalsView = new GoalsView(_eventAggregator);
             SelectedView = GoalsView;
             IsHomeSelected = false;
         }
         private void OpenProfil()
         {
             if (ProfilView == null)
-                ProfilView = new ProfilView();
+                ProfilView = new ProfilView(_eventAggregator);
             SelectedView = ProfilView;
             IsHomeSelected = false;
         }
         private void OpenStatistic()
         {
             if (StatisticView == null)
-                StatisticView = new StatisticView();
+                StatisticView = new StatisticView(_eventAggregator);
             SelectedView = StatisticView;
             IsHomeSelected = false;
         }
@@ -268,13 +270,15 @@ namespace PL.ViewModel
 
 
         private async Task init()
-        {
-
-           await myBl.AddUser(new BE.Entitys.User("myMail"));
-           await myBl.SetCurrentUser("myMail");
+        {          
 
         }
 
+
+       public void updateDetails()
+        {
+
+        }
 
 
         //////////////////////////////////////////// Commands:

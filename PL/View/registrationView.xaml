@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:PasswordHelper="clr-namespace:PL.Tools"
              xmlns:local="clr-namespace:PL.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" >
@@ -51,7 +52,7 @@
                         Grid.Row="2"
                         materialDesign:HintAssist.Hint="Birth Date"
                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                        SelectedDate="{Binding BirthDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        SelectedDate="{Binding BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      Grid.Row="4" 
                      materialDesign:HintAssist.Hint="Email" 
@@ -62,15 +63,18 @@
                          Grid.Row="5" materialDesign:HintAssist.Hint="Password" 
                          materialDesign:HintAssist.IsFloating="True" 
                          Margin="0 12 0 0"
-                         />
+                         x:Name="PasswordBox" PasswordHelper:PasswordBoxAssistant.BindPassword="true"  PasswordHelper:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+           
             <TextBox materialDesign:HintAssist.Hint="Weight" 
                      materialDesign:HintAssist.IsFloating="True" 
-                         Grid.Row="3"                          
-                         Margin="0 12 0 0"
-                        />
+                     Grid.Row="3"                          
+                     Margin="0 12 0 0"
+                     Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>           
+                       
             <Button Grid.Row="6" 
                     Style="{StaticResource MaterialDesignFlatButton}" 
-                    Command="{Binding OpenMyHomeCommand}" 
+                    Command="{Binding OpenMyHomeCommand, UpdateSourceTrigger=PropertyChanged}" 
                     Margin="0 12 0 0" >
                 Create And Login
             </Button>

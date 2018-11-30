@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PL.ViewModel;
+using Prism.Events;
+using Prism.Commands;
 
 namespace PL.View
 {
@@ -20,9 +23,13 @@ namespace PL.View
     /// </summary>
     public partial class LoginView : UserControl
     {
-        public LoginView()
+        private LoginVM _viewModel;
+
+        public LoginView(IEventAggregator eventAggregator )
         {
             InitializeComponent();
+            _viewModel = new LoginVM(eventAggregator);
+            DataContext = _viewModel;
         }
     }
 }

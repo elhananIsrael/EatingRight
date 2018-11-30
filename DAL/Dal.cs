@@ -106,8 +106,8 @@ namespace DAL
                 using (var db = new EatingRightDBContext())
                 {
 
-                    var isExistUserEmail = await GetCurrentUserEmail();
-            if (isExistUserEmail == null)
+                    var isExistUserEmail = await IsUserInDBByEmail(user.Email);
+            if (!isExistUserEmail)
                         db.Users.Add(user);
 
             await db.SaveChangesAsync();
@@ -253,7 +253,9 @@ namespace DAL
         public async Task<bool> IsUserInDBByEmail(string email)
         {
              var isExist= await  myDb.Users.Where(a=> a.Email==email).FirstOrDefaultAsync();
-            return !isExist.Equals(null);
+            if (isExist == null)
+                return false;
+            else return true;
         }
 
         public async Task SetCurrentUser(string email)

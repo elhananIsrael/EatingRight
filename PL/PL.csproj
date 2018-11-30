@@ -105,12 +105,13 @@
     <Compile Include="Events\OpenProfilEvent.cs" />
     <Compile Include="Events\OpenRegistrationEvent.cs" />
     <Compile Include="Events\OpenStatisticEvent.cs" />
+    <Compile Include="Events\UpdateUserEvent.cs" />
     <Compile Include="Model\UsersModel.cs" />
+    <Compile Include="Tools\PasswordBoxAssistant.cs" />
     <Compile Include="ViewModel\AddFoodVM.cs" />
     <Compile Include="ViewModel\BaseVM.cs" />
     <Compile Include="ViewModel\GoalsVM.cs" />
     <Compile Include="ViewModel\HomeVM.cs" />
-    <Compile Include="ViewModel\JoinVM.cs" />
     <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\ProfilVM.cs" />

@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL.ViewModel;
+using Prism.Events;
+using Prism.Commands;
 
 namespace PL.View
 {
@@ -25,10 +27,10 @@ namespace PL.View
         private StatisticVM _viewModel;
 
 
-        public StatisticView()
+        public StatisticView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
-            _viewModel = new StatisticVM();
+            _viewModel = new StatisticVM(eventAggregator);
             DataContext = _viewModel;
         }
     }

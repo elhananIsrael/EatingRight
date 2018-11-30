@@ -15,49 +15,155 @@ namespace PL.ViewModel
     class RegistrationVM : BaseVM
     {
 
-        public RegistrationVM()
+        public RegistrationVM(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             myBl = new Bl();
-            OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpen);
-            OpenMyLoginCommand = new DelegateCommand<Type>(RunOpenLogin, CanOpen);
+            OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpenHome);
+            OpenMyLoginCommand = new DelegateCommand<Type>(RunOpenLogin, CanOpenLogin);
         }
 
         Bl myBl;
 
         private IEventAggregator _eventAggregator;
+               
         private User regUser;
-        public User RegUser
+
+        public string FirstName
         {
             get
             {
                 if (regUser == null)
                     regUser = new User();
-                return regUser;
+                return regUser.FirstName;
             }
-            set { regUser = value; }
+            set
+            {
+                regUser.FirstName = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)OpenMyHomeCommand).RaiseCanExecuteChanged();
+
+            }
+        }
+
+        public string LastName
+        {
+            get
+            {
+                if (regUser == null)
+                    regUser = new User();
+                return regUser.LastName;
+            }
+            set
+            {
+                regUser.LastName = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)OpenMyHomeCommand).RaiseCanExecuteChanged();
+
+            }
         }
 
 
+        public string Email
+        {
+            get
+            {
+                if (regUser == null)
+                    regUser = new User();
+                return regUser.Email;
+            }
+            set
+            {
+                regUser.Email = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)OpenMyHomeCommand).RaiseCanExecuteChanged();
+
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                if (regUser == null)
+                    regUser = new User();
+                return regUser.Password;
+            }
+            set
+            {
+                regUser.Password = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)OpenMyHomeCommand).RaiseCanExecuteChanged();
+
+            }
+        }
+
+        public DateTime BirthDate
+        {
+            get
+            {
+                if (regUser == null)
+                    regUser = new User();
+                return regUser.BirthDate;
+            }
+            set
+            {
+                regUser.BirthDate = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)OpenMyHomeCommand).RaiseCanExecuteChanged();
+
+            }
+        }
+
+        public double? Weight
+        {
+            get
+            {
+                if (regUser == null)
+                    regUser = new User();
+                return regUser.Weight;
+            }
+            set
+            {
+                regUser.Weight = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)OpenMyHomeCommand).RaiseCanExecuteChanged();
+
+            }
+        }
+        
 
         //////////////////////////////////////////// Function:
 
         //////////////////////////// Command Function:
-        private bool CanOpen(Type obj)
+        private bool CanOpenHome(Type obj)
         {
-            // if(selectedView!=LoginView && selectedView!=RegistrationView)
+            if (!string.IsNullOrEmpty(regUser.Email) && !string.IsNullOrEmpty(regUser.Password) &&
+                !string.IsNullOrEmpty(regUser.FirstName) && !string.IsNullOrEmpty(regUser.LastName) &&
+                regUser.Weight!=null && regUser.Weight != 0)
+                return true;
+            else return false;
+        }
+
+
+        private bool CanOpenLogin(Type obj)
+        {
             return true;
-            //  return false;
         }
 
         private void RunOpenLogin(Type obj)
         {
+          
             _eventAggregator.GetEvent<OpenLoginEvent>().Publish();
 
         }
 
-        private void RunOpenHome(Type obj)
+        private async void RunOpenHome(Type obj)
         {
+            await myBl.AddUser(regUser);
+            await myBl.SetCurrentUser(regUser.Email);
             _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
+            _eventAggregator.GetEvent<UpdateUserEvent>().Publish();
         }
 
 

@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PL.ViewModel;
+using PL.ViewModel;
+using Prism.Events;
+
 
 namespace PL.View
 {
@@ -20,9 +24,13 @@ namespace PL.View
     /// </summary>
     public partial class RegistrationView : UserControl
     {
-        public RegistrationView()
+        private RegistrationVM _viewModel;
+
+        public RegistrationView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
+            _viewModel = new RegistrationVM(eventAggregator);
+            DataContext = _viewModel;
         }
     }
 }

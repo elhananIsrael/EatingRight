@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Prism.Events;
 
-namespace PL.ViewModel
+namespace PL.Events
 {
-    class JoinVM
+    class UpdateUserEvent : PubSubEvent
     {
     }
 }
