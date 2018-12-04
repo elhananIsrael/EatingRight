@@ -107,6 +107,8 @@
     <Compile Include="Events\OpenStatisticEvent.cs" />
     <Compile Include="Events\UpdateUserEvent.cs" />
     <Compile Include="Model\UsersModel.cs" />
+    <Compile Include="Tools\IMyMessageDialog.cs" />
+    <Compile Include="Tools\MyMessageDialog.cs" />
     <Compile Include="Tools\PasswordBoxAssistant.cs" />
     <Compile Include="ViewModel\AddFoodVM.cs" />
     <Compile Include="ViewModel\BaseVM.cs" />
@@ -275,6 +277,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icons\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\apple_nutrition.png" />
+    <Resource Include="icons\apple_nutrition_B.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

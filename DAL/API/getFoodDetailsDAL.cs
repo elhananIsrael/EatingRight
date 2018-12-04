@@ -9,6 +9,7 @@ using RapidAPISDK;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using BE.Entitys;
+using System.Reflection;
 
 namespace DAL.API
 {
@@ -96,12 +97,21 @@ namespace DAL.API
                                                          getFoodsNutrientsJsonResults.Success[0].Foods[0].NfProtein,
                                                          getFoodsNutrientsJsonResults.Success[0].Foods[0].NfSodium,
                                                          getFoodsNutrientsJsonResults.Success[0].Foods[0].NfSugars
+
                                                        )
                                          );
                     }
 
                     
                 }
+
+                if(nutritionArr.Count>0)
+                foreach (PropertyInfo p in nutritionArr[0].GetType().GetProperties())
+                {
+                    if (p.GetValue(nutritionArr[0]) == null)
+                        p.SetValue(nutritionArr[0], 0.00, null);
+                }
+
                 return nutritionArr[0];
             }
             catch (RapidAPIServerException e)

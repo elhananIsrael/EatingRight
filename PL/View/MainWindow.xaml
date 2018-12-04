@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.View.MainWindow"        
+﻿<Controls:MetroWindow x:Class="PL.View.MainWindow"        
         xmlns:local="clr-namespace:PL.View"
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,13 +7,16 @@
         mc:Ignorable="d"
         xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:MahControls="http://metro.mahapps.com/winfx/xaml/controls"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        FontFamily="{DynamicResource MaterialDesignFont}"        
- Title="Eating Right" Height="580.939" Width="1119.243" ResizeMode="NoResize" WindowStyle="ToolWindow" AllowsTransparency="False" x:Name="this_">
+        TextOptions.TextRenderingMode="Auto" 
+        FontFamily="{DynamicResource MaterialDesignFont}" 
+        Icon="/icons/apple_nutrition.png"                     
+ Title="Eating Right"  Height="580.939" Width="1119.243" ResizeMode="NoResize" WindowStyle="ToolWindow" AllowsTransparency="False" x:Name="this_">
     <Grid>           
         <Grid.Background>
             <ImageBrush ImageSource="/images/nutrition8.jpg" />
@@ -30,6 +33,6 @@
         </HamburgerMenu:HamburgerMenu>
 
     </Grid>
-</Window>
+</Controls:MetroWindow>
 
         

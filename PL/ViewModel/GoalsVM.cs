@@ -10,15 +10,17 @@ using PL.Events;
 using PL.View;
 using BL;
 using BE.Entitys;
+using PL.Tools;
 
 namespace PL.ViewModel
 {
     class GoalsVM:BaseVM
     {
 
-        public GoalsVM(IEventAggregator eventAggregator)
+        public GoalsVM(IEventAggregator eventAggregator, IMyMessageDialog myMessageDialog)
         {
             _eventAggregator = eventAggregator;
+            _myMessageDialog = myMessageDialog;
             _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
               .Subscribe(updateDetails);
 
@@ -30,7 +32,9 @@ namespace PL.ViewModel
 
         public Bl myBl;
         private IEventAggregator _eventAggregator;
-      
+        private IMyMessageDialog _myMessageDialog;
+        //private IMessageDialogService _messageDialogService;
+
         private Goal myGoal;
         
 
@@ -94,18 +98,28 @@ namespace PL.ViewModel
 
         private async Task SaveGoal()
         {
-            Goal temp = new Goal();
-            temp.Date = myGoal.Date;
-            temp.Calories = myGoal.Calories;
-            temp.Carbohydrate = myGoal.Carbohydrate;
-            temp.Fat = myGoal.Fat;
-            temp.Protein = myGoal.Protein;
-            temp.Sodium = myGoal.Sodium;
-            temp.Sugar = myGoal.Sugar;
-            myGoal = temp;
+            try
+            {
+                Goal temp = new Goal();
+                temp.Date = myGoal.Date;
+                temp.Calories = myGoal.Calories;
+                temp.Carbohydrate = myGoal.Carbohydrate;
+                temp.Fat = myGoal.Fat;
+                temp.Protein = myGoal.Protein;
+                temp.Sodium = myGoal.Sodium;
+                temp.Sugar = myGoal.Sugar;
+                // myGoal = temp;
 
-            await myBl.AddGoal(myGoal);
-            OnPropertyChanged();
+                await myBl.AddGoal(temp);
+                await _myMessageDialog.ShowInfoDialogAsync("Goal Saved!");
+                OnPropertyChanged();
+            }
+            catch(Exception ex)
+            {
+                // await messagedialoge.ShowInfoDialogAsync("Error The Goal not Save Please contact the administrator");
+                updateMyGoal();
+                await _myMessageDialog.ShowInfoDialogAsync(ex.Message);
+            }
         }
 
         public async Task updateMyGoal()
@@ -119,7 +133,7 @@ namespace PL.ViewModel
 
         public async void updateDetails()
         {
-            await updateMyGoal();
+            //await updateMyGoal();
         }
 
         //////////////////////////////////////////// Commands:

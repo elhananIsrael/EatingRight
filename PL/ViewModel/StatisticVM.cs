@@ -10,15 +10,17 @@ using PL.Events;
 using PL.View;
 using BE.Entitys;
 using BL;
+using PL.Tools;
 
 namespace PL.ViewModel
 {
     class StatisticVM:BaseVM
     {
-        public StatisticVM(IEventAggregator eventAggregator)
+        public StatisticVM(IEventAggregator eventAggregator, IMyMessageDialog myMessageDialog)
         {
 
             _eventAggregator = eventAggregator;
+            _myMessageDialog = myMessageDialog;
             myBl = new Bl();
             _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
               .Subscribe(updateDetails);
@@ -27,6 +29,7 @@ namespace PL.ViewModel
 
 
         private IEventAggregator _eventAggregator;
+        private IMyMessageDialog _myMessageDialog;
         public Bl myBl;
        // private IEventAggregator _eventAggregator;
 
@@ -106,7 +109,7 @@ namespace PL.ViewModel
 
      public async void updateDetails()
         {
-            await updateMyPercentageGoal();
+           // await updateMyPercentageGoal();
         }
 
     }

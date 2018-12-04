@@ -9,6 +9,7 @@ using Prism.Commands;
 using BL;
 using PL.Events;
 using BE.Entitys;
+using PL.Tools;
 
 
 namespace PL.ViewModel
@@ -16,9 +17,10 @@ namespace PL.ViewModel
     class LoginVM:BaseVM
     {
 
-        public LoginVM(IEventAggregator eventAggregator)
+        public LoginVM(IEventAggregator eventAggregator, IMyMessageDialog myMessageDialog)
         {
             _eventAggregator = eventAggregator;
+            _myMessageDialog = myMessageDialog;
             myBl = new Bl();
             OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpenHome);
             OpenMyRegistrationCommand = new DelegateCommand<Type>(RunOpenRegistration, CanOpenRegistration);
@@ -26,6 +28,7 @@ namespace PL.ViewModel
         Bl myBl;
 
         private IEventAggregator _eventAggregator;
+        private IMyMessageDialog _myMessageDialog;
 
         private string email = "";
         public string Email
@@ -85,12 +88,26 @@ namespace PL.ViewModel
 
         private async void RunOpenHome(Type obj)
         {
+            try{ 
             var user = await myBl.GetUserByEmail(email);
-            if (user != null && user.Email == Email && user.Password == password)
+                
+                if (user == null)
+                    await _myMessageDialog.ShowInfoDialogAsync("Invalid user!");
+                else
+                {
+                    var loginEmail = email.ToLower();
+                    var userEmail = user.Email.ToLower();
+                    if (user != null && loginEmail == userEmail && user.Password == password)
+                    {
+                        await myBl.SetCurrentUser(user.Email);
+                        _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
+                        _eventAggregator.GetEvent<UpdateUserEvent>().Publish();
+                    }
+                }
+            }
+            catch (Exception e)
             {
-                await myBl.SetCurrentUser(Email);
-                _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
-                _eventAggregator.GetEvent<UpdateUserEvent>().Publish();
+                await _myMessageDialog.ShowInfoDialogAsync(e.Message);
             }
         }
 

@@ -10,14 +10,16 @@ using PL.Events;
 using PL.View;
 using BL;
 using BE.Entitys;
+using PL.Tools;
 
 namespace PL.ViewModel
 {
     class ProfilVM:BaseVM
     {
-        public ProfilVM(IEventAggregator eventAggregator)
+        public ProfilVM(IEventAggregator eventAggregator, IMyMessageDialog myMessageDialog)
         {
             _eventAggregator = eventAggregator;
+            _myMessageDialog = myMessageDialog;
             myBl = new Bl();
             
 
@@ -30,6 +32,7 @@ namespace PL.ViewModel
 
         public Bl myBl;
         private IEventAggregator _eventAggregator;
+        private IMyMessageDialog _myMessageDialog;
 
         private User myCurrentUser;
 
@@ -63,7 +66,7 @@ namespace PL.ViewModel
 
         public async void updateDetails()
         {
-            await updateMyCurrentUser();
+            //await updateMyCurrentUser();
         }
     }
 }

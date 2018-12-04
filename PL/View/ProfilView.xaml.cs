@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using PL.ViewModel;
 using Prism.Events;
 using Prism.Commands;
+using PL.Tools;
 
 namespace PL.View
 {
@@ -27,10 +28,10 @@ namespace PL.View
         private ProfilVM _viewModel;
 
 
-        public ProfilView(IEventAggregator eventAggregator)
+        public ProfilView(IEventAggregator eventAggregator , IMyMessageDialog myMessageDialog)
         {
             InitializeComponent();
-            _viewModel = new ProfilVM(eventAggregator);
+            _viewModel = new ProfilVM(eventAggregator, myMessageDialog);
             DataContext = _viewModel;
         }
     }

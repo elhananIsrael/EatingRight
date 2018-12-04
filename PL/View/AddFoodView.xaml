@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL.View"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:MahControls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -64,9 +66,9 @@
         </StackPanel>
         <Button  Grid.Row="3" Content="Add Selected Food"   Height="Auto" Margin="38,10,36,30" Grid.Column="1" Command="{Binding AddSelectedFoodCommand, UpdateSourceTrigger=PropertyChanged}" />
         <Label  Grid.Row="1" Content="My Food Today" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="2"  Background="WhiteSmoke" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"  Height="50" Width="246" Margin="78,0,58,0"  />
-
+        <!--SelectedItem="{Binding SelectedMyFood}"-->
         <StackPanel  Grid.Row="2" Grid.RowSpan="3" CanVerticallyScroll="True" Grid.Column="2" Margin="10,0,30,10" >
-            <DataGrid  Grid.Row="2" Grid.Column="2" x:Name="data2" ItemsSource="{Binding MyFoodToday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <DataGrid  Grid.Row="2" Grid.Column="2" x:Name="data2"   ItemsSource="{Binding MyFoodToday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   CanUserSortColumns="True"
                   SelectionMode="Single" SelectionUnit="FullRow"
                   IsReadOnly="True"

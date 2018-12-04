@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using PL.ViewModel;
 
 namespace PL.View
@@ -18,14 +20,14 @@ namespace PL.View
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private MainWindowVM _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-            _viewModel = new MainWindowVM();           
+            _viewModel = new MainWindowVM();
             DataContext = _viewModel;
         }
 

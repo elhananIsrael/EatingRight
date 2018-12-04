@@ -16,6 +16,7 @@ using BE.function;
 using BL;
 using System.Collections.ObjectModel;
 using BL;
+using PL.Tools;
 
 
 
@@ -23,9 +24,10 @@ namespace PL.ViewModel
 {
     class AddFoodVM:BaseVM
     {
-        public AddFoodVM(IEventAggregator eventAggregator)
+        public AddFoodVM(IEventAggregator eventAggregator, IMyMessageDialog myMessageDialog)
         {
             _eventAggregator = eventAggregator;
+            _myMessageDialog = myMessageDialog;
 
             myBl = new Bl();
 
@@ -34,6 +36,7 @@ namespace PL.ViewModel
             MySearchFood = new ObservableCollection<FoodItem>();
             MyFoodToday = new ObservableCollection<FoodItem>();
             SelectedSearchFood =new FoodItem();
+            selectedMyFood = new FoodItem();
             
            // myDate = DateTime.Now;
 
@@ -45,7 +48,9 @@ namespace PL.ViewModel
         public Bl myBl;
       //  public BL.API.getFoodDetailsBL myAPI;
         private IEventAggregator _eventAggregator;
+        private IMyMessageDialog _myMessageDialog;
         private FoodItem selectedSearchFood;
+        private FoodItem selectedMyFood;
         private Meal myMeal;
        // private DateTime myDate;
 
@@ -145,6 +150,7 @@ namespace PL.ViewModel
             //myMeal = tempMeal;
             updateMyFoodToday();
             await myBl.AddMeal(tempMeal);
+            await _myMessageDialog.ShowInfoDialogAsync("Food Added!");
             OnPropertyChanged();
 
         }
@@ -227,6 +233,41 @@ namespace PL.ViewModel
 
             }
         }
+        public FoodItem SelectedMyFood
+        {
+            get
+            {
+                return selectedMyFood;
+            }
+            set
+            {
+                var temp = value;
+                double? num;
+                num = temp.Nutritions.Calories;
+                temp.Nutritions.Calories = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Carbohydrate;
+                temp.Nutritions.Carbohydrate = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Fat;
+                temp.Nutritions.Fat = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Protein;
+                temp.Nutritions.Protein = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Sodium;
+                temp.Nutritions.Sodium = MyFunction.DoubleNumberNotNull(num);
+
+                num = temp.Nutritions.Sugar;
+                temp.Nutritions.Sugar = MyFunction.DoubleNumberNotNull(num);
+                selectedMyFood = temp;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)AddSelectedFoodCommand).RaiseCanExecuteChanged();
+
+
+            }
+        }
+        
 
         public async  Task updateMyMeal()
         {
@@ -265,7 +306,7 @@ namespace PL.ViewModel
 
         public async void updateDetails()
         {
-            await updateMyMeal();
+           // await updateMyMeal();
         }
 
 

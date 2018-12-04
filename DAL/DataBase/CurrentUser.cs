@@ -10,7 +10,16 @@ namespace DAL.DataBase
 {
     public class CurrentUser
     {
+
+        public CurrentUser()
+        {
+            Id = Guid.NewGuid();
+            Email = "";
+        }
         [Key]
+        public Guid Id { get; set; }
+
+     
         public string Email { get; set; }
     }
 }

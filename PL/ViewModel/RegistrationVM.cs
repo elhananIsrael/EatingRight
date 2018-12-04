@@ -9,15 +9,17 @@ using Prism.Commands;
 using BL;
 using PL.Events;
 using BE.Entitys;
+using PL.Tools;
 
 namespace PL.ViewModel
 {
     class RegistrationVM : BaseVM
     {
 
-        public RegistrationVM(IEventAggregator eventAggregator)
+        public RegistrationVM(IEventAggregator eventAggregator, IMyMessageDialog myMessageDialog)
         {
             _eventAggregator = eventAggregator;
+            _myMessageDialog = myMessageDialog;
             myBl = new Bl();
             OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpenHome);
             OpenMyLoginCommand = new DelegateCommand<Type>(RunOpenLogin, CanOpenLogin);
@@ -26,7 +28,8 @@ namespace PL.ViewModel
         Bl myBl;
 
         private IEventAggregator _eventAggregator;
-               
+        private IMyMessageDialog _myMessageDialog;
+
         private User regUser;
 
         public string FirstName

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using PL.ViewModel;
 using Prism.Events;
 using Prism.Commands;
+using PL.Tools;
 
 namespace PL.View
 {
@@ -27,10 +28,10 @@ namespace PL.View
         private StatisticVM _viewModel;
 
 
-        public StatisticView(IEventAggregator eventAggregator)
+        public StatisticView(IEventAggregator eventAggregator, IMyMessageDialog myMessageDialog)
         {
             InitializeComponent();
-            _viewModel = new StatisticVM(eventAggregator);
+            _viewModel = new StatisticVM(eventAggregator, myMessageDialog);
             DataContext = _viewModel;
         }
     }

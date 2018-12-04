@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using PL.ViewModel;
 using PL.ViewModel;
 using Prism.Events;
+using PL.Tools;
 
 
 namespace PL.View
@@ -26,10 +27,10 @@ namespace PL.View
     {
         private RegistrationVM _viewModel;
 
-        public RegistrationView(IEventAggregator eventAggregator)
+        public RegistrationView(IEventAggregator eventAggregator, IMyMessageDialog myMessageDialog)
         {
             InitializeComponent();
-            _viewModel = new RegistrationVM(eventAggregator);
+            _viewModel = new RegistrationVM(eventAggregator, myMessageDialog);
             DataContext = _viewModel;
         }
     }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using PL.ViewModel;
 using Prism.Events;
 using Prism.Commands;
+using PL.Tools;
 
 namespace PL.View
 {
@@ -26,10 +27,10 @@ namespace PL.View
 
         private AddFoodVM _viewModel;
 
-        public AddFoodView(IEventAggregator eventAggregator)
+        public AddFoodView(IEventAggregator eventAggregator , IMyMessageDialog myMessageDialog)
         {
             InitializeComponent();
-            _viewModel = new AddFoodVM(eventAggregator);
+            _viewModel = new AddFoodVM(eventAggregator, myMessageDialog);
             DataContext = _viewModel;
         }
 
