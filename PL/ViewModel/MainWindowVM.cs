@@ -32,6 +32,7 @@ namespace PL.ViewModel
         public PL.View.BodyMeasurementsView BodyMeasurementsView { get; set; }
 
         private object selectedView;
+        bool isLoginNow = false;
 
         public MainWindowVM()
         {
@@ -48,7 +49,7 @@ namespace PL.ViewModel
               .Subscribe(OpenRegistration);
             _eventAggregator.GetEvent<PL.Events.OpenHomeEvent>()
                .Subscribe(OpenHome);
-            _eventAggregator.GetEvent<PL.Events.OpenAddFoodEvent>()
+          /*  _eventAggregator.GetEvent<PL.Events.OpenAddFoodEvent>()
                .Subscribe(OpenAddFood);
             _eventAggregator.GetEvent<PL.Events.OpenGoalsEvent>()
                .Subscribe(OpenGoals);
@@ -59,12 +60,12 @@ namespace PL.ViewModel
             _eventAggregator.GetEvent<PL.Events.OpenStatisticEvent>()
                .Subscribe(OpenStatistic);
             _eventAggregator.GetEvent<PL.Events.LogoutEvent>()
-               .Subscribe(MakeLogout);
+               .Subscribe(MakeLogout);*/
 
 
             
-            OpenMyLoginCommand = new DelegateCommand<Type>(RunOpenLogin, CanOpen);
-            OpenMyRegistrationCommand = new DelegateCommand<Type>(RunOpenRegistration, CanOpen);
+          //  OpenMyLoginCommand = new DelegateCommand<Type>(RunOpenLogin, CanOpen);
+          //  OpenMyRegistrationCommand = new DelegateCommand<Type>(RunOpenRegistration, CanOpen);
             OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpen);
             OpenMyAddFoodCommand = new DelegateCommand<Type>(RunOpenAddFood, CanOpen);
             OpenMyGoalsCommand = new DelegateCommand<Type>(RunOpenGoals, CanOpen);
@@ -147,69 +148,90 @@ namespace PL.ViewModel
         }
 
 
-        private void RunOpenLogin(Type obj)
+      /*  private void RunOpenLogin(Type obj)
         {
             _eventAggregator.GetEvent<OpenLoginEvent>().Publish();
                 LoginView = new LoginView(_eventAggregator, _myMessageDialog);
             SelectedView = LoginView;
-        }
+        }*/
 
-        private void RunOpenRegistration(Type obj)
+      /*  private void RunOpenRegistration(Type obj)
         {
             _eventAggregator.GetEvent<OpenRegistrationEvent>().Publish();
                 RegistrationView = new RegistrationView(_eventAggregator, _myMessageDialog);
             SelectedView = RegistrationView;
-        }
+        }*/
 
         private void RunOpenHome(Type obj)
         {
-            _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
+            OpenHome();
+            /*  _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
             if (IsHamburgerMenuEnable == false)
                 IsHamburgerMenuEnable = true;
             if (HomeView == null)
                 HomeView = new HomeView();
-            SelectedView = HomeView;
+            SelectedView = HomeView;*/
         }
 
         private void RunOpenAddFood(Type obj)
         {
-            _eventAggregator.GetEvent<OpenAddFoodEvent>().Publish();
-                AddFoodView = new AddFoodView(_eventAggregator, _myMessageDialog);
+            AddFoodView = new AddFoodView(_eventAggregator, _myMessageDialog);
             SelectedView = AddFoodView;
+            IsHomeSelected = false;
+            /* _eventAggregator.GetEvent<OpenAddFoodEvent>().Publish();
+                AddFoodView = new AddFoodView(_eventAggregator, _myMessageDialog);
+            SelectedView = AddFoodView;*/
         }
         private void RunOpenGoals(Type obj)
         {
-            _eventAggregator.GetEvent<OpenGoalsEvent>().Publish();
-                GoalsView = new GoalsView(_eventAggregator, _myMessageDialog);
+            GoalsView = new GoalsView(_eventAggregator, _myMessageDialog);
             SelectedView = GoalsView;
+            IsHomeSelected = false;         
+            /* _eventAggregator.GetEvent<OpenGoalsEvent>().Publish();
+                GoalsView = new GoalsView(_eventAggregator, _myMessageDialog);
+            SelectedView = GoalsView;*/
         }
 
 
         private void RunOpenBodyMeasurements(Type obj)
         {
-            _eventAggregator.GetEvent<OpenBodyMeasurementsEvent>().Publish();
             BodyMeasurementsView = new BodyMeasurementsView(_eventAggregator, _myMessageDialog);
             SelectedView = BodyMeasurementsView;
+            IsHomeSelected = false;  
+            /* _eventAggregator.GetEvent<OpenBodyMeasurementsEvent>().Publish();
+            BodyMeasurementsView = new BodyMeasurementsView(_eventAggregator, _myMessageDialog);
+            SelectedView = BodyMeasurementsView;*/
         }
 
         private void RunOpenProfil(Type obj)
         {
-            _eventAggregator.GetEvent<OpenProfilEvent>().Publish();
-                ProfilView = new ProfilView(_eventAggregator, _myMessageDialog);
+            ProfilView = new ProfilView(_eventAggregator, _myMessageDialog);
             SelectedView = ProfilView;
+            IsHomeSelected = false;            /* _eventAggregator.GetEvent<OpenProfilEvent>().Publish();
+                ProfilView = new ProfilView(_eventAggregator, _myMessageDialog);
+            SelectedView = ProfilView;*/
         }
         private void RunOpenStatistic(Type obj)
         {
-            _eventAggregator.GetEvent<OpenStatisticEvent>().Publish();
-                StatisticView = new StatisticView(_eventAggregator, _myMessageDialog);
+            StatisticView = new StatisticView(_eventAggregator, _myMessageDialog);
             SelectedView = StatisticView;
+            IsHomeSelected = false;
+            /* _eventAggregator.GetEvent<OpenStatisticEvent>().Publish();
+                StatisticView = new StatisticView(_eventAggregator, _myMessageDialog);
+            SelectedView = StatisticView;*/
         }
         private void RunMakeLogout(Type obj)
         {
-            _eventAggregator.GetEvent<LogoutEvent>().Publish();
             IsHamburgerMenuEnable = false;
             LoginView = new LoginView(_eventAggregator, _myMessageDialog);
+            isLoginNow = false;
             SelectedView = LoginView;
+            IsHomeSelected = false;
+            IsLogoutSelected = true;
+            /*_eventAggregator.GetEvent<LogoutEvent>().Publish();
+            IsHamburgerMenuEnable = false;
+            LoginView = new LoginView(_eventAggregator, _myMessageDialog);
+            SelectedView = LoginView;*/
         }
 
 
@@ -231,7 +253,7 @@ namespace PL.ViewModel
             IsLogoutSelected = true;
         }
 
-        private void OpenHome()
+        private async void OpenHome()
         {
             if (IsHamburgerMenuEnable == false)
                 IsHamburgerMenuEnable = true;
@@ -240,29 +262,34 @@ namespace PL.ViewModel
             SelectedView = HomeView;
             IsLogoutSelected = false;
             IsHomeSelected = true;
-            
+            if(!isLoginNow)
+            {
+                isLoginNow = true;
+                var user = await myBl.GetCurrentUser();
+                await _myMessageDialog.ShowInfoDialogAsync("Welcom "+ user.FirstName + " " +user.LastName+"!");
+            }
         }
-        private void OpenAddFood()
+      /*  private void OpenAddFood()
         {
             AddFoodView = new AddFoodView(_eventAggregator, _myMessageDialog);
             SelectedView = AddFoodView;
             IsHomeSelected = false;
-        }
-        private void OpenGoals()
+        }*/
+      /*  private void OpenGoals()
         {
             GoalsView = new GoalsView(_eventAggregator, _myMessageDialog);
             SelectedView = GoalsView;
             IsHomeSelected = false;
-        }
+        }*/
 
-        private void OpenBodyMeasurements()
+       /* private void OpenBodyMeasurements()
         {
             BodyMeasurementsView = new BodyMeasurementsView(_eventAggregator, _myMessageDialog);
             SelectedView = BodyMeasurementsView;
             IsHomeSelected = false;
-        }
+        }*/
         
-        private void OpenProfil()
+    /*    private void OpenProfil()
         {
             ProfilView = new ProfilView(_eventAggregator, _myMessageDialog);
             SelectedView = ProfilView;
@@ -278,10 +305,11 @@ namespace PL.ViewModel
         {
             IsHamburgerMenuEnable = false;
             LoginView = new LoginView(_eventAggregator, _myMessageDialog);
+            isLoginNow = false;
             SelectedView = LoginView;
             IsHomeSelected = false;
             IsLogoutSelected = true;
-        }
+        }*/
 
 
         private async Task init()

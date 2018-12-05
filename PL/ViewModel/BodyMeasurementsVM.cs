@@ -162,6 +162,8 @@ namespace PL.ViewModel
                 {
                     tempBodyMeasurements = new BodyMeasurement();
                     tempBodyMeasurements.Date = myBodyMeasurements.Date;
+                    await _myMessageDialog.ShowInfoDialogAsync("Please Update Your Body Measurements For This Day.");
+
                 }
 
                 myBodyMeasurements = tempBodyMeasurements;
