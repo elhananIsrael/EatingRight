@@ -99,6 +99,7 @@
     <Compile Include="Converters\Object2ChartValuesConverter.cs" />
     <Compile Include="Events\LogoutEvent.cs" />
     <Compile Include="Events\OpenAddFoodEvent.cs" />
+    <Compile Include="Events\OpenBodyMeasurementsEvent.cs" />
     <Compile Include="Events\OpenGoalsEvent.cs" />
     <Compile Include="Events\OpenHomeEvent.cs" />
     <Compile Include="Events\OpenLoginEvent.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Tools\PasswordBoxAssistant.cs" />
     <Compile Include="ViewModel\AddFoodVM.cs" />
     <Compile Include="ViewModel\BaseVM.cs" />
+    <Compile Include="ViewModel\BodyMeasurementsVM.cs" />
     <Compile Include="ViewModel\GoalsVM.cs" />
     <Compile Include="ViewModel\HomeVM.cs" />
     <Compile Include="ViewModel\LoginVM.cs" />
@@ -121,6 +123,9 @@
     <Compile Include="ViewModel\StatisticVM.cs" />
     <Compile Include="View\AddFoodView.xaml.cs">
       <DependentUpon>AddFoodView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\BodyMeasurementsView.xaml.cs">
+      <DependentUpon>BodyMeasurementsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\GoalsView.xaml.cs">
       <DependentUpon>GoalsView.xaml</DependentUpon>
@@ -183,6 +188,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\AddFoodView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BodyMeasurementsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -281,6 +290,12 @@
   <ItemGroup>
     <Resource Include="icons\apple_nutrition.png" />
     <Resource Include="icons\apple_nutrition_B.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\Measure-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\Measure.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

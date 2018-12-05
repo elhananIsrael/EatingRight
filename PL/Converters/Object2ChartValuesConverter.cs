@@ -23,12 +23,12 @@ namespace PL.Converters
             if (value is FoodItem SelectedSearchFood)
             {
                 PieChart pc = new PieChart();
-                pc.Series = new SeriesCollection{ new PieSeries  { Title = "Calories", Fill = Brushes.Red, StrokeThickness = 0, Values = new ChartValues<double> { MyFunction.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Calories.Value) } },
-                new PieSeries { Title = "Carbohydrate", Fill = Brushes.Green, StrokeThickness = 0, Values = new ChartValues<double> { MyFunction.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Carbohydrate.Value) } },
-                new PieSeries { Title = "Fat", Fill = Brushes.Purple, StrokeThickness = 0, Values = new ChartValues<double> { MyFunction.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Fat.Value) } },
-                new PieSeries { Title = "Protein", Fill = Brushes.Maroon, StrokeThickness = 0, Values = new ChartValues<double> { MyFunction.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Protein.Value) } },
-                new PieSeries { Title = "Sodium", Fill = Brushes.Yellow, StrokeThickness = 0, Values = new ChartValues<double> { MyFunction.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Sodium.Value) } },
-                new PieSeries { Title = "Sugar", Fill = Brushes.DeepPink, StrokeThickness = 0, Values = new ChartValues<double> { MyFunction.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Sugar.Value) } } }    ;
+                pc.Series = new SeriesCollection{ new PieSeries  { Title = "Calories", Fill = Brushes.Red, StrokeThickness = 0, Values = new ChartValues<double> { MyFunctions.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Calories.Value) } },
+                new PieSeries { Title = "Carbohydrate", Fill = Brushes.Green, StrokeThickness = 0, Values = new ChartValues<double> { MyFunctions.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Carbohydrate.Value) } },
+                new PieSeries { Title = "Fat", Fill = Brushes.Purple, StrokeThickness = 0, Values = new ChartValues<double> { MyFunctions.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Fat.Value) } },
+                new PieSeries { Title = "Protein", Fill = Brushes.Maroon, StrokeThickness = 0, Values = new ChartValues<double> { MyFunctions.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Protein.Value) } },
+                new PieSeries { Title = "Sodium", Fill = Brushes.Yellow, StrokeThickness = 0, Values = new ChartValues<double> { MyFunctions.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Sodium.Value) } },
+                new PieSeries { Title = "Sugar", Fill = Brushes.DeepPink, StrokeThickness = 0, Values = new ChartValues<double> { MyFunctions.DoubleNumberNotNull(SelectedSearchFood.Nutritions.Sugar.Value) } } }    ;
                 res = pc.Series;
             }
 

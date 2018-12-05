@@ -12,5 +12,8 @@ namespace BL
     {
         Task<Goal> GetPercentageOfTheMealFromGoal(DateTime dateTime);
 
+        bool IsValidMailAddress(string mail);
+       
+
     }
 }

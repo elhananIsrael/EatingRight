@@ -118,7 +118,7 @@ namespace PL.ViewModel
             }
         }
 
-        public double? Weight
+      /*  public double? Weight
         {
             get
             {
@@ -134,16 +134,16 @@ namespace PL.ViewModel
 
             }
         }
-        
+        */
 
         //////////////////////////////////////////// Function:
 
         //////////////////////////// Command Function:
         private bool CanOpenHome(Type obj)
         {
-            if (!string.IsNullOrEmpty(regUser.Email) && !string.IsNullOrEmpty(regUser.Password) &&
+            if (!string.IsNullOrEmpty(regUser.Email) &&  myBl.IsValidMailAddress(regUser.Email) && !string.IsNullOrEmpty(regUser.Password) &&
                 !string.IsNullOrEmpty(regUser.FirstName) && !string.IsNullOrEmpty(regUser.LastName) &&
-                regUser.Weight!=null && regUser.Weight != 0)
+               /* regUser.BodyMeasurements.Weight!=null && regUser.Weight > 0  &&*/ regUser.BirthDate != null && regUser.BirthDate < DateTime.Now)
                 return true;
             else return false;
         }

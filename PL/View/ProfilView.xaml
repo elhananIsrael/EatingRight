@@ -31,9 +31,6 @@
             <Label Background="WhiteSmoke" Content="Birth Date:" FontSize="25" HorizontalAlignment="Left" Margin="46,217,0,0" VerticalAlignment="Top" Height="auto" Width="auto"/>
             <Label Background="WhiteSmoke" Content="{Binding MyUserBirth, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" HorizontalAlignment="Left" Margin="207,217,0,0" VerticalContentAlignment="Bottom" VerticalAlignment="Top" Height="auto" Width="auto"/>
 
-            <Label Background="WhiteSmoke" Content="Weight:" FontSize="25" HorizontalAlignment="Left" Margin="46,286,0,0" VerticalAlignment="Top" Height="auto" Width="auto"/>
-            <Label Background="WhiteSmoke" Content="{Binding MyCurrentUser.Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" HorizontalAlignment="Left" Margin="207,295,0,0" VerticalContentAlignment="Bottom" VerticalAlignment="Top" Height="auto" Width="auto"/>
-
 
 
 

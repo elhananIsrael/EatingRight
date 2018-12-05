@@ -15,6 +15,7 @@ namespace BE.Entitys
             BirthDate = DateTime.Now;
             Meals = new List<Meal>();
             Goals = new List<Goal>();
+            BodyMeasurements = new List<BodyMeasurement>();
         }
         public User(string email)
         {
@@ -22,6 +23,7 @@ namespace BE.Entitys
             BirthDate = DateTime.Now;
             Meals = new List<Meal>();
             Goals = new List<Goal>();
+            BodyMeasurements = new List<BodyMeasurement>();
         }
 
         public string FirstName { get; set; }
@@ -35,11 +37,12 @@ namespace BE.Entitys
 
         public DateTime BirthDate { get; set; }
 
-        public double? Weight { get; set; }
-
+        
         public List<Meal> Meals { get; set; }
 
         public List<Goal> Goals { get; set; }
+
+        public List<BodyMeasurement> BodyMeasurements { get; set; }
 
     }
 }

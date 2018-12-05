@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BE.function
 {
-    public class MyFunction
+    public class MyFunctions
     {
 
         public static double DoubleNumberNotNull(double? num)
@@ -16,5 +16,7 @@ namespace BE.function
                 return number.Value;
             else return num.Value;
         }
+
+
     }
 }

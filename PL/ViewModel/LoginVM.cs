@@ -68,7 +68,7 @@ namespace PL.ViewModel
         //////////////////////////// Command Function:
         private bool CanOpenHome(Type obj)
         {
-            if (!string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password))
+            if (!string.IsNullOrEmpty(Email) && myBl.IsValidMailAddress(Email) && !string.IsNullOrEmpty(Password))
                 return true;
             else return false;
 

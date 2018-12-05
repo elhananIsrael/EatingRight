@@ -16,8 +16,8 @@
         TextOptions.TextRenderingMode="Auto" 
         FontFamily="{DynamicResource MaterialDesignFont}" 
         Icon="/icons/apple_nutrition.png"                     
- Title="Eating Right"  Height="580.939" Width="1119.243" ResizeMode="NoResize" WindowStyle="ToolWindow" AllowsTransparency="False" x:Name="this_">
-    <Grid>           
+ Title="Eating Right"  Height="635.939" Width="1129.243" ResizeMode="NoResize" WindowStyle="ToolWindow" AllowsTransparency="False" x:Name="this_">
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/images/nutrition8.jpg" />
         </Grid.Background>
@@ -28,6 +28,7 @@
             <HamburgerMenu:HamburgerMenuItem Icon="/icons/thinking_face_white.png" Text="Goals"  SelectionCommand="{Binding OpenMyGoalsCommand}" Height="80"  />
             <HamburgerMenu:HamburgerMenuItem Icon="/icons/AddFood_white.png" Text="Add Food" SelectionCommand="{Binding OpenMyAddFoodCommand}" Height="80" />
             <HamburgerMenu:HamburgerMenuItem Icon="/icons/Statistics_white.png" Text="Statistics" SelectionCommand="{Binding OpenMyStatisticCommand}" Height="80" />
+            <HamburgerMenu:HamburgerMenuItem Icon="/icons/Measure-white.png" Text="Update Body Measurements" SelectionCommand="{Binding OpenMyBodyMeasurementsCommand}" Height="80" />
             <HamburgerMenu:HamburgerMenuItem Icon="/icons/person.png" Text="Profile" Height="80"  SelectionCommand="{Binding OpenMyProfilCommand}" />
             <HamburgerMenu:HamburgerMenuItem Icon="/icons/logout_white.png" IsSelected="{Binding IsLogoutSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged }" Text="Logout" SelectionCommand="{Binding OpenMyLogoutCommand}" Height="80" />
         </HamburgerMenu:HamburgerMenu>

@@ -29,6 +29,7 @@ namespace PL.ViewModel
         public PL.View.GoalsView GoalsView { get; set; }
         public PL.View.ProfilView ProfilView { get; set; }
         public PL.View.StatisticView StatisticView { get; set; }
+        public PL.View.BodyMeasurementsView BodyMeasurementsView { get; set; }
 
         private object selectedView;
 
@@ -51,6 +52,8 @@ namespace PL.ViewModel
                .Subscribe(OpenAddFood);
             _eventAggregator.GetEvent<PL.Events.OpenGoalsEvent>()
                .Subscribe(OpenGoals);
+            _eventAggregator.GetEvent<PL.Events.OpenBodyMeasurementsEvent>()
+               .Subscribe(OpenBodyMeasurements);
             _eventAggregator.GetEvent<PL.Events.OpenProfilEvent>()
                .Subscribe(OpenProfil);
             _eventAggregator.GetEvent<PL.Events.OpenStatisticEvent>()
@@ -65,6 +68,7 @@ namespace PL.ViewModel
             OpenMyHomeCommand = new DelegateCommand<Type>(RunOpenHome, CanOpen);
             OpenMyAddFoodCommand = new DelegateCommand<Type>(RunOpenAddFood, CanOpen);
             OpenMyGoalsCommand = new DelegateCommand<Type>(RunOpenGoals, CanOpen);
+            OpenMyBodyMeasurementsCommand = new DelegateCommand<Type>(RunOpenBodyMeasurements, CanOpen);
             OpenMyProfilCommand = new DelegateCommand<Type>(RunOpenProfil, CanOpen);
             OpenMyStatisticCommand = new DelegateCommand<Type>(RunOpenStatistic, CanOpen);
             OpenMyLogoutCommand = new DelegateCommand<Type>(RunMakeLogout, CanOpen);
@@ -179,6 +183,15 @@ namespace PL.ViewModel
                 GoalsView = new GoalsView(_eventAggregator, _myMessageDialog);
             SelectedView = GoalsView;
         }
+
+
+        private void RunOpenBodyMeasurements(Type obj)
+        {
+            _eventAggregator.GetEvent<OpenBodyMeasurementsEvent>().Publish();
+            BodyMeasurementsView = new BodyMeasurementsView(_eventAggregator, _myMessageDialog);
+            SelectedView = BodyMeasurementsView;
+        }
+
         private void RunOpenProfil(Type obj)
         {
             _eventAggregator.GetEvent<OpenProfilEvent>().Publish();
@@ -241,6 +254,14 @@ namespace PL.ViewModel
             SelectedView = GoalsView;
             IsHomeSelected = false;
         }
+
+        private void OpenBodyMeasurements()
+        {
+            BodyMeasurementsView = new BodyMeasurementsView(_eventAggregator, _myMessageDialog);
+            SelectedView = BodyMeasurementsView;
+            IsHomeSelected = false;
+        }
+        
         private void OpenProfil()
         {
             ProfilView = new ProfilView(_eventAggregator, _myMessageDialog);
@@ -288,9 +309,9 @@ namespace PL.ViewModel
         public ICommand OpenMyGoalsCommand { get; set; }
         public ICommand OpenMyAddFoodCommand { get; set; }
         public ICommand OpenMyStatisticCommand { get; set; }
+        public ICommand OpenMyBodyMeasurementsCommand { get; set; }
         public ICommand OpenMyProfilCommand { get; set; }
         public ICommand OpenMyLogoutCommand { get; set; }
-        
 
     }
 

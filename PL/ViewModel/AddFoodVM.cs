@@ -210,22 +210,22 @@ namespace PL.ViewModel
                var temp = value;
                 double? num;
                 num = temp.Nutritions.Calories;
-                temp.Nutritions.Calories = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Calories = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Carbohydrate;
-                temp.Nutritions.Carbohydrate = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Carbohydrate = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Fat;
-                temp.Nutritions.Fat = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Fat = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Protein;
-                temp.Nutritions.Protein = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Protein = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Sodium;
-                temp.Nutritions.Sodium = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Sodium = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Sugar;
-                temp.Nutritions.Sugar = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Sugar = MyFunctions.DoubleNumberNotNull(num);
                 selectedSearchFood= temp;
                 OnPropertyChanged();
                 ((DelegateCommand<Type>)AddSelectedFoodCommand).RaiseCanExecuteChanged(); 
@@ -244,22 +244,22 @@ namespace PL.ViewModel
                 var temp = value;
                 double? num;
                 num = temp.Nutritions.Calories;
-                temp.Nutritions.Calories = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Calories = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Carbohydrate;
-                temp.Nutritions.Carbohydrate = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Carbohydrate = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Fat;
-                temp.Nutritions.Fat = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Fat = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Protein;
-                temp.Nutritions.Protein = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Protein = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Sodium;
-                temp.Nutritions.Sodium = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Sodium = MyFunctions.DoubleNumberNotNull(num);
 
                 num = temp.Nutritions.Sugar;
-                temp.Nutritions.Sugar = MyFunction.DoubleNumberNotNull(num);
+                temp.Nutritions.Sugar = MyFunctions.DoubleNumberNotNull(num);
                 selectedMyFood = temp;
                 OnPropertyChanged();
                 ((DelegateCommand<Type>)AddSelectedFoodCommand).RaiseCanExecuteChanged();

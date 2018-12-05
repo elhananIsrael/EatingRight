@@ -33,7 +33,6 @@ namespace PL.ViewModel
         public Bl myBl;
         private IEventAggregator _eventAggregator;
         private IMyMessageDialog _myMessageDialog;
-        //private IMessageDialogService _messageDialogService;
 
         private Goal myGoal;
         
@@ -52,42 +51,142 @@ namespace PL.ViewModel
             {
                 if (value != null)
                 {
-                    MyGoal = new Goal();
-                    MyGoal.Date = value;
+                    myGoal = new Goal();
+                    myGoal.Date = value;                   
                     updateMyGoal();
-                    //updateMyFoodToday();
+                    OnPropertyChanged("Calories");
+                    OnPropertyChanged("Carbohydrate");
+                    OnPropertyChanged("Fat");
+                    OnPropertyChanged("Protein");
+                    OnPropertyChanged("Sodium");
+                    OnPropertyChanged("Sugar");
                     OnPropertyChanged();
+
                 }
             }
         }
 
-        public Goal MyGoal
+        //public Goal MyGoal
+        //{
+        //    get
+        //    {
+        //        if (myGoal == null)
+        //        {
+        //            updateMyGoal();
+        //            // updateMyFoodToday();
+        //        }
+        //        return myGoal;
+        //    }
+        //    set
+        //    {
+        //        if (value != null)
+        //            myGoal = value;
+        //        OnPropertyChanged();
+        //        ((DelegateCommand<Type>)SaveGoalCommand).RaiseCanExecuteChanged();
+
+        //    }
+        //}
+
+        public double? Calories
         {
             get
             {
-                if (myGoal == null)
-                {
-                    updateMyGoal();
-                    // updateMyFoodToday();
-                }
-                return myGoal;
+                return myGoal.Calories;
             }
             set
             {
                 if (value != null)
-                    myGoal = value;
-
+                    myGoal.Calories = value;
                 OnPropertyChanged();
+                ((DelegateCommand<Type>)SaveGoalCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public double? Carbohydrate
+        {
+            get
+            {
+                return myGoal.Carbohydrate;
+            }
+            set
+            {
+                if (value != null)
+                    myGoal.Carbohydrate = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)SaveGoalCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public double? Fat
+        {
+            get
+            {
+                return myGoal.Fat;
+            }
+            set
+            {
+                if (value != null)
+                    myGoal.Fat = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)SaveGoalCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public double? Protein
+        {
+            get
+            {
+                return myGoal.Protein;
+            }
+            set
+            {
+                if (value != null)
+                    myGoal.Protein = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)SaveGoalCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public double? Sodium
+        {
+            get
+            {
+                return myGoal.Sodium;
+            }
+            set
+            {
+                if (value != null)
+                    myGoal.Sodium = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)SaveGoalCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public double? Sugar
+        {
+            get
+            {
+                return myGoal.Sugar;
+            }
+            set
+            {
+                if (value != null)
+                    myGoal.Sugar = value;
+                OnPropertyChanged();
+                ((DelegateCommand<Type>)SaveGoalCommand).RaiseCanExecuteChanged();
             }
         }
 
 
-
         private bool CanSaveGoal(Type arg)
         {
-            /*  if (SelectedSearchFood != null && SelectedSearchFood.Name.Length > 0)
-                  return true;
-              return false;*/
+            if (Calories < 0 || Calories == null ||
+                Carbohydrate < 0 || Carbohydrate == null ||
+                Fat < 0 || Fat == null ||
+                Protein < 0 || Protein == null ||
+                Sodium < 0 || Sodium == null ||
+                Sugar < 0 || Sugar == null )
+                return false;
             return true;
         }
 
@@ -125,10 +224,16 @@ namespace PL.ViewModel
         public async Task updateMyGoal()
         {
             if (myGoal == null)
-                MyGoal = new Goal();
+                myGoal = new Goal();
             var tempGoal = await myBl.GetGoal(myGoal.Date);
             if (tempGoal != null)
-                MyGoal = tempGoal;
+                myGoal = tempGoal;
+            OnPropertyChanged("Calories");
+            OnPropertyChanged("Carbohydrate");
+            OnPropertyChanged("Fat");
+            OnPropertyChanged("Protein");
+            OnPropertyChanged("Sodium");
+            OnPropertyChanged("Sugar");
         }
 
         public async void updateDetails()

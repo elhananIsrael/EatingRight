@@ -16,6 +16,8 @@ namespace DAL
         Task<bool> IsUserInDBByEmail(string email);
         Task AddGoal(Goal goal);
         Task<Goal> GetGoal(DateTime dateTime);
+        Task AddBodyMeasurement(BodyMeasurement bodyMeasurement);
+        Task<BodyMeasurement> GetBodyMeasurement(DateTime dateTime);
         Task AddMeal(Meal meal);
         Task<Meal> GetMeal(DateTime dateTime);
         Task AddUser(User user);

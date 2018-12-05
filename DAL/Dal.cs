@@ -34,7 +34,7 @@ namespace DAL
                     // var user = await GetCurrentUser();
                     var userEmail = await GetCurrentUserEmail();
                     var user = await db.Users
-                                         .Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).SingleOrDefaultAsync();
+                                           .Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).Include(a => a.BodyMeasurements).SingleOrDefaultAsync();
 
                     var isExistGoal = user.Goals.Where(A => A.Date.Year == goal.Date.Year && A.Date.Month == goal.Date.Month && A.Date.Day == goal.Date.Day).FirstOrDefault();
 
@@ -79,7 +79,7 @@ namespace DAL
                 {
 
                     var userEmail = await GetCurrentUserEmail();
-                    var user = await db.Users.Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).SingleOrDefaultAsync();
+                    var user = await db.Users.Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).Include(a => a.BodyMeasurements).SingleOrDefaultAsync();
 
                     var isExistMeal = user.Meals.Where(A => A.Date.Year == meal.Date.Year && A.Date.Month == meal.Date.Month && A.Date.Day == meal.Date.Day).FirstOrDefault();
 
@@ -164,7 +164,7 @@ namespace DAL
                 {
 
                     var userEmail = await GetCurrentUserEmail();
-                    var user = await db.Users.Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).SingleOrDefaultAsync();
+                    var user = await db.Users.Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).Include(a => a.BodyMeasurements).SingleOrDefaultAsync();
 
 
                     // var user =await GetCurrentUser();
@@ -197,7 +197,7 @@ namespace DAL
                 using (var db = new EatingRightDBContext())
                 {
                     var userEmail = await GetCurrentUserEmail();
-                    var user = await db.Users.Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).SingleOrDefaultAsync();
+                    var user = await db.Users.Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).Include(a => a.BodyMeasurements).SingleOrDefaultAsync();
 
                     if (user != null)
                     {
@@ -234,15 +234,18 @@ namespace DAL
         {
             try
             {
-                var user = await myDb.Users
-                     .Where(A => A.Email.Equals( email)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).SingleOrDefaultAsync();
-
-
-                if (user == null)
+                using (var db = new EatingRightDBContext())
                 {
-                    return null;
+                    var user = await db.Users
+                                          .Where(A => A.Email.Equals(email)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).Include(a => a.BodyMeasurements).SingleOrDefaultAsync();
+
+
+                    if (user == null)
+                    {
+                        return null;
+                    }
+                    return user;
                 }
-                return user;
             }
             catch (Exception)
             {
@@ -254,10 +257,21 @@ namespace DAL
 
         public async Task<bool> IsUserInDBByEmail(string email)
         {
-             var isExist= await  myDb.Users.Where(a=> a.Email==email).FirstOrDefaultAsync();
+            try
+            {
+                using (var db = new EatingRightDBContext())
+                {
+                    var isExist= await  db.Users.Where(a=> a.Email==email).FirstOrDefaultAsync();
             if (isExist == null)
                 return false;
             else return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw new Exception();
+            }
         }
 
         public async Task SetCurrentUser(string email)
@@ -268,9 +282,10 @@ namespace DAL
                 using (var db = new EatingRightDBContext())
                 {
                     var currAcc = await db.CurrentAccount.SingleOrDefaultAsync();
-                    var user = await db.Users.Where(b => b.Email == email).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).FirstOrDefaultAsync();
-               
-                        if (user == null)
+                    var user = await db.Users.Where(A => A.Email.Equals(email)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).Include(a => a.BodyMeasurements).SingleOrDefaultAsync();
+
+
+                    if (user == null)
                             throw new Exception("Invalid user!");
 
                     if (currAcc == null)
@@ -292,8 +307,76 @@ namespace DAL
             }
         }
 
+        public async Task AddBodyMeasurement(BodyMeasurement bodyMeasurement)
+        {
+            try
+            {
+                using (var db = new EatingRightDBContext())
+                {
+                    // var user = await GetCurrentUser();
+                    var userEmail = await GetCurrentUserEmail();
+                    var user = await db.Users
+                                         .Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).Include(a => a.BodyMeasurements).SingleOrDefaultAsync();
+
+                    var isExistBodyMeasurement = user.BodyMeasurements.Where(A => A.Date.Year == bodyMeasurement.Date.Year && A.Date.Month == bodyMeasurement.Date.Month && A.Date.Day == bodyMeasurement.Date.Day).FirstOrDefault();
+
+                    foreach (PropertyInfo p in bodyMeasurement.GetType().GetProperties())
+                    {
+                        if (p.GetType() != bodyMeasurement.Date.GetType() && p.GetValue(bodyMeasurement) == null)
+                            p.SetValue(bodyMeasurement, 0.00, null);
+                    }
+
+                    if (isExistBodyMeasurement == null)
+                        user.BodyMeasurements.Add(bodyMeasurement);
+                    else
+                    {
+
+                        // goal.Date = isExistGoal.Date;                     
+                        // db.Entry(isExistGoal).CurrentValues.SetValues(goal);
+
+                        isExistBodyMeasurement.Weight = bodyMeasurement.Weight;
+                        isExistBodyMeasurement.Height = bodyMeasurement.Height;
+
+                    }
+                    // db.Users.AddOrUpdate(user);
+                    await db.SaveChangesAsync();
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<BodyMeasurement> GetBodyMeasurement(DateTime dateTime)
+        {
+            try
+            {
+                using (var db = new EatingRightDBContext())
+                {
+
+                    var userEmail = await GetCurrentUserEmail();
+                    var user = await db.Users.Where(A => A.Email.Equals(userEmail)).Include(a => a.Meals).Include(a => a.Meals.Select(m => m.FoodItems)).Include(a => a.Goals).Include(a => a.BodyMeasurements).SingleOrDefaultAsync();
 
 
+                    // var user =await GetCurrentUser();
+                    var myBodyMeasurement = user.BodyMeasurements.Where(A => A.Date.Year == dateTime.Year && A.Date.Month == dateTime.Month && A.Date.Day == dateTime.Day).FirstOrDefault();
 
+
+                    if (myBodyMeasurement == null)
+                    {
+                        return null;
+                    }
+                    return myBodyMeasurement;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

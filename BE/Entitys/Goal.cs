@@ -11,7 +11,7 @@ namespace BE.Entitys
     {
         public Goal()
         {
-           // Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
             Date = DateTime.Now;
           //  UserEmail = "";
             Calories = 0;
@@ -22,9 +22,9 @@ namespace BE.Entitys
             Sugar = 0;
         }
 
-        // [Key]
-        // public Guid Id { get; set; }
-        [Key]
+         [Key]
+         public Guid Id { get; set; }
+       
         public DateTime Date { get; set; }
         
       //  public string UserEmail { get; set; }

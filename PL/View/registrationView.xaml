@@ -66,11 +66,11 @@
                          x:Name="PasswordBox" PasswordHelper:PasswordBoxAssistant.BindPassword="true"  PasswordHelper:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
            
-            <TextBox materialDesign:HintAssist.Hint="Weight" 
+            <!--<TextBox materialDesign:HintAssist.Hint="Weight" 
                      materialDesign:HintAssist.IsFloating="True" 
                      Grid.Row="3"                          
                      Margin="0 12 0 0"
-                     Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>           
+                     Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->           
                        
             <Button Grid.Row="6" 
                     Style="{StaticResource MaterialDesignFlatButton}" 

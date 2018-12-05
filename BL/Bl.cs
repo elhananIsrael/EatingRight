@@ -16,6 +16,11 @@ namespace BL
             myDal = new Dal();
         }
 
+        public async Task AddBodyMeasurement(BodyMeasurement bodyMeasurement)
+        {
+            await myDal.AddBodyMeasurement(bodyMeasurement);
+        }
+
         public async Task AddGoal(Goal goal)
         {
            await myDal.AddGoal(goal);
@@ -29,6 +34,11 @@ namespace BL
         public async Task AddUser(User user)
         {
           await  myDal.AddUser(user);
+        }
+
+        public async Task<BodyMeasurement> GetBodyMeasurement(DateTime dateTime)
+        {
+            return await myDal.GetBodyMeasurement(dateTime);
         }
 
         public async Task<User> GetCurrentUser()
@@ -151,6 +161,22 @@ namespace BL
         public async Task<bool> IsUserInDBByEmail(string email)
         {
             return await myDal.IsUserInDBByEmail(email);
+        }
+
+        public bool IsValidMailAddress(string mail)
+        {
+
+                try
+                {
+                    System.Net.Mail.MailAddress mailAddress = new System.Net.Mail.MailAddress(mail);
+
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+          
         }
 
         public async Task SetCurrentUser(string email)

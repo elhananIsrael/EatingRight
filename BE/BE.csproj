@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entitys\BodyMeasurement.cs" />
     <Compile Include="Entitys\FoodItem.cs" />
     <Compile Include="Entitys\Goal.cs" />
     <Compile Include="Entitys\Meal.cs" />
