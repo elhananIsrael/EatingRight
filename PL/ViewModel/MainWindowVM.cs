@@ -266,7 +266,7 @@ namespace PL.ViewModel
             {
                 isLoginNow = true;
                 var user = await myBl.GetCurrentUser();
-                await _myMessageDialog.ShowInfoDialogAsync("Welcom "+ user.FirstName + " " +user.LastName+"!");
+                await _myMessageDialog.ShowInfoDialogAsync("Welcome "+ user.FirstName + " " +user.LastName+"!");
             }
         }
       /*  private void OpenAddFood()
