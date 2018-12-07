@@ -21,7 +21,7 @@
         <Grid Grid.Row="1" Background="WhiteSmoke" Margin="433,4,463,441">
             <DatePicker Width="100"  Background="WhiteSmoke" materialDesign:HintAssist.Hint="Choose Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  SelectedDate="{Binding SelectedDate,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" />
         </Grid>
-        <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" ToolTip="Resource name: MaterialDesignRaisedAccentButton" Margin="868,243,52,185" Command="{Binding SaveGoalCommand, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Height="Auto">
+        <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" ToolTip="Save Goal" Margin="868,243,52,185" Command="{Binding SaveGoalCommand, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Height="Auto">
             <Grid RenderTransformOrigin="1.009,0.519" Width="100" Height="51" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="23*"/>

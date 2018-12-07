@@ -26,7 +26,6 @@ namespace PL.ViewModel
               .Subscribe(updateDetails);
 
             myBl = new Bl();
-            updateMyBodyMeasurements();
 
             SaveBodyMeasurementsCommand = new DelegateCommand<Type>(RunSaveBodyMeasurements, CanSaveBodyMeasurements);
         }
@@ -34,7 +33,6 @@ namespace PL.ViewModel
         public Bl myBl;
         private IEventAggregator _eventAggregator;
         private IMyMessageDialog _myMessageDialog;
-        //private IMessageDialogService _messageDialogService;
 
         private BodyMeasurement myBodyMeasurements;
 
@@ -47,49 +45,29 @@ namespace PL.ViewModel
                 {
                     updateMyBodyMeasurements();
                 }
+                
                 return myBodyMeasurements.Date;
             }
             set
             {
-                if (value != null)
+                if (value != null && value!=myBodyMeasurements.Date)
                 {
                     myBodyMeasurements = new BodyMeasurement();
                     myBodyMeasurements.Date = value;
                     updateMyBodyMeasurements();
-                    //updateMyFoodToday();
-                    OnPropertyChanged("Weight");
-                    OnPropertyChanged("Height");
+                    /*OnPropertyChanged("Weight");
+                    OnPropertyChanged("Height");*/
                     OnPropertyChanged();
                 }
             }
         }
 
-        //public BodyMeasurement MyBodyMeasurements
-        //{
-        //    get
-        //    {
-        //        if (myBodyMeasurements == null)
-        //        {
-        //            updateMyBodyMeasurements();
-        //        }
-        //        return myBodyMeasurements;
-        //    }
-        //    set
-        //    {
-        //        if (value != null)
-        //            myBodyMeasurements = value;
-
-        //        OnPropertyChanged();
-        //        ((DelegateCommand<Type>)SaveBodyMeasurementsCommand).RaiseCanExecuteChanged();
-        //    }
-        //}
 
         public double? Weight
         {
             get
             {
                 return myBodyMeasurements.Weight;
-
             }
             set
             {
@@ -162,14 +140,19 @@ namespace PL.ViewModel
                 {
                     tempBodyMeasurements = new BodyMeasurement();
                     tempBodyMeasurements.Date = myBodyMeasurements.Date;
+                    myBodyMeasurements = tempBodyMeasurements;
+                    Weight = tempBodyMeasurements.Weight;
+                    Height = tempBodyMeasurements.Height;
                     await _myMessageDialog.ShowInfoDialogAsync("Please Update Your Body Measurements For This Day.");
-
+                }
+                else
+                {
+                    myBodyMeasurements = tempBodyMeasurements;
+                    Weight = tempBodyMeasurements.Weight;
+                    Height = tempBodyMeasurements.Height;
                 }
 
-                myBodyMeasurements = tempBodyMeasurements;
-                Weight = tempBodyMeasurements.Weight;
-                Height = tempBodyMeasurements.Height;            
-               
+
             }
             catch (Exception ex)
             {
