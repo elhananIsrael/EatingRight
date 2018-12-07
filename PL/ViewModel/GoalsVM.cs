@@ -49,7 +49,7 @@ namespace PL.ViewModel
             }
             set
             {
-                if (value != null)
+                if (value != null && value != myGoal.Date)
                 {
                     myGoal = new Goal();
                     myGoal.Date = value;                   

@@ -79,7 +79,7 @@ namespace PL.ViewModel
                 return myMeal.Date;
             }
             set {
-                if (value != null)
+                if (value != null && value != myMeal.Date)
                 {
                     myMeal = new Meal();
                     myMeal.Date = value;

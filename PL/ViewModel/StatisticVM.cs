@@ -81,10 +81,10 @@ namespace PL.ViewModel
             }
             set
             {
-                
-                if (value != null )
+
+                if (value != null && value != myPercentageGoal.Date)
                 {
-                  
+
                     myPercentageGoal = new Goal();
                     myPercentageGoal.Date = value;
                     selectedDate = value;
