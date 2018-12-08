@@ -24,7 +24,7 @@ namespace PL.Tools
         }
         public async Task ShowInfoDialogAsync(string text)
         {
-            await MetroWindow.ShowMessageAsync("Info", text);
+            await MetroWindow.ShowMessageAsync("", text);/*"Information:",*/
         }
 
     }
