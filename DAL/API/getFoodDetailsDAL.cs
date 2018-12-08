@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using BE.Entitys;
 using System.Reflection;
+using System.Net.NetworkInformation;
+using System.Net;
 
 namespace DAL.API
 {
@@ -27,16 +29,33 @@ namespace DAL.API
         public async Task<List<FoodItem>> SearchFoodByName(string search)
         {
 
-            List<Parameter> body = new List<Parameter> {
+/*List<Parameter> body = new List<Parameter> {
 
         new DataParameter("applicationSecret", "136102bad14d027d885ecd731f5a92d0"),
         new DataParameter("foodDescription", search),
         new DataParameter("applicationId", "4d8b69d2")
+
+        };*/
+
+        
+
+             List<Parameter> body = new List<Parameter> {
+
+            new DataParameter("applicationSecret", "12707924c854726c16ec685b23b25d5e"),
+            new DataParameter("foodDescription", search),
+            new DataParameter("applicationId", "7dc87896")
+
         };
 
-            List<FoodItem> foodSearchArr = new List<FoodItem>();
+
+               
+                List<FoodItem> foodSearchArr = new List<FoodItem>();
             try
             {
+
+                if (!check_con())
+                    throw new Exception("ERROR Connecting To Internet. Please Connect To Internet!");
+
                 var temp = await RapidApi.Call("Nutritionix", "searchFoods", body.ToArray());
                 if (temp.TryGetValue("success", out object payload))
                 {
@@ -71,17 +90,29 @@ namespace DAL.API
         public async Task<Nutrition> GetNutritionsByName(string search)
         {
 
-            List<Parameter> body = new List<Parameter> {
+          /*  List<Parameter> body = new List<Parameter> {
 
         new DataParameter("applicationSecret", "136102bad14d027d885ecd731f5a92d0"),
         new DataParameter("foodDescription", search),
         new DataParameter("applicationId", "4d8b69d2")
+        };*/
+
+
+            List<Parameter> body = new List<Parameter> {
+
+            new DataParameter("applicationSecret", "12707924c854726c16ec685b23b25d5e"),
+            new DataParameter("foodDescription", search),
+            new DataParameter("applicationId", "7dc87896")
+
         };
 
-           // nutrition Nutritions = new nutrition();
+            // nutrition Nutritions = new nutrition();
             List<Nutrition> nutritionArr = new List<Nutrition>();
             try
             {
+                if (!check_con())
+                    throw new Exception("ERROR Connecting To Internet. Please Connect To Internet!");
+
                 var temp = await RapidApi.Call("Nutritionix", "getFoodsNutrients", body.ToArray());
                 if (temp.TryGetValue("success", out object payload))
                 {
@@ -126,6 +157,22 @@ namespace DAL.API
 
 
 
+
+        public static bool check_con()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (var stream = client.OpenRead("http://www.google.com"))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
 
     }

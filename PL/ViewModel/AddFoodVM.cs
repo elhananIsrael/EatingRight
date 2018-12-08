@@ -37,8 +37,9 @@ namespace PL.ViewModel
             MyFoodToday = new ObservableCollection<FoodItem>();
             SelectedSearchFood =new FoodItem();
             selectedMyFood = new FoodItem();
-            
-           // myDate = DateTime.Now;
+            showSelectedFood = new FoodItem();
+
+        // myDate = DateTime.Now;
 
 
         PointLabel = chartPoint =>
@@ -50,6 +51,7 @@ namespace PL.ViewModel
         private IEventAggregator _eventAggregator;
         private IMyMessageDialog _myMessageDialog;
         private FoodItem selectedSearchFood;
+        private FoodItem showSelectedFood;
         private FoodItem selectedMyFood;
         private Meal myMeal;
        // private DateTime myDate;
@@ -207,29 +209,33 @@ namespace PL.ViewModel
             }
             set
             {
-               var temp = value;
-                double? num;
-                num = temp.Nutritions.Calories;
-                temp.Nutritions.Calories = MyFunctions.DoubleNumberNotNull(num);
+                if (value != null)
+                {
+                    var temp = value;
+                    double? num;
+                    num = temp.Nutritions.Calories;
+                    temp.Nutritions.Calories = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Carbohydrate;
-                temp.Nutritions.Carbohydrate = MyFunctions.DoubleNumberNotNull(num);
+                    num = temp.Nutritions.Carbohydrate;
+                    temp.Nutritions.Carbohydrate = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Fat;
-                temp.Nutritions.Fat = MyFunctions.DoubleNumberNotNull(num);
+                    num = temp.Nutritions.Fat;
+                    temp.Nutritions.Fat = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Protein;
-                temp.Nutritions.Protein = MyFunctions.DoubleNumberNotNull(num);
+                    num = temp.Nutritions.Protein;
+                    temp.Nutritions.Protein = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Sodium;
-                temp.Nutritions.Sodium = MyFunctions.DoubleNumberNotNull(num);
+                    num = temp.Nutritions.Sodium;
+                    temp.Nutritions.Sodium = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Sugar;
-                temp.Nutritions.Sugar = MyFunctions.DoubleNumberNotNull(num);
-                selectedSearchFood= temp;
-                OnPropertyChanged();
-                ((DelegateCommand<Type>)AddSelectedFoodCommand).RaiseCanExecuteChanged(); 
+                    num = temp.Nutritions.Sugar;
+                    temp.Nutritions.Sugar = MyFunctions.DoubleNumberNotNull(num);
+                    selectedSearchFood = temp;
+                    ShowSelectedFood = temp;
+                    OnPropertyChanged();
+                    ((DelegateCommand<Type>)AddSelectedFoodCommand).RaiseCanExecuteChanged();
 
+                }
 
             }
         }
@@ -241,33 +247,45 @@ namespace PL.ViewModel
             }
             set
             {
-                var temp = value;
-                double? num;
-                num = temp.Nutritions.Calories;
-                temp.Nutritions.Calories = MyFunctions.DoubleNumberNotNull(num);
+                if (value != null)
+                {
+                    var temp = value;
+                    double? num;
+                    num = temp.Nutritions.Calories;
+                    temp.Nutritions.Calories = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Carbohydrate;
-                temp.Nutritions.Carbohydrate = MyFunctions.DoubleNumberNotNull(num);
+                    num = temp.Nutritions.Carbohydrate;
+                    temp.Nutritions.Carbohydrate = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Fat;
-                temp.Nutritions.Fat = MyFunctions.DoubleNumberNotNull(num);
+                    num = temp.Nutritions.Fat;
+                    temp.Nutritions.Fat = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Protein;
-                temp.Nutritions.Protein = MyFunctions.DoubleNumberNotNull(num);
+                    num = temp.Nutritions.Protein;
+                    temp.Nutritions.Protein = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Sodium;
-                temp.Nutritions.Sodium = MyFunctions.DoubleNumberNotNull(num);
+                    num = temp.Nutritions.Sodium;
+                    temp.Nutritions.Sodium = MyFunctions.DoubleNumberNotNull(num);
 
-                num = temp.Nutritions.Sugar;
-                temp.Nutritions.Sugar = MyFunctions.DoubleNumberNotNull(num);
-                selectedMyFood = temp;
-                OnPropertyChanged();
-                ((DelegateCommand<Type>)AddSelectedFoodCommand).RaiseCanExecuteChanged();
-
-
+                    num = temp.Nutritions.Sugar;
+                    temp.Nutritions.Sugar = MyFunctions.DoubleNumberNotNull(num);
+                    selectedMyFood = temp;
+                    ShowSelectedFood = temp;
+                    OnPropertyChanged();
+                }
             }
         }
-        
+
+
+        public FoodItem ShowSelectedFood
+        {
+            get
+            { return showSelectedFood; }
+            set
+            {
+                showSelectedFood = value;
+                OnPropertyChanged();
+            }
+        }
 
         public async  Task updateMyMeal()
         {
@@ -293,12 +311,20 @@ namespace PL.ViewModel
 
         public async Task  GetFoodFromApiToOurList()
         {
-            mySearchFood.Clear();
-            var answer = await myBl.GetFoodItems(Search);
-            foreach (var food in answer)
+            try
             {
-                food.Nutritions=await myBl.GetNutritions(food.Name);
-                mySearchFood.Add(food);
+
+                mySearchFood.Clear();
+                var answer = await myBl.GetFoodItems(Search);
+                foreach (var food in answer)
+                {
+                    food.Nutritions = await myBl.GetNutritions(food.Name);
+                    mySearchFood.Add(food);
+                }
+            }
+            catch (Exception ex)
+            {
+                await _myMessageDialog.ShowInfoDialogAsync(ex.Message);
             }
 
         }
