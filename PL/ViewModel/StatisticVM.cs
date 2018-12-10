@@ -21,17 +21,13 @@ namespace PL.ViewModel
 
             _eventAggregator = eventAggregator;
             _myMessageDialog = myMessageDialog;
-            myBl = new Bl();
-            _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
-              .Subscribe(updateDetails);
-
+            myBl = new Bl();           
         }
 
 
         private IEventAggregator _eventAggregator;
         private IMyMessageDialog _myMessageDialog;
         public Bl myBl;
-       // private IEventAggregator _eventAggregator;
 
         private Goal myPercentageGoal;
 
@@ -49,10 +45,6 @@ namespace PL.ViewModel
         public Goal MyPercentageGoal
         {
             get {
-                //if (myPercentageGoal == null)
-                //{
-                //    updateMyPercentageGoal();
-                //}
                 return myPercentageGoal;
             }
             set
@@ -107,11 +99,7 @@ namespace PL.ViewModel
             OnPropertyChanged("MyPercentageGoal");
         }
 
-     public async void updateDetails()
-        {
-           // await updateMyPercentageGoal();
-        }
-
+    
     }
 }
 

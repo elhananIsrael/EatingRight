@@ -112,16 +112,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\Object2ChartValuesConverter.cs" />
-    <Compile Include="Events\LogoutEvent.cs" />
-    <Compile Include="Events\OpenAddFoodEvent.cs" />
-    <Compile Include="Events\OpenBodyMeasurementsEvent.cs" />
-    <Compile Include="Events\OpenGoalsEvent.cs" />
     <Compile Include="Events\OpenHomeEvent.cs" />
     <Compile Include="Events\OpenLoginEvent.cs" />
-    <Compile Include="Events\OpenProfilEvent.cs" />
     <Compile Include="Events\OpenRegistrationEvent.cs" />
-    <Compile Include="Events\OpenStatisticEvent.cs" />
-    <Compile Include="Events\UpdateUserEvent.cs" />
     <Compile Include="Model\UsersModel.cs" />
     <Compile Include="Tools\IMyMessageDialog.cs" />
     <Compile Include="Tools\MyMessageDialog.cs" />

@@ -152,7 +152,6 @@ namespace PL.ViewModel
                 await myBl.AddUser(regUser);
             await myBl.SetCurrentUser(regUser.Email);
             _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
-            _eventAggregator.GetEvent<UpdateUserEvent>().Publish();
             }
             catch (Exception e)
             {

@@ -71,8 +71,6 @@ namespace PL.ViewModel
             if (!string.IsNullOrEmpty(Email) && myBl.IsValidMailAddress(Email) && !string.IsNullOrEmpty(Password))
                 return true;
             else return false;
-
-            //  return false;
         }
 
         private bool CanOpenRegistration(Type obj)
@@ -101,7 +99,6 @@ namespace PL.ViewModel
                     {
                         await myBl.SetCurrentUser(user.Email);
                         _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
-                        _eventAggregator.GetEvent<UpdateUserEvent>().Publish();
                     }
                 }
             }

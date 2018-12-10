@@ -21,8 +21,7 @@ namespace PL.ViewModel
         {
             _eventAggregator = eventAggregator;
             _myMessageDialog = myMessageDialog;
-            _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
-              .Subscribe(updateDetails);
+         
 
             myBl = new Bl();
             updateMyGoal();
@@ -66,26 +65,7 @@ namespace PL.ViewModel
             }
         }
 
-        //public Goal MyGoal
-        //{
-        //    get
-        //    {
-        //        if (myGoal == null)
-        //        {
-        //            updateMyGoal();
-        //            // updateMyFoodToday();
-        //        }
-        //        return myGoal;
-        //    }
-        //    set
-        //    {
-        //        if (value != null)
-        //            myGoal = value;
-        //        OnPropertyChanged();
-        //        ((DelegateCommand<Type>)SaveGoalCommand).RaiseCanExecuteChanged();
-
-        //    }
-        //}
+        
 
         public double? Calories
         {
@@ -215,7 +195,6 @@ namespace PL.ViewModel
             }
             catch(Exception ex)
             {
-                // await messagedialoge.ShowInfoDialogAsync("Error The Goal not Save Please contact the administrator");
                 updateMyGoal();
                 await _myMessageDialog.ShowInfoDialogAsync(ex.Message);
             }
@@ -235,11 +214,7 @@ namespace PL.ViewModel
             OnPropertyChanged("Sodium");
             OnPropertyChanged("Sugar");
         }
-
-        public async void updateDetails()
-        {
-            //await updateMyGoal();
-        }
+        
 
         //////////////////////////////////////////// Commands:
         public ICommand SaveGoalCommand { get; }

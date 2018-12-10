@@ -20,11 +20,7 @@ namespace PL.ViewModel
         {
             _eventAggregator = eventAggregator;
             _myMessageDialog = myMessageDialog;
-            myBl = new Bl();
-            
-
-            _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
-             .Subscribe(updateDetails);
+            myBl = new Bl();          
 
             updateMyCurrentUser();
         }
@@ -64,10 +60,7 @@ namespace PL.ViewModel
 
 
 
-        public async void updateDetails()
-        {
-            //await updateMyCurrentUser();
-        }
+        
     }
 }
 

@@ -22,9 +22,7 @@ namespace PL.ViewModel
         {
             _eventAggregator = eventAggregator;
             _myMessageDialog = myMessageDialog;
-            _eventAggregator.GetEvent<PL.Events.UpdateUserEvent>()
-              .Subscribe(updateDetails);
-
+           
             myBl = new Bl();
 
             SaveBodyMeasurementsCommand = new DelegateCommand<Type>(RunSaveBodyMeasurements, CanSaveBodyMeasurements);
@@ -162,9 +160,7 @@ namespace PL.ViewModel
 
         }
 
-        public async void updateDetails()
-        {
-        }
+      
 
         //////////////////////////////////////////// Commands:
         public ICommand SaveBodyMeasurementsCommand { get; }
