@@ -118,23 +118,7 @@ namespace PL.ViewModel
             }
         }
 
-      /*  public double? Weight
-        {
-            get
-            {
-                if (regUser == null)
-                    regUser = new User();
-                return regUser.Weight;
-            }
-            set
-            {
-                regUser.Weight = value;
-                OnPropertyChanged();
-                ((DelegateCommand<Type>)OpenMyHomeCommand).RaiseCanExecuteChanged();
-
-            }
-        }
-        */
+     
 
         //////////////////////////////////////////// Function:
 
@@ -163,10 +147,17 @@ namespace PL.ViewModel
 
         private async void RunOpenHome(Type obj)
         {
-            await myBl.AddUser(regUser);
+            try
+            {
+                await myBl.AddUser(regUser);
             await myBl.SetCurrentUser(regUser.Email);
             _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
             _eventAggregator.GetEvent<UpdateUserEvent>().Publish();
+            }
+            catch (Exception e)
+            {
+                await _myMessageDialog.ShowInfoDialogAsync(e.Message);
+            }
         }
 
 

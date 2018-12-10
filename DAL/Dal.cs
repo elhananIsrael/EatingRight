@@ -112,16 +112,19 @@ namespace DAL
                 {
 
                     var isExistUserEmail = await IsUserInDBByEmail(user.Email);
-            if (!isExistUserEmail)
+                    if (!isExistUserEmail)
+                    {
                         db.Users.Add(user);
 
-            await db.SaveChangesAsync();
+                        await db.SaveChangesAsync();
+                    }
+                    else throw new Exception("User Email Already Exist!");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
 
         }
