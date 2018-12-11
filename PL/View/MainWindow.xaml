@@ -16,7 +16,7 @@
         TextOptions.TextRenderingMode="Auto" 
         WindowStartupLocation="CenterScreen"
         FontFamily="{DynamicResource MaterialDesignFont}"                       
-        Icon="/icons/apple_nutrition.png"                     
+        Icon="/icons/apple_nutrition.ico"                     
  Title="Eating Right"  Height="635.939" Width="1129.243" ResizeMode="NoResize" WindowStyle="ToolWindow" AllowsTransparency="False" x:Name="this_">
     <Grid>
         <Grid.Background>
