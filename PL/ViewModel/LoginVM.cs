@@ -90,7 +90,7 @@ namespace PL.ViewModel
             var user = await myBl.GetUserByEmail(email);
                 
                 if (user == null)
-                    await _myMessageDialog.ShowInfoDialogAsync("Invalid user!");
+                    await _myMessageDialog.ShowInfoDialogAsync("Invalid User Email Or Wrong Password!");
                 else
                 {
                     var loginEmail = email.ToLower();
@@ -100,6 +100,9 @@ namespace PL.ViewModel
                         await myBl.SetCurrentUser(user.Email);
                         _eventAggregator.GetEvent<OpenHomeEvent>().Publish();
                     }
+                    else if (loginEmail != userEmail || user.Password != password)
+                        await _myMessageDialog.ShowInfoDialogAsync("Invalid User Email Or Wrong Password!");
+
                 }
             }
             catch (Exception e)
