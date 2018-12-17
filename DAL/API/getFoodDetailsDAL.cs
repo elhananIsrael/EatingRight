@@ -29,7 +29,8 @@ namespace DAL.API
         public async Task<List<FoodItem>> SearchFoodByName(string search)
         {
 
-/*List<Parameter> body = new List<Parameter> {
+
+            /*List<Parameter> body = new List<Parameter> {
 
         new DataParameter("applicationSecret", "136102bad14d027d885ecd731f5a92d0"),
         new DataParameter("foodDescription", search),
@@ -37,19 +38,28 @@ namespace DAL.API
 
         };*/
 
-        
-
-             List<Parameter> body = new List<Parameter> {
-
-            new DataParameter("applicationSecret", "12707924c854726c16ec685b23b25d5e"),
-            new DataParameter("foodDescription", search),
-            new DataParameter("applicationId", "7dc87896")
-
-        };
 
 
-               
-                List<FoodItem> foodSearchArr = new List<FoodItem>();
+            /*    List<Parameter> body = new List<Parameter> {
+
+               new DataParameter("applicationSecret", "12707924c854726c16ec685b23b25d5e"),
+               new DataParameter("foodDescription", search),
+               new DataParameter("applicationId", "7dc87896")
+
+           };*/
+
+
+            List<Parameter> body = new List<Parameter> {
+
+             new DataParameter("applicationSecret", "f4b41ced83da477aae9ac35d1ff77a24"),
+             new DataParameter("foodDescription", search),
+             new DataParameter("applicationId", "650bd306")
+
+         };
+
+
+
+            List<FoodItem> foodSearchArr = new List<FoodItem>();
             try
             {
 
@@ -90,7 +100,7 @@ namespace DAL.API
         public async Task<Nutrition> GetNutritionsByName(string search)
         {
 
-          /*  List<Parameter> body = new List<Parameter> {
+          /* List<Parameter> body = new List<Parameter> {
 
         new DataParameter("applicationSecret", "136102bad14d027d885ecd731f5a92d0"),
         new DataParameter("foodDescription", search),
@@ -98,13 +108,22 @@ namespace DAL.API
         };*/
 
 
-            List<Parameter> body = new List<Parameter> {
+            /*  List<Parameter> body = new List<Parameter> {
 
-            new DataParameter("applicationSecret", "12707924c854726c16ec685b23b25d5e"),
-            new DataParameter("foodDescription", search),
-            new DataParameter("applicationId", "7dc87896")
+             new DataParameter("applicationSecret", "12707924c854726c16ec685b23b25d5e"),
+             new DataParameter("foodDescription", search),
+             new DataParameter("applicationId", "7dc87896")
 
-        };
+         };*/
+
+
+              List<Parameter> body = new List<Parameter> {
+
+             new DataParameter("applicationSecret", "f4b41ced83da477aae9ac35d1ff77a24"),
+             new DataParameter("foodDescription", search),
+             new DataParameter("applicationId", "650bd306")
+
+         };
 
             // nutrition Nutritions = new nutrition();
             List<Nutrition> nutritionArr = new List<Nutrition>();

@@ -39,23 +39,18 @@ namespace PL.ViewModel
             selectedMyFood = new FoodItem();
             showSelectedFood = new FoodItem();
 
-        // myDate = DateTime.Now;
-
-
         PointLabel = chartPoint =>
                 string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
         }
 
         public Bl myBl;
-      //  public BL.API.getFoodDetailsBL myAPI;
         private IEventAggregator _eventAggregator;
         private IMyMessageDialog _myMessageDialog;
         private FoodItem selectedSearchFood;
         private FoodItem showSelectedFood;
         private FoodItem selectedMyFood;
         private Meal myMeal;
-       // private DateTime myDate;
-
+        public string SearchFoodRightNow { get; set; }
         public ObservableCollection<FoodItem> mySearchFood;
         public ObservableCollection<FoodItem> myFoodToday;
 
@@ -63,20 +58,12 @@ namespace PL.ViewModel
         public Func<ChartPoint, string> PointLabel { get; set; }
         private string search;
 
-        /*   public DateTime MyDate {
-               get { return myDate; }
-               set { myDate = value;
-                   my
-
-               } }*/
-
         public DateTime SelectedDate
         {
             get {
                 if (myMeal == null)
                 {
                     updateMyMeal();
-                   // updateMyFoodToday();
                 }                
                 return myMeal.Date;
             }
@@ -86,7 +73,6 @@ namespace PL.ViewModel
                     myMeal = new Meal();
                     myMeal.Date = value;
                     updateMyMeal();
-                    //updateMyFoodToday();
                     OnPropertyChanged();
                 }
             }
@@ -97,7 +83,6 @@ namespace PL.ViewModel
                 if (myMeal == null)
                 {
                     updateMyMeal();
-                   // updateMyFoodToday();
                 }
                     return myMeal;
             }
@@ -128,8 +113,8 @@ namespace PL.ViewModel
         }
 
         private async void RunAddSelectedFood(Type obj)
-        {
-           await AddSelectedFood();
+        {            
+            await AddSelectedFood();
         }
 
         private async Task AddSelectedFood()
@@ -142,14 +127,10 @@ namespace PL.ViewModel
             temp.Nutritions = selectedSearchFood.Nutritions;
             temp.TagId = selectedSearchFood.TagId;
             
-            //selectedSearchFood.Id= Guid.NewGuid();
             myMeal.FoodItems.Add(temp);
             tempMeal.Date = myMeal.Date;
-            //tempMeal.FoodItems.AddRange(myMeal.FoodItems);
             tempMeal.FoodItems.Add(temp);
-           // tempMeal.Date = myMeal.Date;
 
-            //myMeal = tempMeal;
             updateMyFoodToday();
             await myBl.AddMeal(tempMeal);
             await _myMessageDialog.ShowInfoDialogAsync("Food Added!");
@@ -160,15 +141,13 @@ namespace PL.ViewModel
 
         private bool CanSearch(Type arg)
         {
-              return !string.IsNullOrEmpty(Search);
-           // return true;
-         //לבדוק אם רשימה לא ריקה;
-            
+            return !string.IsNullOrEmpty(Search);
         }
 
         private async  void RunSearchFood(Type obj)
         {
-          await GetFoodFromApiToOurList();
+            SearchFoodRightNow = Search;
+            await GetFoodFromApiToOurList();
         }
 
 
@@ -313,13 +292,28 @@ namespace PL.ViewModel
         {
             try
             {
-
-                mySearchFood.Clear();
+                var curSearch = SearchFoodRightNow;
+                ObservableCollection<FoodItem> tempSearch = new ObservableCollection<FoodItem>();
+                string mySearch = search;
                 var answer = await myBl.GetFoodItems(Search);
-                foreach (var food in answer)
+                if (answer.Count == 0)
                 {
-                    food.Nutritions = await myBl.GetNutritions(food.Name);
-                    mySearchFood.Add(food);
+                    MySearchFood = new ObservableCollection<FoodItem>();
+                    await _myMessageDialog.ShowInfoDialogAsync("No results found for " + "\"" + Search + "\"");
+                }
+                else
+                {
+                    MySearchFood = new ObservableCollection<FoodItem>();
+
+                    foreach (var food in answer)
+                    {
+                        if (curSearch == SearchFoodRightNow)
+                        {
+                            food.Nutritions = await myBl.GetNutritions(food.Name);
+                            mySearchFood.Add(food);
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -327,14 +321,7 @@ namespace PL.ViewModel
                 await _myMessageDialog.ShowInfoDialogAsync(ex.Message);
             }
 
-        }
-
-
-        public async void updateDetails()
-        {
-           // await updateMyMeal();
-        }
-
+        }       
 
 
         //////////////////////////////////////////// Commands:
