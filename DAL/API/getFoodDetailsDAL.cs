@@ -30,13 +30,13 @@ namespace DAL.API
         {
 
 
-            /*List<Parameter> body = new List<Parameter> {
+            List<Parameter> body = new List<Parameter> {
 
         new DataParameter("applicationSecret", "136102bad14d027d885ecd731f5a92d0"),
         new DataParameter("foodDescription", search),
         new DataParameter("applicationId", "4d8b69d2")
 
-        };*/
+        };
 
 
 
@@ -49,13 +49,13 @@ namespace DAL.API
            };*/
 
 
-            List<Parameter> body = new List<Parameter> {
+          /*  List<Parameter> body = new List<Parameter> {
 
              new DataParameter("applicationSecret", "f4b41ced83da477aae9ac35d1ff77a24"),
              new DataParameter("foodDescription", search),
              new DataParameter("applicationId", "650bd306")
 
-         };
+         };*/
 
 
 
@@ -86,11 +86,15 @@ namespace DAL.API
             }
             catch (RapidAPIServerException e)
             {
-                throw new Exception(e.Message);
+                if (e.Message == "האינדקס מחוץ לטווח. עליו להיות ערך לא שלילי וקטן מוגדל האוסף.\r\nשם פרמטר: index")
+                    throw new Exception("Sorry, API problem, Please contact the technician man.");
+                else throw new Exception(e.Message);
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                if (e.Message == "האינדקס מחוץ לטווח. עליו להיות ערך לא שלילי וקטן מוגדל האוסף.\r\nשם פרמטר: index")
+                    throw new Exception("Sorry, API problem, Please contact the technician man.");
+                else throw new Exception(e.Message);
             }
         }
 
@@ -100,12 +104,12 @@ namespace DAL.API
         public async Task<Nutrition> GetNutritionsByName(string search)
         {
 
-          /* List<Parameter> body = new List<Parameter> {
+           List<Parameter> body = new List<Parameter> {
 
         new DataParameter("applicationSecret", "136102bad14d027d885ecd731f5a92d0"),
         new DataParameter("foodDescription", search),
         new DataParameter("applicationId", "4d8b69d2")
-        };*/
+        };
 
 
             /*  List<Parameter> body = new List<Parameter> {
@@ -117,13 +121,13 @@ namespace DAL.API
          };*/
 
 
-              List<Parameter> body = new List<Parameter> {
+            /*  List<Parameter> body = new List<Parameter> {
 
              new DataParameter("applicationSecret", "f4b41ced83da477aae9ac35d1ff77a24"),
              new DataParameter("foodDescription", search),
              new DataParameter("applicationId", "650bd306")
 
-         };
+         };*/
 
             // nutrition Nutritions = new nutrition();
             List<Nutrition> nutritionArr = new List<Nutrition>();
@@ -166,11 +170,15 @@ namespace DAL.API
             }
             catch (RapidAPIServerException e)
             {
-                throw new Exception(e.Message);
+                if (e.Message == "האינדקס מחוץ לטווח. עליו להיות ערך לא שלילי וקטן מוגדל האוסף.\r\nשם פרמטר: index")
+                    throw new Exception("Sorry, API problem, Please contact the technician man.");
+                else throw new Exception(e.Message);
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                if (e.Message == "האינדקס מחוץ לטווח. עליו להיות ערך לא שלילי וקטן מוגדל האוסף.\r\nשם פרמטר: index")
+                    throw new Exception("Sorry, API problem, Please contact the technician man.");
+              else  throw new Exception(e.Message);
             }
         }
 
