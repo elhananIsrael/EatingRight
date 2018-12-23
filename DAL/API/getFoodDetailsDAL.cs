@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 using RapidAPISDK;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 using BE.Entitys;
 using System.Reflection;
-using System.Net.NetworkInformation;
 using System.Net;
+
 
 namespace DAL.API
 {
 
 
-     public class getFoodDetailsDAL
+    public class getFoodDetailsDAL
     {
 
         private static RapidAPI RapidApi = new RapidAPI(
@@ -82,19 +78,22 @@ namespace DAL.API
                     }
 
                 }
+                else {
+                        JObject jObject = JObject.Parse(json: JsonConvert.SerializeObject(temp));
+                        var error = jObject.SelectToken("error");
+                        var errorMsg = jObject.SelectToken("error").First.First;
+                    throw new Exception("Error,\n API problem: " + errorMsg.ToString() + ",\n Please contact the technician man.");
+                }
+
                 return foodSearchArr;
             }
             catch (RapidAPIServerException e)
             {
-                if (e.Message == "האינדקס מחוץ לטווח. עליו להיות ערך לא שלילי וקטן מוגדל האוסף.\r\nשם פרמטר: index")
-                    throw new Exception("Sorry, API problem, Please contact the technician man.");
-                else throw new Exception(e.Message);
+                throw new Exception(e.Message);
             }
             catch (Exception e)
             {
-                if (e.Message == "האינדקס מחוץ לטווח. עליו להיות ערך לא שלילי וקטן מוגדל האוסף.\r\nשם פרמטר: index")
-                    throw new Exception("Sorry, API problem, Please contact the technician man.");
-                else throw new Exception(e.Message);
+                throw new Exception(e.Message);
             }
         }
 
@@ -135,8 +134,9 @@ namespace DAL.API
             {
                 if (!check_con())
                     throw new Exception("ERROR Connecting To Internet. Please Connect To Internet!");
-
+                
                 var temp = await RapidApi.Call("Nutritionix", "getFoodsNutrients", body.ToArray());
+
                 if (temp.TryGetValue("success", out object payload))
                 {
 
@@ -157,7 +157,7 @@ namespace DAL.API
                     }
 
                     
-                }
+               
 
                 if(nutritionArr.Count>0)
                 foreach (PropertyInfo p in nutritionArr[0].GetType().GetProperties())
@@ -165,20 +165,22 @@ namespace DAL.API
                     if (p.GetValue(nutritionArr[0]) == null)
                         p.SetValue(nutritionArr[0], 0.00, null);
                 }
-
+ }
+                else {
+                    JObject jObject = JObject.Parse(json: JsonConvert.SerializeObject(temp));
+                    var error = jObject.SelectToken("error");
+                    var errorMsg = jObject.SelectToken("error").First.First;
+                    throw new Exception("Error,\n API problem: "+errorMsg.ToString()+ ",\n Please contact the technician man.");
+                }
                 return nutritionArr[0];
             }
             catch (RapidAPIServerException e)
-            {
-                if (e.Message == "האינדקס מחוץ לטווח. עליו להיות ערך לא שלילי וקטן מוגדל האוסף.\r\nשם פרמטר: index")
-                    throw new Exception("Sorry, API problem, Please contact the technician man.");
-                else throw new Exception(e.Message);
+            {               
+                throw new Exception(e.Message);
             }
             catch (Exception e)
             {
-                if (e.Message == "האינדקס מחוץ לטווח. עליו להיות ערך לא שלילי וקטן מוגדל האוסף.\r\nשם פרמטר: index")
-                    throw new Exception("Sorry, API problem, Please contact the technician man.");
-              else  throw new Exception(e.Message);
+                throw new Exception(e.Message);
             }
         }
 
